@@ -33,7 +33,7 @@
 					InteriorColor = "Black/Antracite",
 					ExteriorColor = "Brilliant silver metallic",
 					EngineDetails = "2.7L Inline-5",
-					SellerId = null
+					SellerId = Guid.Parse("b1a92f4d-76ce-44a4-e11f-08db7437f7de")
 				}
 			};
 

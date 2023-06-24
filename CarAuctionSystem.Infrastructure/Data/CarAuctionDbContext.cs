@@ -28,13 +28,13 @@
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
-			builder.ApplyConfiguration(new UserConfiguration());
+			//builder.ApplyConfiguration(new UserConfiguration());
 			builder.ApplyConfiguration(new CarBodyConfiguration());
 			builder.ApplyConfiguration(new DrivetrainConfiguration());
 			builder.ApplyConfiguration(new FuelConfiguration());
 			builder.ApplyConfiguration(new MakeConfiguration());
 			builder.ApplyConfiguration(new TransmissionConfiguration());
-			builder.ApplyConfiguration(new AuctionConfiguration());
+			//builder.ApplyConfiguration(new AuctionConfiguration());
 
 			base.OnModelCreating(builder);
 		}

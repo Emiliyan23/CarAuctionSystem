@@ -16,11 +16,11 @@
         [Required]
         public DateTime EndDate { get; set; }
 
-        //[Required]
-        public Guid? SellerId { get; set; }
+        [Required]
+        public Guid SellerId { get; set; }
 
-        [ForeignKey(nameof(SellerId))]
-        public ApplicationUser? Seller { get; set; }
+        [ForeignKey(nameof(SellerId))] 
+        public ApplicationUser Seller { get; set; } = null!;
 
         [Required]
         public int MakeId { get; set; }
