@@ -36,6 +36,19 @@
 			builder.ApplyConfiguration(new TransmissionConfiguration());
 			//builder.ApplyConfiguration(new AuctionConfiguration());
 
+			builder.Entity<Bid>(entity =>
+			{
+				entity.HasOne(b => b.Auction)
+					.WithMany(a => a.Bids)
+					.HasForeignKey(b => b.AuctionId)
+					.OnDelete(DeleteBehavior.NoAction);
+
+				entity.HasOne(b => b.Bidder)
+					.WithMany(user => user.Bids)
+					.HasForeignKey(b => b.BidderId)
+					.OnDelete(DeleteBehavior.Restrict);
+			});
+
 			base.OnModelCreating(builder);
 		}
 	}

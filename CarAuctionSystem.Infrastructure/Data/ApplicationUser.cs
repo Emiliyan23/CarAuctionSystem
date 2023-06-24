@@ -8,8 +8,11 @@
 		public ApplicationUser()
 		{
 			Auctions = new List<Auction>();
+			Bids = new List<Bid>();
 		}
 
 		public List<Auction> Auctions { get; set; }
+
+		public List<Bid> Bids { get; set; }
 	}
 }

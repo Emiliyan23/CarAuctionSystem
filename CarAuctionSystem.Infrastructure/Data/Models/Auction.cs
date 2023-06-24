@@ -7,6 +7,11 @@
 
     public class Auction
     {
+	    public Auction()
+	    {
+		    Bids = new List<Bid>();
+	    }
+
         [Key]
         public int Id { get; set; }
 
@@ -77,5 +82,7 @@
 
         [ForeignKey(nameof(CarBodyId))]
         public CarBody CarBody { get; set; } = null!;
+
+        public List<Bid> Bids { get; set; }
     }
 }
