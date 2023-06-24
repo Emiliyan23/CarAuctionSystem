@@ -104,6 +104,11 @@ namespace CarAuctionSystem.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+	        if (User.Identity?.IsAuthenticated ?? false)
+	        {
+		        Response.Redirect("/");
+	        }
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
