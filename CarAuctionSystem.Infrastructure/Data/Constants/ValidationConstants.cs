@@ -1,6 +1,6 @@
 ﻿namespace CarAuctionSystem.Infrastructure.Data.Constants
 {
-	public static class EntityConstants
+	public static class ValidationConstants
 	{
 		public const int MakeMaxLength = 30;
 

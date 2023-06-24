@@ -1,15 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 
-using CarAuctionSystem.Core.Contracts;
-using CarAuctionSystem.Core.Services;
 using CarAuctionSystem.Infrastructure.Data;
-using CarAuctionSystem.Infrastructure.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CarAuctionDbContext>(options =>
-	options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<CarAuctionDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -22,10 +19,9 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 		options.Password.RequiredUniqueChars = 0;
 	})
 	.AddEntityFrameworkStores<CarAuctionDbContext>();
-builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IAuctionService, AuctionService>();
-builder.Services.AddTransient<IRepository, Repository>();
+builder.Services.AddControllersWithViews();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

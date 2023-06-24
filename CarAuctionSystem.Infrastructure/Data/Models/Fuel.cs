@@ -1,7 +1,7 @@
 ﻿namespace CarAuctionSystem.Infrastructure.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using static Constants.EntityConstants;
+    using static Constants.ValidationConstants;
 
     public class Fuel
     {

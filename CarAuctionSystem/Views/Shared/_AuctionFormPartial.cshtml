@@ -1,0 +1,105 @@
+﻿@model AddAuctionModel
+
+<div class="row">
+	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+		<form method="post">
+			<div class="form-group">
+				<label asp-for="AuctionDuration"></label>
+				<select asp-for="AuctionDuration" class="form-control">
+					<option value="3">3 days</option>
+					<option value="7">7 days</option>
+					<option value="10">10 days</option>
+				</select>
+				<span asp-validation-for="AuctionDuration" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="MakeId"></label>
+				<select asp-for="MakeId" class="form-control">
+					@foreach (var make in Model.Makes)
+					{
+						<option value="@make.Id">@make.Name</option>
+					}
+				</select>
+				<span asp-validation-for="MakeId" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Model"></label>
+				<input asp-for="Model" class="form-control" placeholder="Car model...">
+				<span asp-validation-for="Model" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ModelYear"></label>
+				<input asp-for="ModelYear" class="form-control" placeholder="Model year...">
+				<span asp-validation-for="ModelYear" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Vin"></label>
+				<input asp-for="Vin" class="form-control" placeholder="VIN...">
+				<span asp-validation-for="Vin" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Mileage"></label>
+				<input asp-for="Mileage" class="form-control" placeholder="Mileage...">
+				<span asp-validation-for="Mileage" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="InteriorColor"></label>
+				<input asp-for="InteriorColor" class="form-control" placeholder="Interior color...">
+				<span asp-validation-for="InteriorColor" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ExteriorColor"></label>
+				<input asp-for="ExteriorColor" class="form-control" placeholder="Exterior color...">
+				<span asp-validation-for="ExteriorColor" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="EngineDetails"></label>
+				<input asp-for="EngineDetails" class="form-control" placeholder="Engine information...">
+				<span asp-validation-for="EngineDetails" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="DrivetrainId"></label>
+				<select asp-for="DrivetrainId" class="form-control">
+					@foreach (var drivetrain in Model.Drivetrains)
+					{
+						<option value="@drivetrain.Id">@drivetrain.Type</option>
+					}
+				</select>
+				<span asp-validation-for="DrivetrainId" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="FuelId"></label>
+				<select asp-for="FuelId" class="form-control">
+					@foreach (var fuel in Model.Fuels)
+					{
+						<option value="@fuel.Id">@fuel.Type</option>
+					}
+				</select>
+				<span asp-validation-for="FuelId" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="TransmissionId"></label>
+				<select asp-for="TransmissionId" class="form-control">
+					@foreach (var transmission in Model.Transmissions)
+					{
+						<option value="@transmission.Id">@transmission.Type</option>
+					}
+				</select>
+				<span asp-validation-for="TransmissionId" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="CarBodyId"></label>
+				<select asp-for="CarBodyId" class="form-control">
+					@foreach (var carBody in Model.CarBodies)
+					{
+						<option value="@carBody.Id">@carBody.Type</option>
+					}
+				</select>
+				<span asp-validation-for="CarBodyId" class="small text-danger"></span>
+			</div>
+			<div class="text-center">
+				<input class="btn btn-primary mt-3" type="submit" value="Save"/>
+			</div>
+		</form>
+	</div> 
+</div>

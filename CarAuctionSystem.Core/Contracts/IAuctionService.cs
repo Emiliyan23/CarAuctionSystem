@@ -5,5 +5,7 @@
 	public interface IAuctionService
 	{
 		Task<IEnumerable<AllAuctionModel>> GetAllAuctions();
+
+		Task Create(AddAuctionModel model, string userId);
 	}
 }
