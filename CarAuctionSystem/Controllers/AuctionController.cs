@@ -5,6 +5,7 @@
 
 	using Core.Contracts;
 	using Core.Models.Auction;
+	using Extensions;
 	using Microsoft.EntityFrameworkCore;
 
 	[Authorize]
@@ -80,7 +81,13 @@
 				addModel.Fuels = await _carService.GetAllFuels();
 				addModel.Transmissions = await _carService.GetAllTransmissions();
 				addModel.CarBodies = await _carService.GetAllCarBodies();
+
+				return View(addModel);
 			}
+
+			await _auctionService.Create(addModel, User.Id());
+
+			return RedirectToAction(nameof(All));
 		}
 	}
 }

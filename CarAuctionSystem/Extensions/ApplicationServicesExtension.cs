@@ -5,12 +5,14 @@ namespace Microsoft.Extensions.DependencyInjection
 	using CarAuctionSystem.Core.Services;
 	using CarAuctionSystem.Infrastructure.Data.Common;
 
-	public static class CarAuctionServiceCollectionExtension
+	public static class ApplicationServicesExtension
 	{
 		public static IServiceCollection AddApplicationServices(this IServiceCollection services)
 		{
 			services.AddScoped<IRepository, Repository>();
 			services.AddScoped<IAuctionService, AuctionService>();
+			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<ICarService, CarService>();
 
 			return services;
 		}
