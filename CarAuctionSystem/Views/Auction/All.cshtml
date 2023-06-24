@@ -4,3 +4,10 @@
 }
 
 <h2 class="text-center row">@ViewBag.Title</h2>
+
+<div class="row">
+	@foreach (var auction in Model)
+	{
+		<partial name="_AuctionPartial" model="@auction"/>
+	}
+</div>

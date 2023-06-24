@@ -19,6 +19,7 @@
 		{
 			return await _repo.AllReadonly<Auction>().Select(a => new AllAuctionModel
 			{
+				Id = a.Id,
 				Make = a.Make.Name,
 				Model = a.Model,
 				ModelYear = a.ModelYear,
