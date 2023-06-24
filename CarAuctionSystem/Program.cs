@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 
+using CarAuctionSystem.Core.Contracts;
+using CarAuctionSystem.Core.Services;
 using CarAuctionSystem.Infrastructure.Data;
+using CarAuctionSystem.Infrastructure.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,9 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 	})
 	.AddEntityFrameworkStores<CarAuctionDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IAuctionService, AuctionService>();
+builder.Services.AddTransient<IRepository, Repository>();
 
 var app = builder.Build();
 

@@ -3,6 +3,7 @@
 	using Contracts;
 	using Infrastructure.Data.Common;
 	using Infrastructure.Data.Models;
+	using Microsoft.EntityFrameworkCore;
 	using Models.Auction;
 
 	public class AuctionService : IAuctionService
@@ -16,13 +17,13 @@
 
 		public async Task<IEnumerable<AllAuctionModel>> GetAllAuctions()
 		{
-			return _repo.AllReadonly<Auction>().Select(a => new AllAuctionModel
+			return await _repo.AllReadonly<Auction>().Select(a => new AllAuctionModel
 			{
 				Make = a.Make.Name,
 				Model = a.Model,
 				ModelYear = a.ModelYear,
 				Mileage = a.Mileage,
-			});
+			}).ToListAsync();
 		}
 	}
 }
