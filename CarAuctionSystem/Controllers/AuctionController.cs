@@ -6,7 +6,6 @@
 	using Core.Contracts;
 	using Core.Models.Auction;
 	using Extensions;
-	using Microsoft.EntityFrameworkCore;
 
 	[Authorize]
 	public class AuctionController : Controller
