@@ -88,5 +88,18 @@
 
 			return RedirectToAction(nameof(All));
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Details(int id)
+		{
+			if (await _auctionService.ExistsById(id) == false)
+			{
+				return BadRequest();
+			}
+
+			var model = await _auctionService.GetAuctionDetailsById(id);
+
+			return View(model);
+		}
 	}
 }

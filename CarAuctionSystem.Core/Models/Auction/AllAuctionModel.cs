@@ -13,5 +13,7 @@
 		public int Mileage { get; set; }
 
 		public string ImageUrl { get; set; } = null!;
+
+		public DateTime EndDate { get; set; }
 	}
 }

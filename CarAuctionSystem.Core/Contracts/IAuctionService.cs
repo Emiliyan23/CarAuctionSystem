@@ -7,5 +7,9 @@
 		Task<IEnumerable<AllAuctionModel>> GetAllAuctions();
 
 		Task Create(AddAuctionModel model, string userId);
+
+		Task<bool> ExistsById(int id);
+
+		Task<AuctionDetailsModel> GetAuctionDetailsById(int id);
 	}
 }

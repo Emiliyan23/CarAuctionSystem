@@ -6,6 +6,7 @@
 		<div class="card-body text-center">
 			<h4>@Model.ModelYear @Model.Make @Model.Model</h4>
 			<p class="card-text">@Model.Mileage km</p>
+			<p class="card-text">End Date: @Model.EndDate</p>
 			<a asp-controller="Auction" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
 		</div>
 	</div> 
