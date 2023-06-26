@@ -13,12 +13,18 @@
 		private readonly IAuctionService _auctionService;
 		private readonly IUserService _userService;
 		private readonly ICarService _carService;
+		private readonly IValidationService _validationService;
 
-		public AuctionController(IAuctionService auctionService, IUserService userService, ICarService carService)
+		public AuctionController(
+			IAuctionService auctionService,
+			IUserService userService, 
+			ICarService carService, 
+			IValidationService validationService)
 		{
 			_auctionService = auctionService;
 			_userService = userService;
 			_carService = carService;
+			_validationService = validationService;
 		}
 
 		[AllowAnonymous]
@@ -48,27 +54,27 @@
 		[HttpPost]
 		public async Task<IActionResult> Add(AddAuctionModel addModel)
 		{
-			if (await _carService.MakeExists(addModel.MakeId) == false)
+			if (await _validationService.MakeExists(addModel.MakeId) == false)
 			{
 				ModelState.AddModelError(nameof(addModel.MakeId), "Make does not exist");
 			}
 
-			if (await _carService.DrivetrainExists(addModel.DrivetrainId) == false)
+			if (await _validationService.DrivetrainExists(addModel.DrivetrainId) == false)
 			{
 				ModelState.AddModelError(nameof(addModel.DrivetrainId), "Drivetrain type does not exist");
 			}
 
-			if (await _carService.FuelExists(addModel.FuelId) == false)
+			if (await _validationService.FuelExists(addModel.FuelId) == false)
 			{
 				ModelState.AddModelError(nameof(addModel.FuelId), "Fuel type does not exist");
 			}
 
-			if (await _carService.TransmissonExists(addModel.TransmissionId) == false)
+			if (await _validationService.TransmissonExists(addModel.TransmissionId) == false)
 			{
 				ModelState.AddModelError(nameof(addModel.TransmissionId), "Transmission type does not exist");
 			}
 
-			if (await _carService.CarBodyExists(addModel.CarBodyId) == false)
+			if (await _validationService.CarBodyExists(addModel.CarBodyId) == false)
 			{
 				ModelState.AddModelError(nameof(addModel.CarBodyId), "Car body type does not exist");
 			}

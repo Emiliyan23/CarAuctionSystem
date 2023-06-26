@@ -1,7 +1,7 @@
 ﻿namespace CarAuctionSystem.Controllers
 {
 	using System.Diagnostics;
-
+	using Infrastructure.Data.Models;
 	using Microsoft.AspNetCore.Mvc;
 
 	using Models;
@@ -16,8 +16,8 @@
 		}
 
 		public IActionResult Index()
-		{
-			return View();
+		{ 
+			return RedirectToAction(nameof(AuctionController.All), nameof(Auction));
 		}
 
 		public IActionResult Privacy()

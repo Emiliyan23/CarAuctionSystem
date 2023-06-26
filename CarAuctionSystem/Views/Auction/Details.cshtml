@@ -8,9 +8,7 @@
 
 <div class="container" style="display:inline">
 	<div class="row">
-		<div class="col-4">
-			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
-		</div>
+		
 		<div class="card col-8 border-0">
 			<p style="font-size:25px;">
 				<span>@Model.ModelYear @Model.Make @Model.Model</span>
@@ -32,6 +30,9 @@
 					<p class="card-text">Phone Number: @Model.SellerDetails.PhoneNumber</p>
 				</div>
 			</div>
+		</div>
+		<div class="col-4">
+			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
 		</div>
 	</div>
 </div>
