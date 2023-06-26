@@ -42,6 +42,11 @@
 		[StringLength(AuctionEngineDetailsMaxLength, MinimumLength = 1)]
 		public string EngineDetails { get; set; } = null!;
 
+		[Display(Name = "Image URL")]
+		[Required(AllowEmptyStrings = false)]
+		[StringLength(AuctionImageUrlMaxLength, MinimumLength = 1)]
+		public string ImageUrl { get; set; } = null!;
+
 		[Display(Name = "Make")]
 		public int MakeId { get; set; }
 

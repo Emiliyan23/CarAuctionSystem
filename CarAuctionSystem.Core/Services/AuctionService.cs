@@ -24,6 +24,7 @@
 				Model = a.Model,
 				ModelYear = a.ModelYear,
 				Mileage = a.Mileage,
+				ImageUrl = a.ImageUrl
 			}).ToListAsync();
 		}
 
@@ -46,7 +47,8 @@
 				Mileage = model.Mileage,
 				InteriorColor = model.InteriorColor,
 				ExteriorColor = model.ExteriorColor,
-				EngineDetails = model.EngineDetails
+				EngineDetails = model.EngineDetails,
+				ImageUrl = model.ImageUrl
 			};
 
 			await _repo.AddAsync(auction);

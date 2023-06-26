@@ -1,7 +1,8 @@
 ﻿namespace CarAuctionSystem.Infrastructure.Data
 {
+	using Microsoft.AspNetCore.Identity;
+
     using Models;
-    using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser<Guid>
 	{

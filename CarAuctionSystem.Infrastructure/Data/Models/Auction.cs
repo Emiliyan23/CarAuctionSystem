@@ -60,6 +60,10 @@
         public string EngineDetails { get; set; } = null!;
 
         [Required]
+        [MaxLength(AuctionImageUrlMaxLength)]
+        public string ImageUrl { get; set; } = null!;
+
+        [Required]
         public int DrivetrainId { get; set; }
 
         [ForeignKey(nameof(DrivetrainId))]

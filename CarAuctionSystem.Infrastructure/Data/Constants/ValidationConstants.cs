@@ -21,5 +21,7 @@
 		public const int FuelTypeMaxLength = 20;
 
 		public const int CarBodyTypeMaxLength = 20;
+
+		public const int AuctionImageUrlMaxLength = 100;
 	}
 }
