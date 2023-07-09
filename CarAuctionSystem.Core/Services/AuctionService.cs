@@ -6,6 +6,7 @@
 	using Infrastructure.Data.Common;
 	using Infrastructure.Data.Models;
 	using Models.Auction;
+	using Models.Bid;
 	using Models.Seller;
 
 	public class AuctionService : IAuctionService
@@ -96,6 +97,20 @@
 				}).FirstOrDefaultAsync();
 
 			return model!;
+		}
+
+		public async Task PlaceBid(BidFormModel model, string userId)
+		{
+			var bid = new Bid
+			{
+				AuctionId = model.AuctionId,
+				BidAmount = model.BidAmount,
+				BidDate = DateTime.UtcNow,
+				BidderId = Guid.Parse(userId)
+			};
+
+			await _repo.AddAsync(bid);
+			await _repo.SaveChangesAsync();
 		}
 	}
 }

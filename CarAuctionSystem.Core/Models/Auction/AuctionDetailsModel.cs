@@ -1,5 +1,6 @@
 ﻿namespace CarAuctionSystem.Core.Models.Auction
 {
+	using Bid;
 	using Seller;
 
 	public class AuctionDetailsModel : AllAuctionModel
@@ -23,5 +24,7 @@
 		public string Fuel { get; set; } = null!;
 
 		public string CarBody { get; set; } = null!;
+
+		public List<BidViewModel> Bids { get; set; } = new List<BidViewModel>();
 	}
 }

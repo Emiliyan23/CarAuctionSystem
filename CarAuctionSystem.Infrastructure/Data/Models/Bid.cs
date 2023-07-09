@@ -22,5 +22,9 @@
 
 		[ForeignKey(nameof(AuctionId))]
 		public Auction Auction { get; set; } = null!;
+
+		[Required]
+		[Column(TypeName = "money")]
+		public decimal BidAmount { get; set; }
 	}
 }

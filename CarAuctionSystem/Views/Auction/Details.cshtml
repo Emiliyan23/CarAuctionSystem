@@ -8,8 +8,7 @@
 
 <div class="container" style="display:inline">
 	<div class="row">
-		
-		<div class="card col-8 border-0">
+		<div class="card col border-0">
 			<p style="font-size:25px;">
 				<span>@Model.ModelYear @Model.Make @Model.Model</span>
 			</p>
@@ -31,7 +30,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-4">
+		<div class="card col border-0">
+			<p style="font-size:25px;">
+				<span>Bid History:</span>
+			</p>
+			<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id" class="btn btn-success">Place Bid</a>
+		</div>
+		<div class="col">
 			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
 		</div>
 	</div>
