@@ -34,6 +34,17 @@
 			<p style="font-size:25px;">
 				<span>Bid History:</span>
 			</p>
+			@if (!Model.Bids.Any())
+			{
+				<p>No bids placed for this auction.</p>
+			}
+			else
+			{
+				@foreach (var bid in Model.Bids)
+				{
+					<p>@bid.BidDate @bid.BidderUsername - @bid.BidAmount.ToString("C")</p>
+				}
+			}
 			<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id" class="btn btn-success">Place Bid</a>
 		</div>
 		<div class="col">

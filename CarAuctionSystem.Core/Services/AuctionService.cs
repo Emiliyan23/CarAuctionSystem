@@ -96,7 +96,9 @@
 					}
 				}).FirstOrDefaultAsync();
 
-			return model!;
+			model!.Bids = await GetAllBids(id);
+
+			return model;
 		}
 
 		public async Task PlaceBid(BidFormModel model, string userId)
@@ -111,6 +113,30 @@
 
 			await _repo.AddAsync(bid);
 			await _repo.SaveChangesAsync();
+		}
+
+		public async Task<List<BidViewModel>> GetAllBids(int id)
+		{
+			List<Bid> bids = await _repo.AllReadonly<Bid>()
+				.Where(b => b.AuctionId == id)
+				.Include(b => b.Auction)
+				.Include(b => b.Bidder)
+				.ToListAsync();
+
+			List<BidViewModel> bidModels = new List<BidViewModel>();
+			foreach (var bid in bids)
+			{
+				var bidModel = new BidViewModel
+				{
+					BidderUsername = bid.Bidder.UserName,
+					BidAmount = bid.BidAmount,
+					BidDate = bid.BidDate
+				};
+
+				bidModels.Add(bidModel);
+			}
+
+			return bidModels;
 		}
 	}
 }

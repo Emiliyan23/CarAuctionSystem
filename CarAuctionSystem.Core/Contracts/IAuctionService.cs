@@ -14,5 +14,7 @@
 		Task<AuctionDetailsModel> GetAuctionDetailsById(int id);
 
 		Task PlaceBid(BidFormModel model, string userId);
+
+		Task<List<BidViewModel>> GetAllBids(int id);
 	}
 }
