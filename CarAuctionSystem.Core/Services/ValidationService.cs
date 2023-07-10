@@ -5,6 +5,7 @@
 	using CarAuctionSystem.Infrastructure.Data.Models;
 	using Contracts;
 	using Infrastructure.Data.Common;
+	using Models.Bid;
 
 	public class ValidationService : IValidationService
 	{
@@ -45,5 +46,19 @@
 				.AnyAsync(b => b.Id == id);
 		}
 
+		public async Task<bool> BidAmountIsValid(int auctionId, decimal bidAmount)
+		{
+			var auction = await _repo.AllReadonly<Auction>()
+				.Where(a => a.Id == auctionId)
+				.Include(a => a.Bids)
+				.FirstOrDefaultAsync();
+
+			if (auction.Bids.Any(b => b.BidAmount > bidAmount))
+			{
+				return false;
+			}
+
+			return true;
+		}
 	}
 }

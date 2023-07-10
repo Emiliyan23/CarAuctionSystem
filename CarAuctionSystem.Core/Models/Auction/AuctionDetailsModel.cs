@@ -5,6 +5,11 @@
 
 	public class AuctionDetailsModel : AllAuctionModel
 	{
+		public AuctionDetailsModel()
+		{
+			Bids = new List<BidViewModel>();
+		}
+
 		public DateTime StartDate { get; set; }
 
 		public SellerDetailsModel SellerDetails { get; set; } = null!;
@@ -25,6 +30,6 @@
 
 		public string CarBody { get; set; } = null!;
 
-		public List<BidViewModel> Bids { get; set; } = new List<BidViewModel>();
+		public List<BidViewModel> Bids { get; set; }
 	}
 }

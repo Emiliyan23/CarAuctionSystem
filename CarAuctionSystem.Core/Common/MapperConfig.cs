@@ -3,7 +3,6 @@
 	using AutoMapper;
 
 	using Infrastructure.Data.Models;
-	using Microsoft.AspNetCore.Routing.Constraints;
 	using Models.Auction;
 
 	public class MapperConfig 
@@ -20,6 +19,7 @@
 					.ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => DateTime.UtcNow))
 					.ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => DateTime.UtcNow.AddDays(src.AuctionDuration)))
 					.ForMember(dest => dest.SellerId, opt => opt.Ignore());
+
 
 				cfg.CreateMap<Drivetrain, string>().ConvertUsing(d => d.Type);
 				cfg.CreateMap<Transmission, string>().ConvertUsing(t => t.Type);

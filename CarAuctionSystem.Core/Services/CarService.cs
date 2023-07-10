@@ -2,8 +2,8 @@
 {
 	using Microsoft.EntityFrameworkCore;
 
-	using Models.Auction;
 	using Contracts;
+	using Models.Auction;
 	using Infrastructure.Data.Common;
 	using Infrastructure.Data.Models;
 
@@ -31,7 +31,7 @@
 		{
 			return await _repo.AllReadonly<Drivetrain>()
 				.OrderBy(d => d.Type)
-				.Select(d => new AuctionDrivetrainModel()
+				.Select(d => new AuctionDrivetrainModel
 				{
 					Id = d.Id,
 					Type = d.Type
@@ -42,7 +42,7 @@
 		{
 			return await _repo.AllReadonly<Transmission>()
 				.OrderBy(t => t.Type)
-				.Select(t => new AuctionTransmissionModel()
+				.Select(t => new AuctionTransmissionModel
 				{
 					Id = t.Id,
 					Type = t.Type
@@ -53,7 +53,7 @@
 		{
 			return await _repo.AllReadonly<Fuel>()
 				.OrderBy(f => f.Type)
-				.Select(f => new AuctionFuelModel()
+				.Select(f => new AuctionFuelModel
 				{
 					Id = f.Id,
 					Type = f.Type
@@ -64,7 +64,7 @@
 		{
 			return await _repo.AllReadonly<CarBody>()
 				.OrderBy(b => b.Type)
-				.Select(b => new AuctionCarBodyModel()
+				.Select(b => new AuctionCarBodyModel
 				{
 					Id = b.Id,
 					Type = b.Type

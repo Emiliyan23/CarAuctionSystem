@@ -9,10 +9,12 @@
 	public class BidController : Controller
 	{
 		private readonly IAuctionService _auctionService;
+		private readonly IValidationService _validationService;
 
-		public BidController(IAuctionService auctionService)
+		public BidController(IAuctionService auctionService, IValidationService validationService)
 		{
 			_auctionService = auctionService;
+			_validationService = validationService;
 		}
 
 		[HttpGet]
@@ -29,6 +31,11 @@
 		[HttpPost]
 		public async Task<IActionResult> Bid(BidFormModel model)
 		{
+			if (!await _validationService.BidAmountIsValid(model.AuctionId, model.BidAmount))
+			{
+				ModelState.AddModelError(nameof(model.BidAmount), "Bid amount is lower than latest bid.");
+			}
+
 			if (!ModelState.IsValid)
 			{
 				return View(model);

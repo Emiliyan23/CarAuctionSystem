@@ -1,7 +1,7 @@
 ﻿@model AuctionDetailsModel
 @{
 	ViewBag.Title = "Auction Details";
-
+	bool hasEnded = Model.EndDate < DateTime.UtcNow;
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -22,6 +22,8 @@
 			<p>Transmisson Type: <b>@Model.Transmission</b></p>
 			<p>Fuel Type: <b>@Model.Fuel</b></p>
 			<p>Car Body Type: <b>@Model.CarBody</b></p>
+			<p>Interior color: <b>@Model.InteriorColor</b></p>
+			<p>Exterior color: <b>@Model.ExteriorColor</b></p>
 			<p></p>
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
@@ -45,8 +47,19 @@
 				{
 					<p>@bid.BidDate @bid.BidderUsername - @bid.BidAmount.ToString("C")</p>
 				}
+				@if (hasEnded)
+				{
+					<p>Sold to @Model.Bids.Last().BidderUsername for @Model.Bids.Last().BidAmount.ToString("C")</p>
+				}
 			}
-			<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id" class="btn btn-success">Place Bid</a>
+			@if (hasEnded)
+			{
+				<p><b>Auction has ended. Bids are closed.</b></p>
+			}
+			else
+			{
+				<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id" class="btn btn-success">Place Bid</a>
+			}
 		</div>
 		<div class="col">
 			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
