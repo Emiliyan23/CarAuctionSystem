@@ -5,7 +5,10 @@
 
 	public interface IAuctionService
 	{
-		Task<IEnumerable<AllAuctionModel>> GetAllAuctions();
+		Task<AuctionQueryModel> GetAllAuctions(string? searchTerm = null,
+			AuctionSorting sorting = AuctionSorting.Newest,
+			int currentPage = 1,
+			int auctionsPerPage = 1);
 
 		Task Create(AddAuctionModel model, string userId);
 

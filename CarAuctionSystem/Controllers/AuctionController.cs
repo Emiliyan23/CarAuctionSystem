@@ -6,6 +6,7 @@
 	using Core.Contracts;
 	using Core.Models.Auction;
 	using Extensions;
+	using Models;
 
 	[Authorize]
 	public class AuctionController : Controller
@@ -29,11 +30,15 @@
 
 		[AllowAnonymous]
 		[HttpGet]
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All([FromQuery]AllAuctionsQueryModel query)
 		{
-			var models = await _auctionService.GetAllAuctions();
+			var result = await _auctionService.GetAllAuctions(query.SearchTerm, query.Sorting, query.CurrentPage,
+				AllAuctionsQueryModel.AuctionsPerPage);
 
-			return View(models);
+			query.TotalAuctionsCount = result.TotalAuctions;
+			query.Auctions = result.Auctions;
+
+			return View(query);
 		}
 
 		[HttpGet]

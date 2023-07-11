@@ -22,12 +22,45 @@
 			_mapper = MapperConfig.InitializeMapper();
 		}
 
-		public async Task<IEnumerable<AllAuctionModel>> GetAllAuctions()
+		public async Task<AuctionQueryModel> GetAllAuctions(string? searchTerm = null,
+			AuctionSorting sorting = AuctionSorting.Newest,
+			int currentPage = 1,
+			int auctionsPerPage = 1)
 		{
-			var auctions = await _repo.AllReadonly<Auction>()
+			var result = new AuctionQueryModel();
+			var auctions = _repo.AllReadonly<Auction>(); //iqueryable
+
+			if (string.IsNullOrEmpty(searchTerm) == false)
+			{
+				searchTerm = $"%{searchTerm.ToLower()}%";
+				auctions = auctions.Where(a => EF.Functions.Like(a.Make.Name.ToLower(), searchTerm) ||
+				                               EF.Functions.Like(a.Model.ToLower(), searchTerm));
+			}
+
+			auctions = sorting switch
+			{
+				AuctionSorting.Oldest => auctions.OrderByDescending(a => a.StartDate),
+				AuctionSorting.LowestMileage => auctions.OrderBy(a => a.Mileage),
+				_ => auctions.OrderBy(a => a.StartDate)
+			};
+
+			result.Auctions = await auctions.Skip((currentPage - 1) * auctionsPerPage)
+				.Take(auctionsPerPage)
+				.Select(a => new AllAuctionModel
+				{
+					Id = a.Id,
+					Make = a.Make.Name,
+					Model = a.Model,
+					EndDate = a.EndDate,
+					ImageUrl = a.ImageUrl,
+					Mileage = a.Mileage,
+					ModelYear = a.ModelYear
+				})
 				.ToListAsync();
 
-			return _mapper.Map<List<AllAuctionModel>>(auctions);
+			result.TotalAuctions = await auctions.CountAsync();
+
+			return result;
 		}
 
 
