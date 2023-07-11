@@ -42,6 +42,7 @@
 				.FirstOrDefaultAsync();
 
 			user!.Auctions = await _repo.AllReadonly<Auction>()
+				.Where(a => a.SellerId.ToString() == userId)
 				.Select(a => new AllAuctionModel
 				{
 					Id = a.Id,
@@ -55,6 +56,7 @@
 				.ToListAsync();
 
 			user.Bids = await _repo.AllReadonly<Bid>()
+				.Where(b => b.BidderId.ToString() == userId)
 				.Select(b => new UserBidModel
 				{
 					BidderUsername = b.Bidder.UserName,
