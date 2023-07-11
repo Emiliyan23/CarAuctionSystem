@@ -20,6 +20,11 @@
 		[HttpGet]
 		public async Task<IActionResult> Bid(int id)
 		{
+			if (!await _validationService.AuctionIsActive(id))
+			{
+				return RedirectToAction("All", "Auction");
+			}
+
 			BidFormModel bidModel = new BidFormModel
 			{
 				AuctionId = id

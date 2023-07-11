@@ -16,6 +16,8 @@
 
 		public DbSet<Auction> Auctions { get; set; } = null!;
 
+		public DbSet<Bid> Bids { get; set; } = null!;
+
 		public DbSet<Make> Makes { get; set; } = null!;
 
 		public DbSet<Drivetrain> Drivetrains { get; set; } = null!;
