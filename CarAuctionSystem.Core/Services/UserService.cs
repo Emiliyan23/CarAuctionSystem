@@ -9,7 +9,6 @@
 	using Infrastructure.Data.Common;
 	using Infrastructure.Data.Models;
 	using Models.Auction;
-	using Models.Bid;
 	using Models.User;
 
 	public class UserService : IUserService
@@ -69,6 +68,14 @@
 				}).ToListAsync();
 
 			return user;
+		}
+
+		public async Task<string?> GetSellerIdByAuctionId(int auctionId)
+		{
+			return await _repo.AllReadonly<ApplicationUser>()
+				.Where(u => u.Auctions.Any(a => a.Id == auctionId))
+				.Select(u => u.Id.ToString().ToLower())
+				.FirstOrDefaultAsync();
 		}
 	}
 }

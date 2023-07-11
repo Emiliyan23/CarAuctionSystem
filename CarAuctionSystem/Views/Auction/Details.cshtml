@@ -1,4 +1,5 @@
-﻿@model AuctionDetailsModel
+﻿@using CarAuctionSystem.Extensions
+@model AuctionDetailsModel
 @{
 	ViewBag.Title = "Auction Details";
 	bool hasEnded = Model.EndDate < DateTime.UtcNow;
@@ -28,6 +29,7 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Seller Info</h5>
+					<p class="card-text">Username: <a asp-controller="User" asp-action="Profile" asp-route-auctionId="@Model.SellerDetails.Id">@Model.SellerDetails.Username</a></p>
 					<p class="card-text">Email: @Model.SellerDetails.Email</p>
 					<p class="card-text">Phone Number: @Model.SellerDetails.PhoneNumber</p>
 				</div>
@@ -45,7 +47,7 @@
 				<p>Bid count: @Model.Bids.Count</p>
 				@foreach (var bid in Model.Bids)
 				{
-					<p>@bid.BidDate <a asp-controller="User" asp-action="Profile" asp-route-id="@bid.BidderId">@bid.BidderUsername</a> - @bid.BidAmount.ToString("C")</p>
+					<p>@bid.BidDate <a asp-controller="User" asp-action="Profile" asp-route-auctionId="@bid.BidderId">@bid.BidderUsername</a> - @bid.BidAmount.ToString("C")</p>
 				}
 				@if (hasEnded)
 				{
@@ -58,7 +60,10 @@
 			}
 			else
 			{
-				<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id" class="btn btn-success">Place Bid</a>
+				@if (User.Id() != Model.SellerDetails.Id)
+				{
+					<a asp-controller="Bid" asp-action="Bid" asp-route-auctionId="@Model.Id" class="btn btn-success">Place Bid</a>
+				}
 			}
 		</div>
 		<div class="col">

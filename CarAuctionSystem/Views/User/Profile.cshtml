@@ -1,6 +1,6 @@
 ﻿@model UserProfileModel
 @{
-	ViewBag.Title = Model.Username;
+	ViewBag.Title = Model.Username + "'s profile";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -31,7 +31,7 @@
 			{
 				@foreach (var bid in Model.Bids.OrderByDescending(b => b.BidDate))
 				{
-					<p>@bid.BidDate - @bid.BidAmount.ToString("C") - <a asp-controller="Auction" asp-action="Details" asp-route-id="@bid.AuctionId">@bid.Make @bid.Model</a></p>
+					<p>@bid.BidDate - @bid.BidAmount.ToString("C") - <a asp-controller="Auction" asp-action="Details" asp-route-auctionId="@bid.AuctionId">@bid.Make @bid.Model</a></p>
 				}
 			}
 		</div>

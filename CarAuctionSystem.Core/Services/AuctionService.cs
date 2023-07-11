@@ -52,9 +52,9 @@
 
 			auctions = sorting switch
 			{
-				AuctionSorting.Oldest => auctions.OrderByDescending(a => a.StartDate),
+				AuctionSorting.Oldest => auctions.OrderBy(a => a.StartDate),
 				AuctionSorting.LowestMileage => auctions.OrderBy(a => a.Mileage),
-				_ => auctions.OrderBy(a => a.StartDate)
+				_ => auctions.OrderByDescending(a => a.StartDate)
 			};
 
 			result.Auctions = await auctions.Skip((currentPage - 1) * auctionsPerPage)

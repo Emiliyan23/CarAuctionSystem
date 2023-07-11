@@ -107,14 +107,14 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Details(int id)
+		public async Task<IActionResult> Details(int auctionId)
 		{
-			if (await _auctionService.ExistsById(id) == false)
+			if (await _auctionService.ExistsById(auctionId) == false)
 			{
 				return BadRequest();
 			}
 
-			var model = await _auctionService.GetAuctionDetailsById(id);
+			var model = await _auctionService.GetAuctionDetailsById(auctionId);
 
 			return View(model);
 		}

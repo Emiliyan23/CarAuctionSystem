@@ -10,24 +10,38 @@
 	{
 		private readonly IAuctionService _auctionService;
 		private readonly IValidationService _validationService;
+		private readonly IUserService _userService;
 
-		public BidController(IAuctionService auctionService, IValidationService validationService)
+		public BidController(IAuctionService auctionService, IValidationService validationService, IUserService userService)
 		{
 			_auctionService = auctionService;
 			_validationService = validationService;
+			_userService = userService;
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Bid(int id)
+		public async Task<IActionResult> Bid(int auctionId)
 		{
-			if (!await _validationService.AuctionIsActive(id))
+			if (!await _validationService.AuctionIsActive(auctionId))
+			{
+				return RedirectToAction("All", "Auction");
+			}
+
+			string? sellerId = await _userService.GetSellerIdByAuctionId(auctionId);
+
+			if (string.IsNullOrEmpty(sellerId))
+			{
+				return RedirectToAction("All", "Auction");
+			}
+
+			if (User.Id() == sellerId)
 			{
 				return RedirectToAction("All", "Auction");
 			}
 
 			BidFormModel bidModel = new BidFormModel
 			{
-				AuctionId = id
+				AuctionId = auctionId
 			};
 
 			return View(bidModel);

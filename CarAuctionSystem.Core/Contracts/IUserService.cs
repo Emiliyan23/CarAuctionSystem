@@ -7,5 +7,7 @@
 		Task<bool> UserExists(string userId);
 
 		Task<UserProfileModel> GetUserProfile(string userId);
+
+		Task<string?> GetSellerIdByAuctionId(int auctionId);
 	}
 }
