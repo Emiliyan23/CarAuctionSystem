@@ -10,8 +10,12 @@ namespace CarAuctionSystem.Core.Contracts
 
 		Task<IEnumerable<AuctionTransmissionModel>> GetAllTransmissions();
 
+		Task<IEnumerable<string>> GetAllTransmissionTypes();
+
 		Task<IEnumerable<AuctionFuelModel>> GetAllFuels();
 
 		Task<IEnumerable<AuctionCarBodyModel>> GetAllCarBodies();
+
+		Task<IEnumerable<string>> GetAllCarBodyTypes();
 	}
 }

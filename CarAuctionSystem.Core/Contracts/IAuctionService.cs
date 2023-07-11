@@ -5,7 +5,9 @@
 
 	public interface IAuctionService
 	{
-		Task<AuctionQueryModel> GetAllAuctions(string? searchTerm = null,
+		Task<AuctionQueryModel> GetAllAuctions(string? transmissionType = null,
+			string? carBodyType = null,
+			string? searchTerm = null,
 			AuctionSorting sorting = AuctionSorting.Newest,
 			int currentPage = 1,
 			int auctionsPerPage = 1);

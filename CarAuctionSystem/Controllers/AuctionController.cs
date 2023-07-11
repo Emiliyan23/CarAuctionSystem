@@ -32,10 +32,16 @@
 		[HttpGet]
 		public async Task<IActionResult> All([FromQuery]AllAuctionsQueryModel query)
 		{
-			var result = await _auctionService.GetAllAuctions(query.SearchTerm, query.Sorting, query.CurrentPage,
+			var result = await _auctionService.GetAllAuctions(query.TransmissionType,
+				query.CarBodyType,
+				query.SearchTerm,
+				query.Sorting,
+				query.CurrentPage,
 				AllAuctionsQueryModel.AuctionsPerPage);
 
 			query.TotalAuctionsCount = result.TotalAuctions;
+			query.TransmissionTypes = await _carService.GetAllTransmissionTypes();
+			query.CarBodyTypes = await _carService.GetAllCarBodyTypes();
 			query.Auctions = result.Auctions;
 
 			return View(query);

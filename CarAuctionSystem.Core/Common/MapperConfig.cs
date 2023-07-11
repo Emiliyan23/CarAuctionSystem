@@ -20,7 +20,7 @@
 					.ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => DateTime.UtcNow.AddDays(src.AuctionDuration)))
 					.ForMember(dest => dest.SellerId, opt => opt.Ignore());
 
-
+				cfg.CreateMap<Make, string>().ConvertUsing(m => m.Name);
 				cfg.CreateMap<Drivetrain, string>().ConvertUsing(d => d.Type);
 				cfg.CreateMap<Transmission, string>().ConvertUsing(t => t.Type);
 				cfg.CreateMap<Fuel, string>().ConvertUsing(f => f.Type);

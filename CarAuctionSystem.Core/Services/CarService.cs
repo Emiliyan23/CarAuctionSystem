@@ -49,6 +49,14 @@
 				}).ToListAsync();
 		}
 
+		public async Task<IEnumerable<string>> GetAllTransmissionTypes()
+		{
+			return await _repo.AllReadonly<Transmission>()
+				.OrderBy(t => t.Type)
+				.Select(t => new string(t.Type))
+				.ToListAsync();
+		}
+
 		public async Task<IEnumerable<AuctionFuelModel>> GetAllFuels()
 		{
 			return await _repo.AllReadonly<Fuel>()
@@ -69,6 +77,15 @@
 					Id = b.Id,
 					Type = b.Type
 				}).ToListAsync();
+		}
+
+		public async Task<IEnumerable<string>> GetAllCarBodyTypes()
+		{
+			return await _repo.AllReadonly<CarBody>()
+				.OrderBy(cb => cb.Type)
+				.Select(cb => new string(cb.Type))
+				.ToListAsync();
+
 		}
 	}
 }

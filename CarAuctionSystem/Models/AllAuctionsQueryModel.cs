@@ -7,6 +7,12 @@
 	{
 		public const int AuctionsPerPage = 3;
 
+		[Display(Name = "Transmission")]
+		public string? TransmissionType { get; set; }
+
+		[Display(Name = "Body Style")]
+		public string? CarBodyType { get; set; }
+
 		[Display(Name = "Search auctions")]
 		public string? SearchTerm { get; set; }
 
@@ -15,6 +21,10 @@
 		public int CurrentPage { get; set; } = 1;
 
 		public int TotalAuctionsCount { get; set; }
+
+		public IEnumerable<string> TransmissionTypes { get; set; } = Enumerable.Empty<string>();
+
+		public IEnumerable<string> CarBodyTypes { get; set; } = Enumerable.Empty<string>();
 
 		public IEnumerable<AllAuctionModel> Auctions { get; set; } = Enumerable.Empty<AllAuctionModel>();
 	}

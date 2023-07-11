@@ -22,19 +22,32 @@
 			_mapper = MapperConfig.InitializeMapper();
 		}
 
-		public async Task<AuctionQueryModel> GetAllAuctions(string? searchTerm = null,
+		public async Task<AuctionQueryModel> GetAllAuctions(string? transmissionType = null,
+			string? carBodyType = null,
+			string? searchTerm = null,
 			AuctionSorting sorting = AuctionSorting.Newest,
 			int currentPage = 1,
 			int auctionsPerPage = 1)
 		{
 			var result = new AuctionQueryModel();
-			var auctions = _repo.AllReadonly<Auction>(); //iqueryable
+			var auctions = _repo.AllReadonly<Auction>();
+
+			if (string.IsNullOrEmpty(transmissionType) == false)
+			{
+				auctions = auctions.Where(a => a.Transmission.Type == transmissionType);
+			}
+
+			if (string.IsNullOrEmpty(carBodyType) == false)
+			{
+				auctions = auctions.Where(a => a.CarBody.Type == carBodyType);
+			}
 
 			if (string.IsNullOrEmpty(searchTerm) == false)
 			{
 				searchTerm = $"%{searchTerm.ToLower()}%";
 				auctions = auctions.Where(a => EF.Functions.Like(a.Make.Name.ToLower(), searchTerm) ||
-				                               EF.Functions.Like(a.Model.ToLower(), searchTerm));
+				                               EF.Functions.Like(a.Model.ToLower(), searchTerm) ||
+				                               EF.Functions.Like(a.EngineDetails.ToLower(), searchTerm));
 			}
 
 			auctions = sorting switch
@@ -83,6 +96,7 @@
 		{
 			var auction = await _repo.AllReadonly<Auction>()
 				.Where(a => a.Id == id)
+				.Include(a => a.Make)
 				.Include(a => a.Seller)
 				.Include(a => a.Drivetrain)
 				.Include(a => a.Transmission)
