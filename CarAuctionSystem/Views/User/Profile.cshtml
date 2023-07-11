@@ -1,0 +1,40 @@
+﻿@model UserProfileModel
+@{
+	ViewBag.Title = Model.Username;
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<div class="container" style="display:inline">
+	<div class="row">
+		<p style="font-size:25px">Auctions:</p>
+		@if (!Model.Auctions.Any())
+		{
+			<p>This user has not created any auctions.</p>
+		}
+		else
+		{
+			@foreach (var auction in Model.Auctions)
+			{
+				<partial name="_AuctionPartial" model="@auction"/>
+			}
+		}
+	</div>
+	<div class="row">
+		<div class="card col border-0">
+			<p style="font-size:25px">Bid History:</p>
+			@if (!Model.Bids.Any())
+			{
+				<p>This user has not placed any bids.</p>
+			}
+			else
+			{
+				@foreach (var bid in Model.Bids.OrderByDescending(b => b.BidDate))
+				{
+					<p>@bid.BidDate - @bid.BidAmount.ToString("C") - <a asp-controller="Auction" asp-action="Details" asp-route-id="@bid.AuctionId">@bid.Make @bid.Model</a></p>
+				}
+			}
+		</div>
+	</div>
+</div>
+

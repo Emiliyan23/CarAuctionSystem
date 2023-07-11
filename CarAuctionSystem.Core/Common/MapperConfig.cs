@@ -4,6 +4,7 @@
 
 	using Infrastructure.Data.Models;
 	using Models.Auction;
+	using Models.Bid;
 
 	public class MapperConfig 
 	{
@@ -19,6 +20,9 @@
 					.ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => DateTime.UtcNow))
 					.ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => DateTime.UtcNow.AddDays(src.AuctionDuration)))
 					.ForMember(dest => dest.SellerId, opt => opt.Ignore());
+
+				cfg.CreateMap<Bid, BidViewModel>()
+					.ForMember(dest => dest.BidderUsername, opt => opt.MapFrom(src => src.Bidder.UserName));
 
 				cfg.CreateMap<Make, string>().ConvertUsing(m => m.Name);
 				cfg.CreateMap<Drivetrain, string>().ConvertUsing(d => d.Type);

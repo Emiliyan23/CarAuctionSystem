@@ -146,6 +146,7 @@
 			{
 				var bidModel = new BidViewModel
 				{
+					BidderId = bid.BidderId.ToString(),
 					BidderUsername = bid.Bidder.UserName,
 					BidAmount = bid.BidAmount,
 					BidDate = bid.BidDate
