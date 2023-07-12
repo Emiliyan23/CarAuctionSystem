@@ -45,7 +45,8 @@
 				searchTerm = $"%{searchTerm.ToLower()}%";
 				auctions = auctions.Where(a => EF.Functions.Like(a.Make.Name.ToLower(), searchTerm) ||
 				                               EF.Functions.Like(a.Model.ToLower(), searchTerm) ||
-				                               EF.Functions.Like(a.EngineDetails.ToLower(), searchTerm));
+				                               EF.Functions.Like(a.EngineDetails.ToLower(), searchTerm) ||
+				                               EF.Functions.Like(a.Vin.ToLower(), searchTerm));
 			}
 
 			auctions = sorting switch

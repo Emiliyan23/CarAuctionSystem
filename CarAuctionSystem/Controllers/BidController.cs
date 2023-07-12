@@ -62,7 +62,7 @@
 
 			await _auctionService.PlaceBid(model, User.Id());
 
-			return RedirectToAction("Details", "Auction", new { id = model.AuctionId });
+			return RedirectToAction("Details", "Auction", model.AuctionId);
 		}
 	}
 }

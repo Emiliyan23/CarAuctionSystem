@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using CarAuctionSystem.Infrastructure.Data;
+using CarAuctionSystem.ModelBinders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,12 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 	})
 	.AddEntityFrameworkStores<CarAuctionDbContext>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+	.AddMvcOptions(options =>
+	{
+		options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+	});
+
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
