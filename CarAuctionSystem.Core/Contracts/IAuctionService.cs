@@ -8,9 +8,7 @@
 		Task<AuctionQueryModel> GetAllAuctions(string? transmissionType = null,
 			string? carBodyType = null,
 			string? searchTerm = null,
-			AuctionSorting sorting = AuctionSorting.Newest,
-			int currentPage = 1,
-			int auctionsPerPage = 1);
+			AuctionSorting sorting = AuctionSorting.Newest);
 
 		Task Create(AddAuctionModel model, string userId);
 

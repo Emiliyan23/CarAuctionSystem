@@ -25,9 +25,7 @@
 		public async Task<AuctionQueryModel> GetAllAuctions(string? transmissionType = null,
 			string? carBodyType = null,
 			string? searchTerm = null,
-			AuctionSorting sorting = AuctionSorting.Newest,
-			int currentPage = 1,
-			int auctionsPerPage = 1)
+			AuctionSorting sorting = AuctionSorting.Newest)
 		{
 			var result = new AuctionQueryModel();
 			var auctions = _repo.AllReadonly<Auction>();
@@ -57,8 +55,7 @@
 				_ => auctions.OrderByDescending(a => a.StartDate)
 			};
 
-			result.Auctions = await auctions.Skip((currentPage - 1) * auctionsPerPage)
-				.Take(auctionsPerPage)
+			result.Auctions = await auctions
 				.Select(a => new AllAuctionModel
 				{
 					Id = a.Id,

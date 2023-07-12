@@ -35,9 +35,7 @@
 			var result = await _auctionService.GetAllAuctions(query.TransmissionType,
 				query.CarBodyType,
 				query.SearchTerm,
-				query.Sorting,
-				query.CurrentPage,
-				AllAuctionsQueryModel.AuctionsPerPage);
+				query.Sorting);
 
 			query.TotalAuctionsCount = result.TotalAuctions;
 			query.TransmissionTypes = await _carService.GetAllTransmissionTypes();

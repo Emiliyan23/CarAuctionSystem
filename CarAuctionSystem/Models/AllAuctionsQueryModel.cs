@@ -5,8 +5,6 @@
 
 	public class AllAuctionsQueryModel
 	{
-		public const int AuctionsPerPage = 3;
-
 		[Display(Name = "Transmission")]
 		public string? TransmissionType { get; set; }
 

@@ -42,6 +42,7 @@
 
 			user!.Auctions = await _repo.AllReadonly<Auction>()
 				.Where(a => a.SellerId.ToString() == userId)
+				.OrderByDescending(a => a.StartDate)
 				.Select(a => new AllAuctionModel
 				{
 					Id = a.Id,
@@ -56,6 +57,7 @@
 
 			user.Bids = await _repo.AllReadonly<Bid>()
 				.Where(b => b.BidderId.ToString() == userId)
+				.OrderByDescending(b => b.BidDate)
 				.Select(b => new UserBidModel
 				{
 					BidderUsername = b.Bidder.UserName,

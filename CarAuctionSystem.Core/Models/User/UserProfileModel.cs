@@ -1,7 +1,6 @@
 ﻿namespace CarAuctionSystem.Core.Models.User
 {
 	using Auction;
-	using Bid;
 
 	public class UserProfileModel
 	{
