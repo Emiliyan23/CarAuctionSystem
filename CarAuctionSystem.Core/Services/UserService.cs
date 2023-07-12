@@ -1,9 +1,9 @@
 ﻿namespace CarAuctionSystem.Core.Services
 {
 	using AutoMapper;
-	using Common;
 	using Microsoft.EntityFrameworkCore;
 
+	using Common;
 	using Contracts;
 	using Infrastructure.Data;
 	using Infrastructure.Data.Common;
@@ -78,6 +78,46 @@
 				.Where(u => u.Auctions.Any(a => a.Id == auctionId))
 				.Select(u => u.Id.ToString().ToLower())
 				.FirstOrDefaultAsync();
+		}
+
+		public async Task<bool> AuctionIsInWatchlist(int id, string userId)
+		{
+			var watchedAuction = await _repo.AllReadonly<WatchedAuction>()
+				.Where(a => a.AuctionId == id && a.UserId == Guid.Parse(userId))
+				.FirstOrDefaultAsync();
+
+			return watchedAuction != null;
+		}
+
+		public async Task<IEnumerable<AllAuctionModel>> GetWatchlist(string userId)
+		{
+			var watchlist = await _repo.AllReadonly<WatchedAuction>()
+				.Where(a => a.UserId == Guid.Parse(userId))
+				.Select(a => new AllAuctionModel
+				{
+					Id = a.AuctionId,
+					Make = a.Auction.Make.Name,
+					Model = a.Auction.Model,
+					ModelYear = a.Auction.ModelYear,
+					Mileage = a.Auction.Mileage,
+					ImageUrl = a.Auction.ImageUrl,
+					EndDate = a.Auction.EndDate
+				})
+				.ToListAsync();
+
+			return watchlist;
+		}
+
+		public async Task AddToWatchlist(int id, string userId)
+		{
+			var watchedAuction = new WatchedAuction
+			{
+				AuctionId = id,
+				UserId = Guid.Parse(userId)
+			};
+
+			await _repo.AddAsync(watchedAuction);
+			await _repo.SaveChangesAsync();
 		}
 	}
 }

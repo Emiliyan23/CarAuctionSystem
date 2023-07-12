@@ -28,6 +28,8 @@
 
 		public DbSet<CarBody> CarBodies { get; set; } = null!;
 
+		public DbSet<WatchedAuction> WatchedAuctions { get; set; } = null!;
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			//builder.ApplyConfiguration(new UserConfiguration());
@@ -49,6 +51,14 @@
 					.WithMany(user => user.Bids)
 					.HasForeignKey(b => b.BidderId)
 					.OnDelete(DeleteBehavior.Restrict);
+			});
+
+			builder.Entity<WatchedAuction>(entity =>
+			{
+				entity.HasOne(wa => wa.Auction)
+					.WithMany(u => u.Watchlist)
+					.HasForeignKey(wa => wa.AuctionId)
+					.OnDelete(DeleteBehavior.NoAction);
 			});
 
 			base.OnModelCreating(builder);

@@ -105,16 +105,40 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Details(int auctionId)
+		public async Task<IActionResult> Details(int id)
 		{
-			if (await _auctionService.ExistsById(auctionId) == false)
+			if (await _auctionService.ExistsById(id) == false)
 			{
 				return BadRequest();
 			}
 
-			var model = await _auctionService.GetAuctionDetailsById(auctionId);
+			var model = await _auctionService.GetAuctionDetailsById(id);
 
 			return View(model);
+		}
+
+		public async Task<IActionResult> AddToWatchlist(int id)
+		{
+			string userId = User.Id();
+
+			if (await _userService.UserExists(userId) == false)
+			{
+				return BadRequest();
+			}
+
+			if (await _auctionService.ExistsById(id) == false)
+			{
+				return BadRequest();
+			}
+
+			if (await _userService.AuctionIsInWatchlist(id, userId))
+			{
+				return RedirectToAction(nameof(All));
+			}
+
+			await _userService.AddToWatchlist(id, userId);
+
+			return RedirectToAction("Watchlist", "User", new {id = userId});
 		}
 	}
 }

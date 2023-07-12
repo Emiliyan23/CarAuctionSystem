@@ -8,7 +8,8 @@
 			<p class="card-text">@Model.Mileage km</p>
 			<p class="card-text">End Date: @Model.EndDate</p>
 			@*<p class="timecountdown"></p>*@
-			<a asp-controller="Auction" asp-action="Details" asp-route-auctionId="@Model.Id" class="btn btn-success">Details</a>
+			<a asp-controller="Auction" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
+			<a asp-controller="Auction" asp-action="AddToWatchlist" asp-route-id="@Model.Id" class="btn btn-info">Add to watchlist</a>
 		</div>
 	</div> 
 </div>

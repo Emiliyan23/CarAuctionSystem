@@ -1,0 +1,23 @@
+﻿@model IEnumerable<AllAuctionModel>
+@{
+	ViewBag.Title = "My watchlist";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<div class="container" style="display:inline">
+	<div class="row">
+		<p style="font-size:25px">Auctions:</p>
+		@if (!Model.Any())
+		{
+			<p>You are not watching any auctions</p>
+		}
+		else
+		{
+			@foreach (var auction in Model)
+			{
+				<partial name="_AuctionPartial" model="@auction"/>
+			}
+		}
+	</div>
+</div>

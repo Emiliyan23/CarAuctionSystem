@@ -20,14 +20,14 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Bid(int auctionId)
+		public async Task<IActionResult> Bid(int id)
 		{
-			if (!await _validationService.AuctionIsActive(auctionId))
+			if (!await _validationService.AuctionIsActive(id))
 			{
 				return RedirectToAction("All", "Auction");
 			}
 
-			string? sellerId = await _userService.GetSellerIdByAuctionId(auctionId);
+			string? sellerId = await _userService.GetSellerIdByAuctionId(id);
 
 			if (string.IsNullOrEmpty(sellerId))
 			{
@@ -41,7 +41,7 @@
 
 			BidFormModel bidModel = new BidFormModel
 			{
-				AuctionId = auctionId
+				AuctionId = id
 			};
 
 			return View(bidModel);

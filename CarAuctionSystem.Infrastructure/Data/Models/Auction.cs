@@ -10,6 +10,7 @@
 	    public Auction()
 	    {
 		    Bids = new List<Bid>();
+		    Watchlist = new List<WatchedAuction>();
 	    }
 
         [Key]
@@ -88,5 +89,7 @@
         public CarBody CarBody { get; set; } = null!;
 
         public List<Bid> Bids { get; set; }
+
+        public List<WatchedAuction> Watchlist { get; set; }
     }
 }
