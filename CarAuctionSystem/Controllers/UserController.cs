@@ -2,8 +2,10 @@
 {
 	using Core.Contracts;
 	using Extensions;
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 
+	[Authorize]
 	public class UserController : Controller
 	{
 		private readonly IUserService _userService;
@@ -13,6 +15,7 @@
 			_userService = userService;
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> Profile(string id)
 		{
