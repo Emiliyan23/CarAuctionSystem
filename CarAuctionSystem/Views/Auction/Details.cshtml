@@ -68,35 +68,35 @@
 		<div class="col">
 			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
 			<p></p>
-			@if (Model.Watchlist.Any(a => a.Id == Model.Id))
+			@if (Model.Watchlist.Contains(Model.Id))
 			{
-				<button onclick="removeFromWatchlist(@Model.Id)" class="btn btn-danger">Remove from Watchlist</button>
+				<button class="btn btn-info add-button d-none" onclick="addToWatchlist(@Model.Id)">Add to Watchlist</button>
+				<button class="btn btn-danger remove-button" onclick="removeFromWatchlist(@Model.Id)">Remove from Watchlist</button>
 			}
 			else
 			{
-				<button onclick="addToWatchlist(@Model.Id)" class="btn btn-info">Add to Watchlist</button>
+				<button class="btn btn-info add-button" onclick="addToWatchlist(@Model.Id)">Add to Watchlist</button>
+				<button class="btn btn-danger remove-button d-none" onclick="removeFromWatchlist(@Model.Id)">Remove from Watchlist</button>
 			}
 		</div>
 	</div>
 </div>
 
-<script
-	src="https://code.jquery.com/jquery-3.7.0.min.js"
-	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-	crossorigin="anonymous">
-</script>
 <script>
+	var watchlist = @Html.Raw(Json.Serialize(Model.Watchlist));
 	function addToWatchlist(auctionId) {
 		$.ajax({
 			url: '/Watchlist/Add',
 			method: 'POST',
 			data: { id: auctionId },
 			success: function(response) {
-				// Update the button text or perform any additional actions
-				alert('Auction added to watchlist!');
+				$('.add-button').addClass('d-none');
+				$('.remove-button').removeClass('d-none');
+				updateWatchlist(@Model.Id, true);
 			},
 			error: function() {
 				alert('Error occurred while adding auction to watchlist.');
+				
 			}
 		});
 	}
@@ -107,12 +107,25 @@
 			method: 'POST',
 			data: { id: auctionId },
 			success: function(response) {
-				// Update the button text or perform any additional actions
-				alert('Auction removed from watchlist!');
+				$('.remove-button').addClass('d-none');
+				$('.add-button').removeClass('d-none');
+				updateWatchlist(@Model.Id, false);
 			},
 			error: function() {
 				alert('Error occurred while removing auction from watchlist.');
 			}
 		});
 	}
+	
+	function updateWatchlist(auctionId, isAdded) {
+		if (isAdded) {
+			watchlist.push(auctionId);
+		} else {
+			var index = watchlist.indexOf(auctionId);
+			if (index > -1) {
+				watchlist.splice(index, 1);
+			}
+		}
+	}
+
 </script>

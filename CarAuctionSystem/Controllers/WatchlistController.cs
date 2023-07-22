@@ -52,7 +52,6 @@
 			await _userService.AddToWatchlist(id, userId);
 
 			return Json(new { success = true });
-			//return RedirectToAction("Watchlist", "Watchlist", new {id = userId});
 		}
 
 		[HttpPost]
@@ -73,7 +72,6 @@
 			await _userService.RemoveFromWatchlist(id, userId);
 
 			return Json(new { success = true });
-			//return RedirectToAction("Watchlist", "Watchlist", new {id = userId});
 		}
 	}
 }

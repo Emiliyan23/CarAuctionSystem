@@ -105,7 +105,12 @@
 				.FirstOrDefaultAsync();
 
 			var model = _mapper.Map<AuctionDetailsModel>(auction);
-			model.Watchlist = await _userService.GetWatchlist(userId);
+
+			model.Watchlist = await _repo.AllReadonly<WatchedAuction>()
+				.Where(wa => wa.UserId == Guid.Parse(userId))
+				.Select(a => a.AuctionId)
+				.ToListAsync();
+				
 
 			model.SellerDetails = new SellerDetailsModel
 			{

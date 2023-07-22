@@ -8,7 +8,7 @@
 		public AuctionDetailsModel()
 		{
 			Bids = new List<BidViewModel>();
-			Watchlist = new List<AuctionViewModel>();
+			Watchlist = new List<int>();
 		}
 
 		public DateTime StartDate { get; set; }
@@ -31,7 +31,7 @@
 
 		public string CarBody { get; set; } = null!;
 
-		public IEnumerable<AuctionViewModel> Watchlist { get; set; }
+		public List<int> Watchlist { get; set; }
 
 		public List<BidViewModel> Bids { get; set; }
 	}
