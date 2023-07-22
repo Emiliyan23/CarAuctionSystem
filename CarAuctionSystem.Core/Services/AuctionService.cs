@@ -15,11 +15,13 @@
 	{
 		private readonly IRepository _repo;
 		private readonly IMapper _mapper;
+		private readonly IUserService _userService;
 
-		public AuctionService(IRepository repo)
+		public AuctionService(IRepository repo, IUserService userService)
 		{
 			_repo = repo;
 			_mapper = MapperConfig.InitializeMapper();
+			_userService = userService;
 		}
 
 		public async Task<AuctionQueryModel> GetAllAuctions(string? transmissionType = null,
@@ -57,7 +59,7 @@
 			};
 
 			result.Auctions = await auctions
-				.Select(a => new AllAuctionModel
+				.Select(a => new AuctionViewModel
 				{
 					Id = a.Id,
 					Make = a.Make.Name,
@@ -75,7 +77,7 @@
 		}
 
 
-		public async Task Create(AddAuctionModel model, string userId)
+		public async Task Create(AuctionFormModel model, string userId)
 		{
 			var auction = _mapper.Map<Auction>(model);
 			auction.SellerId = Guid.Parse(userId);
@@ -90,7 +92,7 @@
 				.AnyAsync(a => a.Id == id);
 		}
 
-		public async Task<AuctionDetailsModel> GetAuctionDetailsById(int id)
+		public async Task<AuctionDetailsModel> GetAuctionDetailsById(int id, string userId)
 		{
 			var auction = await _repo.AllReadonly<Auction>()
 				.Where(a => a.Id == id)
@@ -103,6 +105,7 @@
 				.FirstOrDefaultAsync();
 
 			var model = _mapper.Map<AuctionDetailsModel>(auction);
+			model.Watchlist = await _userService.GetWatchlist(userId);
 
 			model.SellerDetails = new SellerDetailsModel
 			{

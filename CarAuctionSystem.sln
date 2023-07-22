@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAuctionSystem", "CarAuctionSystem\CarAuctionSystem.csproj", "{DACF0AD2-227B-41B5-9276-F0A5A09203A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem", "CarAuctionSystem\CarAuctionSystem.csproj", "{DACF0AD2-227B-41B5-9276-F0A5A09203A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAuctionSystem.Infrastructure", "CarAuctionSystem.Infrastructure\CarAuctionSystem.Infrastructure.csproj", "{23612164-D740-4E2D-90A4-29C070FD8FA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Infrastructure", "CarAuctionSystem.Infrastructure\CarAuctionSystem.Infrastructure.csproj", "{23612164-D740-4E2D-90A4-29C070FD8FA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAuctionSystem.Core", "CarAuctionSystem.Core\CarAuctionSystem.Core.csproj", "{1AA838EA-A152-4755-B348-54C9F1AD692C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Core", "CarAuctionSystem.Core\CarAuctionSystem.Core.csproj", "{1AA838EA-A152-4755-B348-54C9F1AD692C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAuctionSystem.WebApi", "CarAuctionSystem.WebApi\CarAuctionSystem.WebApi.csproj", "{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1AA838EA-A152-4755-B348-54C9F1AD692C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA838EA-A152-4755-B348-54C9F1AD692C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AA838EA-A152-4755-B348-54C9F1AD692C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

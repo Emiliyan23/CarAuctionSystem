@@ -13,8 +13,10 @@
 
 		Task<bool> AuctionIsInWatchlist(int id, string userId);
 
-		Task<IEnumerable<AllAuctionModel>> GetWatchlist(string userId);
+		Task<IEnumerable<AuctionViewModel>> GetWatchlist(string userId);
 
 		Task AddToWatchlist(int id, string userId);
+
+		Task RemoveFromWatchlist(int id, string userId);
 	}
 }

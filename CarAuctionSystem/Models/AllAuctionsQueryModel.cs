@@ -24,6 +24,6 @@
 
 		public IEnumerable<string> CarBodyTypes { get; set; } = Enumerable.Empty<string>();
 
-		public IEnumerable<AllAuctionModel> Auctions { get; set; } = Enumerable.Empty<AllAuctionModel>();
+		public IEnumerable<AuctionViewModel> Auctions { get; set; } = Enumerable.Empty<AuctionViewModel>();
 	}
 }

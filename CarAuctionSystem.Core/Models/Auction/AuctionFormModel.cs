@@ -4,7 +4,7 @@
 
 	using static Infrastructure.Data.Constants.ValidationConstants;
 
-	public class AddAuctionModel
+	public class AuctionFormModel
 	{
 		[Required(AllowEmptyStrings = false)]
 		[StringLength(AuctionModelMaxLength, MinimumLength = 1)]

@@ -1,4 +1,4 @@
-﻿@model AllAuctionModel
+﻿@model AuctionViewModel
 
 <div class = "col-md-4">
 	<div class="card mb-3">
@@ -9,10 +9,6 @@
 			<p class="card-text">End Date: @Model.EndDate</p>
 			@*<p class="timecountdown"></p>*@
 			<a asp-controller="Auction" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
-			@if (User.Identity?.IsAuthenticated ?? false)
-			{
-				<a asp-controller="Auction" asp-action="AddToWatchlist" asp-route-id="@Model.Id" class="btn btn-info">Add to watchlist</a>
-			}
 		</div>
 	</div> 
 </div>

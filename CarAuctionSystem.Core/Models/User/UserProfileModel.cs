@@ -8,7 +8,7 @@
 
 		public string Username { get; set; } = null!;
 
-		public List<AllAuctionModel> Auctions { get; set; } = new List<AllAuctionModel>();
+		public List<AuctionViewModel> Auctions { get; set; } = new List<AuctionViewModel>();
 
 		public List<UserBidModel> Bids { get; set; } = new List<UserBidModel>();
 	}

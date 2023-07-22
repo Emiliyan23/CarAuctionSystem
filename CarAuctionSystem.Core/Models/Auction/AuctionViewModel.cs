@@ -1,6 +1,6 @@
 ﻿namespace CarAuctionSystem.Core.Models.Auction
 {
-	public class AllAuctionModel
+	public class AuctionViewModel
 	{
 		public int Id { get; set; }
 

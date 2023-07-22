@@ -3,11 +3,12 @@
 	using Bid;
 	using Seller;
 
-	public class AuctionDetailsModel : AllAuctionModel
+	public class AuctionDetailsModel : AuctionViewModel
 	{
 		public AuctionDetailsModel()
 		{
 			Bids = new List<BidViewModel>();
+			Watchlist = new List<AuctionViewModel>();
 		}
 
 		public DateTime StartDate { get; set; }
@@ -29,6 +30,8 @@
 		public string Fuel { get; set; } = null!;
 
 		public string CarBody { get; set; } = null!;
+
+		public IEnumerable<AuctionViewModel> Watchlist { get; set; }
 
 		public List<BidViewModel> Bids { get; set; }
 	}

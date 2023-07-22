@@ -48,7 +48,7 @@
 		[HttpGet]
 		public async Task<IActionResult> Add()
 		{
-			var model = new AddAuctionModel
+			var model = new AuctionFormModel
 			{
 				Makes = await _carService.GetAllMakes(),
 				Drivetrains = await _carService.GetAllDrivetrains(),
@@ -61,7 +61,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Add(AddAuctionModel addModel)
+		public async Task<IActionResult> Add(AuctionFormModel addModel)
 		{
 			if (await _validationService.MakeExists(addModel.MakeId) == false)
 			{
@@ -112,33 +112,9 @@
 				return BadRequest();
 			}
 
-			var model = await _auctionService.GetAuctionDetailsById(id);
+			var model = await _auctionService.GetAuctionDetailsById(id, User.Id());
 
 			return View(model);
-		}
-
-		public async Task<IActionResult> AddToWatchlist(int id)
-		{
-			string userId = User.Id();
-
-			if (await _userService.UserExists(userId) == false)
-			{
-				return BadRequest();
-			}
-
-			if (await _auctionService.ExistsById(id) == false)
-			{
-				return BadRequest();
-			}
-
-			if (await _userService.AuctionIsInWatchlist(id, userId))
-			{
-				return RedirectToAction(nameof(All));
-			}
-
-			await _userService.AddToWatchlist(id, userId);
-
-			return RedirectToAction("Watchlist", "User", new {id = userId});
 		}
 	}
 }

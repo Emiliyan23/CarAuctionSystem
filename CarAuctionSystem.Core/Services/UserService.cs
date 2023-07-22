@@ -43,7 +43,7 @@
 			user!.Auctions = await _repo.AllReadonly<Auction>()
 				.Where(a => a.SellerId.ToString() == userId)
 				.OrderByDescending(a => a.StartDate)
-				.Select(a => new AllAuctionModel
+				.Select(a => new AuctionViewModel
 				{
 					Id = a.Id,
 					Make = a.Make.Name,
@@ -89,11 +89,11 @@
 			return watchedAuction != null;
 		}
 
-		public async Task<IEnumerable<AllAuctionModel>> GetWatchlist(string userId)
+		public async Task<IEnumerable<AuctionViewModel>> GetWatchlist(string userId)
 		{
 			var watchlist = await _repo.AllReadonly<WatchedAuction>()
 				.Where(a => a.UserId == Guid.Parse(userId))
-				.Select(a => new AllAuctionModel
+				.Select(a => new AuctionViewModel
 				{
 					Id = a.AuctionId,
 					Make = a.Auction.Make.Name,
@@ -117,6 +117,16 @@
 			};
 
 			await _repo.AddAsync(watchedAuction);
+			await _repo.SaveChangesAsync();
+		}
+
+		public async Task RemoveFromWatchlist(int id, string userId)
+		{
+			var watchedAuction = await _repo.All<WatchedAuction>()
+				.Where(wa => wa.AuctionId == id && wa.UserId == Guid.Parse(userId))
+				.FirstOrDefaultAsync();
+
+			await _repo.DeleteAsync<WatchedAuction>(watchedAuction.Id);
 			await _repo.SaveChangesAsync();
 		}
 	}

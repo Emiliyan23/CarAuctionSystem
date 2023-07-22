@@ -4,6 +4,6 @@
 	{
 		public int TotalAuctions { get; set; }
 
-		public IEnumerable<AllAuctionModel> Auctions { get; set; } = new List<AllAuctionModel>();
+		public IEnumerable<AuctionViewModel> Auctions { get; set; } = new List<AuctionViewModel>();
 	}
 }

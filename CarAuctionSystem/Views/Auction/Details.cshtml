@@ -1,5 +1,4 @@
-﻿@using CarAuctionSystem.Extensions
-@model AuctionDetailsModel
+﻿@model AuctionDetailsModel
 @{
 	ViewBag.Title = "Auction Details";
 	bool hasEnded = Model.EndDate < DateTime.UtcNow;
@@ -68,6 +67,52 @@
 		</div>
 		<div class="col">
 			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
+			<p></p>
+			@if (Model.Watchlist.Any(a => a.Id == Model.Id))
+			{
+				<button onclick="removeFromWatchlist(@Model.Id)" class="btn btn-danger">Remove from Watchlist</button>
+			}
+			else
+			{
+				<button onclick="addToWatchlist(@Model.Id)" class="btn btn-info">Add to Watchlist</button>
+			}
 		</div>
 	</div>
 </div>
+
+<script
+	src="https://code.jquery.com/jquery-3.7.0.min.js"
+	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+	crossorigin="anonymous">
+</script>
+<script>
+	function addToWatchlist(auctionId) {
+		$.ajax({
+			url: '/Watchlist/Add',
+			method: 'POST',
+			data: { id: auctionId },
+			success: function(response) {
+				// Update the button text or perform any additional actions
+				alert('Auction added to watchlist!');
+			},
+			error: function() {
+				alert('Error occurred while adding auction to watchlist.');
+			}
+		});
+	}
+
+	function removeFromWatchlist(auctionId) {
+		$.ajax({
+			url: '/Watchlist/Remove',
+			method: 'POST',
+			data: { id: auctionId },
+			success: function(response) {
+				// Update the button text or perform any additional actions
+				alert('Auction removed from watchlist!');
+			},
+			error: function() {
+				alert('Error occurred while removing auction from watchlist.');
+			}
+		});
+	}
+</script>

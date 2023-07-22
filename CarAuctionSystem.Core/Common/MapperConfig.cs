@@ -12,11 +12,11 @@
 		{
 			var config = new MapperConfiguration(cfg =>
 			{
-				cfg.CreateMap<Auction, AllAuctionModel>();
+				cfg.CreateMap<Auction, AuctionViewModel>();
 				cfg.CreateMap<Auction, AuctionDetailsModel>()
 					.ForMember(dest => dest.SellerDetails, opt => opt.Ignore());
 
-				cfg.CreateMap<AddAuctionModel, Auction>()
+				cfg.CreateMap<AuctionFormModel, Auction>()
 					.ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => DateTime.UtcNow))
 					.ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => DateTime.UtcNow.AddDays(src.AuctionDuration)))
 					.ForMember(dest => dest.SellerId, opt => opt.Ignore());

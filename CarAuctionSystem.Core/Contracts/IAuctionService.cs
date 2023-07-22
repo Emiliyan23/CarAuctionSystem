@@ -10,11 +10,11 @@
 			string? searchTerm = null,
 			AuctionSorting sorting = AuctionSorting.Newest);
 
-		Task Create(AddAuctionModel model, string userId);
+		Task Create(AuctionFormModel model, string userId);
 
 		Task<bool> ExistsById(int id);
 
-		Task<AuctionDetailsModel> GetAuctionDetailsById(int id);
+		Task<AuctionDetailsModel> GetAuctionDetailsById(int id, string userId);
 
 		Task PlaceBid(BidFormModel model, string userId);
 

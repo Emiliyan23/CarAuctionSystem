@@ -28,18 +28,5 @@
 
 			return View(user);
 		}
-
-		[HttpGet]
-		public async Task<IActionResult> Watchlist(string id)
-		{
-			if (id != User.Id())
-			{
-				return Unauthorized();
-			}
-
-			var watchlist = await _userService.GetWatchlist(id);
-
-			return View(watchlist);
-		}
 	}
 }
