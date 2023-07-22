@@ -6,6 +6,8 @@
 	using Core.Models.Bid;
 	using Extensions;
 
+	using static Core.Constants.NotificationConstants;
+
 	public class BidController : Controller
 	{
 		private readonly IAuctionService _auctionService;
@@ -22,20 +24,29 @@
 		[HttpGet]
 		public async Task<IActionResult> Bid(int id)
 		{
-			if (!await _validationService.AuctionIsActive(id))
-			{
-				return RedirectToAction("All", "Auction");
-			}
-
 			string? sellerId = await _userService.GetSellerIdByAuctionId(id);
-
-			if (string.IsNullOrEmpty(sellerId))
-			{
-				return RedirectToAction("All", "Auction");
-			}
 
 			if (User.Id() == sellerId)
 			{
+				TempData[ErrorMessage] = "Cannot bid on your own auction.";
+				return RedirectToAction("All", "Auction");
+			}
+
+			if (await _auctionService.ExistsById(id) == false)
+			{
+				TempData[ErrorMessage] = "Auction doesn't exist.";
+				return RedirectToAction("All", "Auction");
+			}
+
+			if (!await _validationService.AuctionIsActive(id))
+			{
+				TempData[ErrorMessage] = "This auction is closed.";
+				return RedirectToAction("All", "Auction");
+			}
+
+			if (string.IsNullOrEmpty(sellerId))
+			{
+				TempData[ErrorMessage] = "Error while placing bid.";
 				return RedirectToAction("All", "Auction");
 			}
 
@@ -62,7 +73,8 @@
 
 			await _auctionService.PlaceBid(model, User.Id());
 
-			return RedirectToAction("Details", "Auction", model.AuctionId);
+			TempData[SuccessMessage] = "Bid placed successfully.";
+			return RedirectToAction("Details", "Auction", new{ id = model.AuctionId });
 		}
 	}
 }

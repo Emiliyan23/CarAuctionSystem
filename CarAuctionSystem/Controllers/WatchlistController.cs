@@ -5,6 +5,8 @@
 	using Core.Contracts;
 	using Extensions;
 
+	using static Core.Constants.NotificationConstants;
+
 	public class WatchlistController : Controller
 	{
 		private readonly IAuctionService _auctionService;
@@ -50,7 +52,7 @@
 			}
 
 			await _userService.AddToWatchlist(id, userId);
-
+			
 			return Json(new { success = true });
 		}
 
@@ -70,7 +72,7 @@
 			}
 
 			await _userService.RemoveFromWatchlist(id, userId);
-
+			
 			return Json(new { success = true });
 		}
 	}

@@ -8,6 +8,8 @@
 	using Extensions;
 	using Models;
 
+	using static Core.Constants.NotificationConstants;
+
 	[Authorize]
 	public class AuctionController : Controller
 	{
@@ -101,6 +103,7 @@
 
 			await _auctionService.Create(addModel, User.Id());
 
+			TempData[SuccessMessage] = "Auction created successfully.";
 			return RedirectToAction(nameof(All));
 		}
 

@@ -1,0 +1,21 @@
+﻿@using static CarAuctionSystem.Core.Constants.NotificationConstants
+
+@if (TempData.TryGetValue(ErrorMessage, out var error))
+{
+	<script>toastr.error('@error!.ToString()');</script>
+}
+
+@if (TempData.TryGetValue(WarningMessage, out var warning))
+{
+	<script>toastr.warning('@warning!.ToString()');</script>
+}
+
+@if (TempData.TryGetValue(InformationMessage, out var info))
+{
+	<script>toastr.info('@info!.ToString()');</script>
+}
+
+@if (TempData.TryGetValue(SuccessMessage, out var success))
+{
+	<script>toastr.success('@success!.ToString()');</script>
+}

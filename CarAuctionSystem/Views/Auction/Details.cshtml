@@ -93,9 +93,10 @@
 				$('.add-button').addClass('d-none');
 				$('.remove-button').removeClass('d-none');
 				updateWatchlist(@Model.Id, true);
+				toastr.info("Auction added to watchlist.");
 			},
 			error: function() {
-				alert('Error occurred while adding auction to watchlist.');
+				toastr.error('Error occurred while adding auction to watchlist.');
 				
 			}
 		});
@@ -110,9 +111,10 @@
 				$('.remove-button').addClass('d-none');
 				$('.add-button').removeClass('d-none');
 				updateWatchlist(@Model.Id, false);
+				toastr.info("Auction removed from watchlist.");
 			},
 			error: function() {
-				alert('Error occurred while removing auction from watchlist.');
+				toastr.error('Error occurred while removing auction from watchlist.');
 			}
 		});
 	}
