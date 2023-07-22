@@ -50,38 +50,6 @@
 	</div>
 </form>
 
-@*@{
-	var previousPage = Model.CurrentPage - 1;
-	if (previousPage < 1)
-	{
-		previousPage = 1;
-	}
-
-	var maxPage = Math.Ceiling((double)Model.TotalAuctionsCount / AllAuctionsQueryModel.AuctionsPerPage);
-}
-<div class="row mb-5">
-	<div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
-		<a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-		   asp-controller="Auction" asp-action="All"
-		   asp-route-currentPage="@previousPage"
-		   asp-route-searchTerm="@Model.SearchTerm"
-		   asp-route-sorting="@((int)Model.Sorting)"><<</a>
-	</div>
-
-	@{
-		var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Auctions.Any();
-	}
-
-	<div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
-		<a class="btn btn-primary @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
-		   asp-controller="Auction"
-		   asp-action="All"
-		   asp-route-currentPage="@(Model.CurrentPage + 1)"
-		   asp-route-searchTerm="@Model.SearchTerm"
-		   asp-route-sorting="@((int)Model.Sorting)">>></a>
-	</div>
-</div>*@
-
 @if (!Model.Auctions.Any())
 {
 	<h2 class="text-center">No auctions found by the given criteria!</h2>
@@ -93,3 +61,41 @@
 		<partial name="_AuctionPartial" model="@auction"/>
 	}
 </div>
+
+<script>
+	function updateTimers() {
+		var auctions = @Html.Raw(Json.Serialize(Model.Auctions));
+		auctions.forEach(function (auction) {
+			var endDateTime = new Date(auction.endDate); // Convert the end time to a JavaScript Date object
+			var now = new Date(); // Get the current date and time
+
+			// Check if the auction is closed (endDateTime is before now)
+			if (endDateTime <= now) {
+				// Auction is closed, show the "Auction is closed" message
+				$("#timer-" + auction.id).text("Auction is closed");
+			} else {
+				var remainingTime = endDateTime - now;
+				// Auction is still active, calculate the remaining time
+				var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+				remainingTime -= days * (1000 * 60 * 60 * 24);
+				var hours = Math.floor(remainingTime / (1000 * 60 * 60));
+				remainingTime -= hours * (1000 * 60 * 60);
+				var minutes = Math.floor(remainingTime / (1000 * 60));
+				remainingTime -= minutes * (1000 * 60);
+				var seconds = Math.floor(remainingTime / 1000);
+
+				// Format the remaining time as HH:MM:SS
+				var formattedTime = ("0" + days).slice(-2) + ":" +
+					("0" + hours).slice(-2) + ":" +
+					("0" + minutes).slice(-2) + ":" +
+					("0" + seconds).slice(-2);
+
+				// Update the timer element with the remaining time
+				$("#timer-" + auction.id).text(formattedTime);
+			}
+		});
+	}
+
+	// Update timers every second (1000 ms)
+	setInterval(updateTimers, 1000);
+</script>
