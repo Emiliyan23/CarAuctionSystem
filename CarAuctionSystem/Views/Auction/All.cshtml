@@ -62,20 +62,33 @@
 	}
 </div>
 
-<script>
+<div class="row">
+	<div class="col-12 text-center">
+		<button class="btn btn-primary" id="statistics_btn">Show Statistics</button>
+	</div>
+</div>
+
+<div class="mt-4 p-5 bg-light d-none" id="statistics_box">
+	<div class="row">
+		<h2 class="col-md-4 text-center" id="auctions_count"></h2>
+		<h2 class="col-md-4 text-center" id="sales_count"></h2>
+		<h2 class="col-md-4 text-center" id="bids_count"></h2>
+	</div>
+</div>
+
+@section Scripts{
+	<script>
 	function updateTimers() {
 		var auctions = @Html.Raw(Json.Serialize(Model.Auctions));
 		auctions.forEach(function (auction) {
-			var endDateTime = new Date(auction.endDate); // Convert the end time to a JavaScript Date object
-			var now = new Date(); // Get the current date and time
-
-			// Check if the auction is closed (endDateTime is before now)
+			var endDateTime = new Date(auction.endDate);
+			var now = new Date();
+			
 			if (endDateTime <= now) {
-				// Auction is closed, show the "Auction is closed" message
+				
 				$("#timer-" + auction.id).text("Auction is closed");
 			} else {
 				var remainingTime = endDateTime - now;
-				// Auction is still active, calculate the remaining time
 				var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
 				remainingTime -= days * (1000 * 60 * 60 * 24);
 				var hours = Math.floor(remainingTime / (1000 * 60 * 60));
@@ -84,18 +97,17 @@
 				remainingTime -= minutes * (1000 * 60);
 				var seconds = Math.floor(remainingTime / 1000);
 
-				// Format the remaining time as HH:MM:SS
 				var formattedTime = ("0" + days).slice(-2) + ":" +
 					("0" + hours).slice(-2) + ":" +
 					("0" + minutes).slice(-2) + ":" +
 					("0" + seconds).slice(-2);
 
-				// Update the timer element with the remaining time
 				$("#timer-" + auction.id).text(formattedTime);
 			}
 		});
 	}
-
-	// Update timers every second (1000 ms)
 	setInterval(updateTimers, 1000);
-</script>
+	</script>
+
+	<script>statistics();</script>
+}

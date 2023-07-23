@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>68ced233-b808-4e4e-bbd6-e652439a6527</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,11 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarAuctionSystem.Infrastructure\CarAuctionSystem.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\CarAuctionSystem.Core\CarAuctionSystem.Core.csproj" />
   </ItemGroup>
 
 </Project>

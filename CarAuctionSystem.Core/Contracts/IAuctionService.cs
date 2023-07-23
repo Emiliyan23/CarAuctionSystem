@@ -2,6 +2,7 @@
 {
 	using Models.Auction;
 	using Models.Bid;
+	using Models.Statistics;
 
 	public interface IAuctionService
 	{
@@ -19,5 +20,7 @@
 		Task PlaceBid(BidFormModel model, string userId);
 
 		Task<List<BidViewModel>> GetAllBids(int id);
+
+		Task<StatisticsServiceModel> GetStatistics();
 	}
 }

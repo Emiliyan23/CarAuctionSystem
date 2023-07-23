@@ -10,18 +10,17 @@
 	using Models.Auction;
 	using Models.Bid;
 	using Models.Seller;
+	using Models.Statistics;
 
 	public class AuctionService : IAuctionService
 	{
 		private readonly IRepository _repo;
 		private readonly IMapper _mapper;
-		private readonly IUserService _userService;
 
-		public AuctionService(IRepository repo, IUserService userService)
+		public AuctionService(IRepository repo)
 		{
 			_repo = repo;
 			_mapper = MapperConfig.InitializeMapper();
-			_userService = userService;
 		}
 
 		public async Task<AuctionQueryModel> GetAllAuctions(string? transmissionType = null,
@@ -162,6 +161,20 @@
 			}
 
 			return bidModels;
+		}
+
+		public async Task<StatisticsServiceModel> GetStatistics()
+		{
+			return new StatisticsServiceModel
+			{
+				AuctionsCount = await _repo.All<Auction>()
+					.CountAsync(),
+				SalesCount = await _repo.All<Auction>()
+					.Where(a => a.EndDate < DateTime.UtcNow && a.Bids.Any())
+					.CountAsync(),
+				BidsCount = await _repo.All<Bid>()
+					.CountAsync()
+			};
 		}
 	}
 }
