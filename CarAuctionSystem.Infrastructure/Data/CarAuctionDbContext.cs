@@ -1,11 +1,11 @@
 ﻿namespace CarAuctionSystem.Infrastructure.Data
 {
-	using Configuration;
 	using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
+	using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore;
 
-    using Models;
+	using Configuration;
+	using Models;
 
     public class CarAuctionDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 	{

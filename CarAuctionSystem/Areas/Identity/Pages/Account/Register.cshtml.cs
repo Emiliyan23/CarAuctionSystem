@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 namespace CarAuctionSystem.Areas.Identity.Pages.Account
 {
 	using Infrastructure.Data;
+	using Infrastructure.Data.Constants;
 
 	public class RegisterModel : PageModel
     {
@@ -72,6 +73,11 @@ namespace CarAuctionSystem.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [Display(Name = "Username")]
+            [StringLength(ValidationConstants.UsernameMaxLength, MinimumLength = ValidationConstants.UsernameMinLength)]
+            public string Username { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -121,7 +127,7 @@ namespace CarAuctionSystem.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -156,8 +162,7 @@ namespace CarAuctionSystem.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
+            
             return Page();
         }
 

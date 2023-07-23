@@ -23,5 +23,9 @@
 		public const int CarBodyTypeMaxLength = 20;
 
 		public const int AuctionImageUrlMaxLength = 100;
+
+		public const int UsernameMaxLength = 20;
+
+		public const int UsernameMinLength = 3;
 	}
 }
