@@ -10,7 +10,14 @@
 		<p style="font-size:25px">Auctions:</p>
 		@if (!Model.Auctions.Any())
 		{
-			<p>This user has not created any auctions.</p>
+			@if (Model.UserId == User.Id())
+			{
+				<p>You have not created any auctions.</p>
+			}
+			else
+			{
+				<p>This user has not created any auctions.</p>
+			}
 		}
 		else
 		{
@@ -25,7 +32,14 @@
 			<p style="font-size:25px">Bid History:</p>
 			@if (!Model.Bids.Any())
 			{
-				<p>This user has not placed any bids.</p>
+				@if (Model.UserId == User.Id())
+				{
+					<p>You have not placed any bids.</p>
+				}
+				else
+				{
+					<p>This user has not placed any bids.</p>
+				}
 			}
 			else
 			{
