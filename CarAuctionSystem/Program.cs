@@ -1,7 +1,11 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using CarAuctionSystem.Extensions;
 using CarAuctionSystem.Infrastructure.Data;
 using CarAuctionSystem.ModelBinders;
+
+using static CarAuctionSystem.Core.Constants.GeneralConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +23,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 		options.Password.RequiredLength = 5;
 		options.Password.RequiredUniqueChars = 0;
 	})
+	.AddRoles<IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<CarAuctionDbContext>();
 
 builder.Services.AddControllersWithViews()
@@ -50,6 +55,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.SeedAdministrator(DevelopmentAdminEmail);
 
 app.MapControllerRoute(
 	name: "default",
