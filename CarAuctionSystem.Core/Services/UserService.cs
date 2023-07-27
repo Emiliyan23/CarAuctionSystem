@@ -50,7 +50,7 @@
 					Model = a.Model,
 					ModelYear = a.ModelYear,
 					Mileage = a.Mileage,
-					EndDate = a.EndDate,
+					EndDate = a.EndDate ?? DateTime.MinValue,
 					ImageUrl = a.ImageUrl
 				})
 				.ToListAsync();
@@ -101,7 +101,7 @@
 					ModelYear = a.Auction.ModelYear,
 					Mileage = a.Auction.Mileage,
 					ImageUrl = a.Auction.ImageUrl,
-					EndDate = a.Auction.EndDate
+					EndDate = a.Auction.EndDate ?? DateTime.MinValue
 				})
 				.ToListAsync();
 

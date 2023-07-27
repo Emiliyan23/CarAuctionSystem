@@ -10,6 +10,7 @@
 			<p style="font-size:25px;">
 				<span>@Model.ModelYear @Model.Make @Model.Model</span>
 			</p>
+			<p> Auction duration: <b>@Model.AuctionDuration days</b></p>
 			<hr/>
 			<p>Mileage: <b>@Model.Mileage km</b></p>
 			<p>VIN: <b>@Model.Vin</b></p>
@@ -33,7 +34,10 @@
 		<div class="col">
 			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
 			<p></p>
-			<button class="btn btn-success">Approve</button>
+			<form method="post" asp-controller="Auction" asp-action="Approve">
+				<input type="hidden" name="Id" value="@Model.Id" />
+				<button class="btn btn-primary" type="submit">Approve</button>
+			</form>
 		</div>
 	</div>
 </div>

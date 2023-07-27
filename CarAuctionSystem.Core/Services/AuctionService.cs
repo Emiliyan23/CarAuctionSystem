@@ -64,7 +64,7 @@
 					Id = a.Id,
 					Make = a.Make.Name,
 					Model = a.Model,
-					EndDate = a.EndDate,
+					EndDate = a.EndDate ?? DateTime.MinValue ,
 					ImageUrl = a.ImageUrl,
 					Mileage = a.Mileage,
 					ModelYear = a.ModelYear
@@ -76,7 +76,7 @@
 			return result;
 		}
 
-		public async Task<List<PendingAuctionModel>> GetAllUnapprovedAuctions()
+		public async Task<List<PendingAuctionModel>> GetAllPendingAuctions()
 		{
 			var auctions = await _repo.All<Auction>()
 				.Where(a => a.IsApproved == false)
@@ -120,7 +120,7 @@
 				FuelType = auction.Fuel.Type,
 				CarBodyType = auction.CarBody.Type,
 				Mileage = auction.Mileage,
-				AuctionDuration = 0,
+				AuctionDuration = auction.AuctionDuration,
 				SellerDetails = new SellerDetailsModel
 				{
 					Id = auction.SellerId.ToString(),
@@ -233,6 +233,33 @@
 				BidsCount = await _repo.All<Bid>()
 					.CountAsync()
 			};
+		}
+
+		public async Task ApproveAuction(int id)
+		{
+			var auction = await _repo.GetByIdAsync<Auction>(id);
+			if (auction.IsApproved == false)
+			{
+				auction.StartDate = DateTime.UtcNow;
+				auction.EndDate = auction.StartDate.Value.AddDays(auction.AuctionDuration);
+				auction.IsApproved = true;
+			}
+
+			await _repo.SaveChangesAsync();
+		}
+
+		public async Task<bool> AuctionIsApproved(int id)
+		{
+			var auction = await _repo.AllReadonly<Auction>()
+				.Where(a => a.Id == id)
+				.FirstOrDefaultAsync();
+
+			if (auction!.IsApproved)
+			{
+				return true;
+			}
+
+			return false;
 		}
 	}
 }

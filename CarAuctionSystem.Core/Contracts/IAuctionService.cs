@@ -11,7 +11,7 @@
 			string? searchTerm = null,
 			AuctionSorting sorting = AuctionSorting.Newest);
 
-		Task<List<PendingAuctionModel>> GetAllUnapprovedAuctions();
+		Task<List<PendingAuctionModel>> GetAllPendingAuctions();
 
 		Task<PendingAuctionDetailsModel> GetPendingAuctionDetailsById(int id);
 
@@ -26,5 +26,9 @@
 		Task<List<BidViewModel>> GetAllBids(int id);
 
 		Task<StatisticsServiceModel> GetStatistics();
+
+		Task ApproveAuction(int id);
+
+		Task<bool> AuctionIsApproved(int id);
 	}
 }

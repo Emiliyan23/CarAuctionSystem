@@ -117,6 +117,12 @@
 				return RedirectToAction(nameof(All));
 			}
 
+			if (await _auctionService.AuctionIsApproved(id) == false)
+			{
+				TempData[ErrorMessage] = "Auction doesnt exist.";
+				return RedirectToAction(nameof(All));
+			}
+
 			var model = await _auctionService.GetAuctionDetailsById(id, User.Id());
 
 			return View(model);
@@ -126,7 +132,7 @@
 		[HttpGet]
 		public async Task<IActionResult> AllPending()
 		{
-			var auctions = await _auctionService.GetAllUnapprovedAuctions();
+			var auctions = await _auctionService.GetAllPendingAuctions();
 
 			return View(auctions);
 		}
@@ -146,11 +152,14 @@
 			return View(model);
 		}
 
-		//[Authorize(Roles = AdminRoleName)]
-		//[HttpPost]
-		//public async Task<IActionResult> Approve(int id)
-		//{
+		[Authorize(Roles = AdminRoleName)]
+		[HttpPost]
+		public async Task<IActionResult> Approve(int id)
+		{
+			await _auctionService.ApproveAuction(id);
 
-		//}
+			TempData[SuccessMessage] = "Auction approved successfully.";
+			return RedirectToAction(nameof(AllPending));
+		}
 	}
 }

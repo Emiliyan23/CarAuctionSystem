@@ -17,8 +17,8 @@
 					.ForMember(dest => dest.SellerDetails, opt => opt.Ignore());
 
 				cfg.CreateMap<AuctionFormModel, Auction>()
-					.ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => DateTime.UtcNow))
-					.ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => DateTime.UtcNow.AddDays(src.AuctionDuration)))
+					.ForMember(dest => dest.StartDate, opt => opt.Ignore())
+					.ForMember(dest => dest.EndDate, opt => opt.Ignore())
 					.ForMember(dest => dest.SellerId, opt => opt.Ignore());
 
 				cfg.CreateMap<Bid, BidViewModel>()
