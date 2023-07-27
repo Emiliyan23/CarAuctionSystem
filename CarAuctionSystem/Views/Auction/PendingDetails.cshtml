@@ -1,0 +1,39 @@
+﻿@model PendingAuctionDetailsModel
+
+@{
+	ViewBag.Title = "Pending Auction Details";
+}
+
+<div class="container" style="display:inline">
+	<div class="row">
+		<div class="card col border-0">
+			<p style="font-size:25px;">
+				<span>@Model.ModelYear @Model.Make @Model.Model</span>
+			</p>
+			<hr/>
+			<p>Mileage: <b>@Model.Mileage km</b></p>
+			<p>VIN: <b>@Model.Vin</b></p>
+			<p>Engine Information: <b>@Model.EngineDetails</b></p>
+			<p>Drivetrain: <b>@Model.DrivetrainType</b></p>
+			<p>Transmisson: <b>@Model.TransmissionType</b></p>
+			<p>Fuel: <b>@Model.FuelType</b></p>
+			<p>Car Body Style: <b>@Model.CarBodyType</b></p>
+			<p>Interior color: <b>@Model.InteriorColor</b></p>
+			<p>Exterior color: <b>@Model.ExteriorColor</b></p>
+			<p></p>
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Seller Info</h5>
+					<p class="card-text">Username: <a asp-controller="User" asp-action="Profile" asp-route-id="@Model.SellerDetails.Id">@Model.SellerDetails.Username</a></p>
+					<p class="card-text">Email: @Model.SellerDetails.Email</p>
+					<p class="card-text">Phone Number: @Model.SellerDetails.PhoneNumber</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
+			<p></p>
+			<button class="btn btn-success">Approve</button>
+		</div>
+	</div>
+</div>

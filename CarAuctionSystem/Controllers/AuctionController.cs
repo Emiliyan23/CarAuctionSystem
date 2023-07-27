@@ -8,6 +8,7 @@
 	using Extensions;
 	using Models;
 
+	using static Core.Constants.GeneralConstants;
 	using static Core.Constants.NotificationConstants;
 
 	[Authorize]
@@ -112,12 +113,44 @@
 		{
 			if (await _auctionService.ExistsById(id) == false)
 			{
-				return BadRequest();
+				TempData[ErrorMessage] = "Auction doesnt exist.";
+				return RedirectToAction(nameof(All));
 			}
 
 			var model = await _auctionService.GetAuctionDetailsById(id, User.Id());
 
 			return View(model);
 		}
+
+		[Authorize(Roles = AdminRoleName)]
+		[HttpGet]
+		public async Task<IActionResult> AllPending()
+		{
+			var auctions = await _auctionService.GetAllUnapprovedAuctions();
+
+			return View(auctions);
+		}
+
+		[Authorize(Roles = AdminRoleName)]
+		[HttpGet]
+		public async Task<IActionResult> PendingDetails(int id)
+		{
+			if (await _auctionService.ExistsById(id) == false)
+			{
+				TempData[ErrorMessage] = "Auction doesnt exist.";
+				return RedirectToAction(nameof(AllPending));
+			}
+
+			var model = await _auctionService.GetPendingAuctionDetailsById(id);
+
+			return View(model);
+		}
+
+		//[Authorize(Roles = AdminRoleName)]
+		//[HttpPost]
+		//public async Task<IActionResult> Approve(int id)
+		//{
+
+		//}
 	}
 }

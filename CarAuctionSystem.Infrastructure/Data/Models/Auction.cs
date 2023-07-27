@@ -91,5 +91,11 @@
         public List<Bid> Bids { get; set; }
 
         public List<WatchedAuction> Watchlist { get; set; }
+
+        [Required]
+        public bool IsApproved { get; set; } = false;
+
+        [Required]
+        public int AuctionDuration { get; set; }
     }
 }

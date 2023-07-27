@@ -11,6 +11,10 @@
 			string? searchTerm = null,
 			AuctionSorting sorting = AuctionSorting.Newest);
 
+		Task<List<PendingAuctionModel>> GetAllUnapprovedAuctions();
+
+		Task<PendingAuctionDetailsModel> GetPendingAuctionDetailsById(int id);
+
 		Task Create(AuctionFormModel model, string userId);
 
 		Task<bool> ExistsById(int id);

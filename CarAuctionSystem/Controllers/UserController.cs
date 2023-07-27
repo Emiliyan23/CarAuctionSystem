@@ -1,9 +1,9 @@
 ﻿namespace CarAuctionSystem.Controllers
 {
-	using Core.Contracts;
-	using Extensions;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
+
+	using Core.Contracts;
 
 	[Authorize]
 	public class UserController : Controller
@@ -28,5 +28,6 @@
 
 			return View(user);
 		}
+
 	}
 }

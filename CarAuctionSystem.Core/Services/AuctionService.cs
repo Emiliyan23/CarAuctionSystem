@@ -29,7 +29,8 @@
 			AuctionSorting sorting = AuctionSorting.Newest)
 		{
 			var result = new AuctionQueryModel();
-			var auctions = _repo.AllReadonly<Auction>();
+			var auctions = _repo.AllReadonly<Auction>()
+				.Where(a => a.IsApproved == true);
 
 			if (string.IsNullOrEmpty(transmissionType) == false)
 			{
@@ -73,6 +74,63 @@
 			result.TotalAuctions = await auctions.CountAsync();
 
 			return result;
+		}
+
+		public async Task<List<PendingAuctionModel>> GetAllUnapprovedAuctions()
+		{
+			var auctions = await _repo.All<Auction>()
+				.Where(a => a.IsApproved == false)
+				.Select(a => new PendingAuctionModel
+				{
+					Id = a.Id,
+					Make = a.Make.Name,
+					Model = a.Model,
+					ModelYear = a.ModelYear
+				})
+				.ToListAsync();
+
+			return auctions;
+		}
+
+		public async Task<PendingAuctionDetailsModel> GetPendingAuctionDetailsById(int id)
+		{
+			var auction = await _repo.All<Auction>()
+				.Where(a => a.Id == id)
+				.Include(a => a.Make)
+				.Include(a => a.Seller)
+				.Include(a => a.Drivetrain)
+				.Include(a => a.Transmission)
+				.Include(a => a.Fuel)
+				.Include(a => a.CarBody)
+				.FirstOrDefaultAsync();
+
+			var model = new PendingAuctionDetailsModel
+			{
+				Id = auction!.Id,
+				ImageUrl = auction.ImageUrl,
+				Make = auction.Make.Name,
+				Model = auction.Model,
+				ModelYear = auction.ModelYear,
+				Vin = auction.Vin,
+				InteriorColor = auction.InteriorColor,
+				ExteriorColor = auction.ExteriorColor,
+				EngineDetails = auction.EngineDetails,
+				DrivetrainType = auction.Drivetrain.Type,
+				TransmissionType = auction.Transmission.Type,
+				FuelType = auction.Fuel.Type,
+				CarBodyType = auction.CarBody.Type,
+				Mileage = auction.Mileage,
+				AuctionDuration = 0,
+				SellerDetails = new SellerDetailsModel
+				{
+					Id = auction.SellerId.ToString(),
+					Username = auction.Seller.UserName,
+					Email = auction.Seller.Email,
+					PhoneNumber = auction.Seller.PhoneNumber
+				}
+			};
+
+			return model;
 		}
 
 
