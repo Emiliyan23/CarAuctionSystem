@@ -1,9 +1,10 @@
 ﻿namespace CarAuctionSystem.Services.Data
 {
+	using Microsoft.EntityFrameworkCore;
+
 	using CarAuctionSystem.Data.Models;
     using CarAuctionSystem.Data.Repositories;
     using Contracts;
-    using Microsoft.EntityFrameworkCore;
     using Web.ViewModels.Auction;
 
     public class CarService : ICarService

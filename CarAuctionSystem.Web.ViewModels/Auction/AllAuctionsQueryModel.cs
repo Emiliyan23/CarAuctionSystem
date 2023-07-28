@@ -1,7 +1,6 @@
-﻿namespace CarAuctionSystem.Models
+﻿namespace CarAuctionSystem.Web.ViewModels.Auction
 {
 	using System.ComponentModel.DataAnnotations;
-	using Web.ViewModels.Auction;
 
 	public class AllAuctionsQueryModel
 	{
@@ -13,6 +12,12 @@
 
 		[Display(Name = "Search auctions")]
 		public string? SearchTerm { get; set; }
+
+		[Display(Name = "Start Year")]
+		public int? StartYear { get; set; }
+
+		[Display(Name = "End Year")]
+		public int? EndYear { get; set; }
 
 		public AuctionSorting Sorting { get; set; }
 

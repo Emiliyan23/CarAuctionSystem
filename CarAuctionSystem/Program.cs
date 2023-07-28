@@ -1,8 +1,8 @@
-using CarAuctionSystem.Data;
-using CarAuctionSystem.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using CarAuctionSystem.Data;
+using CarAuctionSystem.Data.Models;
 using CarAuctionSystem.Web.Infrastructure.Extensions;
 using CarAuctionSystem.Web.Infrastructure.ModelBinders;
 

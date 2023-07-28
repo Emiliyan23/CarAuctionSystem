@@ -35,7 +35,9 @@
 		[HttpGet]
 		public async Task<IActionResult> All([FromQuery]AllAuctionsQueryModel query)
 		{
-			var result = await _auctionService.GetAllAuctions(query.TransmissionType,
+			var result = await _auctionService.GetAllAuctions(query.StartYear,
+				query.EndYear,
+				query.TransmissionType,
 				query.CarBodyType,
 				query.SearchTerm,
 				query.Sorting);

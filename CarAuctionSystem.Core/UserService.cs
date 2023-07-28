@@ -1,11 +1,12 @@
 ﻿namespace CarAuctionSystem.Services.Data
 {
     using AutoMapper;
+    using Microsoft.EntityFrameworkCore;
+
     using CarAuctionSystem.Data.Models;
     using CarAuctionSystem.Data.Repositories;
     using Contracts;
     using Common;
-    using Microsoft.EntityFrameworkCore;
     using Web.ViewModels.Auction;
     using Web.ViewModels.User;
 

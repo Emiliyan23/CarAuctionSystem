@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using Microsoft.EntityFrameworkCore;
+
     using CarAuctionSystem.Data.Models;
     using CarAuctionSystem.Data.Repositories;
     using Common;
@@ -22,7 +23,9 @@
             _mapper = MapperConfig.InitializeMapper();
         }
 
-        public async Task<AuctionQueryModel> GetAllAuctions(string? transmissionType = null,
+        public async Task<AuctionQueryModel> GetAllAuctions(int? startYear = null,
+	        int? endYear = null,
+	        string? transmissionType = null,
             string? carBodyType = null,
             string? searchTerm = null,
             AuctionSorting sorting = AuctionSorting.Newest)
@@ -30,6 +33,16 @@
             var result = new AuctionQueryModel();
             var auctions = _repo.AllReadonly<Auction>()
                 .Where(a => a.IsApproved == true);
+
+            if (startYear != null)
+            {
+	            auctions = auctions.Where(a => a.ModelYear  >= startYear.Value);
+            }
+
+            if (endYear != null)
+            {
+	            auctions = auctions.Where(a => a.ModelYear <= endYear.Value);
+            }
 
             if (string.IsNullOrEmpty(transmissionType) == false)
             {

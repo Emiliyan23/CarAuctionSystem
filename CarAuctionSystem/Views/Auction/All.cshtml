@@ -1,4 +1,4 @@
-﻿@model CarAuctionSystem.Models.AllAuctionsQueryModel
+﻿@model AllAuctionsQueryModel
 @{
 	ViewBag.Title = "All Auctions";
 }
@@ -7,6 +7,16 @@
 
 <form method="get">
 	<div class="row">
+		<div class="form-group col-md-3">
+			<div class="form-group">
+				<label asp-for="StartYear"></label>
+				<input asp-for="StartYear" class="form-control" placeholder="..."></input>
+			</div>
+			<div class="form-group">
+				<label asp-for="EndYear"></label>
+				<input asp-for="EndYear" class="form-control" placeholder="..."></input>
+			</div>
+		</div>
 		<div class="form-group col-md-3 d-flex justify-content-between">
 			<div class="form-group">
 				<label asp-for="TransmissionType"></label>
@@ -30,7 +40,8 @@
 			</div>
 		</div>
 		<div class="form-group col-md-3">
-			<label asp-for="SearchTerm"></label> <input asp-for="SearchTerm" class="form-control" placeholder="...">
+			<label asp-for="SearchTerm"></label>
+			<input asp-for="SearchTerm" class="form-control" placeholder="...">
 		</div>
 		<div class="form-group col-md-3">
 			<div class="form-group">
@@ -44,7 +55,7 @@
 		</div>
 		<div class="col-md-3">
 			<div class="form-group mt-4 p-2">
-				<input type="submit" value="Search" class="btn btn-primary" />
+				<input type="submit" value="Search" class="btn btn-primary"/>
 			</div>
 		</div>
 	</div>
