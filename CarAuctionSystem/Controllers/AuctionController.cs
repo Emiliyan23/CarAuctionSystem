@@ -1,171 +1,137 @@
-﻿﻿namespace CarAuctionSystem.Web.Controllers
+﻿namespace CarAuctionSystem.Web.Controllers
 {
-	using CarAuctionSystem.Services.Data.Contracts;
-	using CarAuctionSystem.Web.Infrastructure.Extensions;
-	using CarAuctionSystem.Web.ViewModels.Auction;
-	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Mvc;
-	using static Common.GeneralConstants;
-	using static Common.NotificationConstants;
+    using CarAuctionSystem.Services.Data.Contracts;
+    using Infrastructure.Extensions;
+    using ViewModels.Auction;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
-	[Authorize]
-	public class AuctionController : Controller
-	{
-		private readonly IAuctionService _auctionService;
-		private readonly IUserService _userService;
-		private readonly ICarService _carService;
-		private readonly IValidationService _validationService;
+    using static Common.NotificationConstants;
 
-		public AuctionController(
-			IAuctionService auctionService,
-			IUserService userService, 
-			ICarService carService, 
-			IValidationService validationService)
-		{
-			_auctionService = auctionService;
-			_userService = userService;
-			_carService = carService;
-			_validationService = validationService;
-		}
+    [Authorize]
+    public class AuctionController : Controller
+    {
+        private readonly IAuctionService _auctionService;
+        private readonly IUserService _userService;
+        private readonly ICarService _carService;
+        private readonly IValidationService _validationService;
 
-		[AllowAnonymous]
-		[HttpGet]
-		public async Task<IActionResult> All([FromQuery]AllAuctionsQueryModel query)
-		{
-			if (query.StartYear < 1980 || query.EndYear < 1980)
-			{
-				TempData[ErrorMessage] = "Invalid search.";
-				return RedirectToAction(nameof(All));
-			}
+        public AuctionController(
+            IAuctionService auctionService,
+            IUserService userService,
+            ICarService carService,
+            IValidationService validationService)
+        {
+            _auctionService = auctionService;
+            _userService = userService;
+            _carService = carService;
+            _validationService = validationService;
+        }
 
-			if (query.StartYear > query.EndYear)
-			{
-				query.EndYear = null;
-				return RedirectToAction(nameof(All), query);
-			}
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery] AllAuctionsQueryModel query)
+        {
+            if (query.StartYear < 1980 || query.EndYear < 1980)
+            {
+                TempData[ErrorMessage] = "Invalid search.";
+                return RedirectToAction(nameof(All));
+            }
 
-			var result = await _auctionService.GetAllAuctions(query);
+            if (query.StartYear > query.EndYear)
+            {
+                query.EndYear = null;
+                return RedirectToAction(nameof(All), query);
+            }
 
-			query.TotalAuctionsCount = result.TotalAuctions;
-			query.TransmissionTypes = await _carService.GetAllTransmissionTypes();
-			query.CarBodyTypes = await _carService.GetAllCarBodyTypes();
-			query.Auctions = result.Auctions;
+            var result = await _auctionService.GetAllAuctions(query);
 
-			return View(query);
-		}
+            query.TotalAuctionsCount = result.TotalAuctions;
+            query.TransmissionTypes = await _carService.GetAllTransmissionTypes();
+            query.CarBodyTypes = await _carService.GetAllCarBodyTypes();
+            query.Auctions = result.Auctions;
 
-		[HttpGet]
-		public async Task<IActionResult> Add()
-		{
-			var model = new AuctionFormModel
-			{
-				Makes = await _carService.GetAllMakes(),
-				Drivetrains = await _carService.GetAllDrivetrains(),
-				Transmissions = await _carService.GetAllTransmissions(),
-				Fuels = await _carService.GetAllFuels(),
-				CarBodies = await _carService.GetAllCarBodies()
-			};
+            return View(query);
+        }
 
-			return View(model);
-		}
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            var model = new AuctionFormModel
+            {
+                Makes = await _carService.GetAllMakes(),
+                Drivetrains = await _carService.GetAllDrivetrains(),
+                Transmissions = await _carService.GetAllTransmissions(),
+                Fuels = await _carService.GetAllFuels(),
+                CarBodies = await _carService.GetAllCarBodies()
+            };
 
-		[HttpPost]
-		public async Task<IActionResult> Add(AuctionFormModel addModel)
-		{
-			if (await _validationService.MakeExists(addModel.MakeId) == false)
-			{
-				ModelState.AddModelError(nameof(addModel.MakeId), "Make does not exist");
-			}
+            return View(model);
+        }
 
-			if (await _validationService.DrivetrainExists(addModel.DrivetrainId) == false)
-			{
-				ModelState.AddModelError(nameof(addModel.DrivetrainId), "Drivetrain type does not exist");
-			}
+        [HttpPost]
+        public async Task<IActionResult> Add(AuctionFormModel addModel)
+        {
+            if (await _validationService.MakeExists(addModel.MakeId) == false)
+            {
+                ModelState.AddModelError(nameof(addModel.MakeId), "Make does not exist");
+            }
 
-			if (await _validationService.FuelExists(addModel.FuelId) == false)
-			{
-				ModelState.AddModelError(nameof(addModel.FuelId), "Fuel type does not exist");
-			}
+            if (await _validationService.DrivetrainExists(addModel.DrivetrainId) == false)
+            {
+                ModelState.AddModelError(nameof(addModel.DrivetrainId), "Drivetrain type does not exist");
+            }
 
-			if (await _validationService.TransmissonExists(addModel.TransmissionId) == false)
-			{
-				ModelState.AddModelError(nameof(addModel.TransmissionId), "Transmission type does not exist");
-			}
+            if (await _validationService.FuelExists(addModel.FuelId) == false)
+            {
+                ModelState.AddModelError(nameof(addModel.FuelId), "Fuel type does not exist");
+            }
 
-			if (await _validationService.CarBodyExists(addModel.CarBodyId) == false)
-			{
-				ModelState.AddModelError(nameof(addModel.CarBodyId), "Car body type does not exist");
-			}
+            if (await _validationService.TransmissonExists(addModel.TransmissionId) == false)
+            {
+                ModelState.AddModelError(nameof(addModel.TransmissionId), "Transmission type does not exist");
+            }
 
-			if (!ModelState.IsValid)
-			{
-				addModel.Makes = await _carService.GetAllMakes();
-				addModel.Drivetrains = await _carService.GetAllDrivetrains();
-				addModel.Fuels = await _carService.GetAllFuels();
-				addModel.Transmissions = await _carService.GetAllTransmissions();
-				addModel.CarBodies = await _carService.GetAllCarBodies();
+            if (await _validationService.CarBodyExists(addModel.CarBodyId) == false)
+            {
+                ModelState.AddModelError(nameof(addModel.CarBodyId), "Car body type does not exist");
+            }
 
-				return View(addModel);
-			}
+            if (!ModelState.IsValid)
+            {
+                addModel.Makes = await _carService.GetAllMakes();
+                addModel.Drivetrains = await _carService.GetAllDrivetrains();
+                addModel.Fuels = await _carService.GetAllFuels();
+                addModel.Transmissions = await _carService.GetAllTransmissions();
+                addModel.CarBodies = await _carService.GetAllCarBodies();
 
-			await _auctionService.Create(addModel, User.Id());
+                return View(addModel);
+            }
 
-			TempData[SuccessMessage] = "Auction created successfully.";
-			return RedirectToAction(nameof(All));
-		}
+            await _auctionService.Create(addModel, User.Id());
 
-		[HttpGet]
-		public async Task<IActionResult> Details(int id)
-		{
-			if (await _auctionService.ExistsById(id) == false)
-			{
-				TempData[ErrorMessage] = "Auction doesnt exist.";
-				return RedirectToAction(nameof(All));
-			}
+            TempData[SuccessMessage] = "Auction created successfully.";
+            return RedirectToAction(nameof(All));
+        }
 
-			if (await _auctionService.AuctionIsApproved(id) == false)
-			{
-				TempData[ErrorMessage] = "Auction doesnt exist.";
-				return RedirectToAction(nameof(All));
-			}
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (await _auctionService.ExistsById(id) == false)
+            {
+                TempData[ErrorMessage] = "Auction doesnt exist.";
+                return RedirectToAction(nameof(All));
+            }
 
-			var model = await _auctionService.GetAuctionDetailsById(id, User.Id());
+            if (await _auctionService.AuctionIsApproved(id) == false)
+            {
+                TempData[ErrorMessage] = "Auction doesnt exist.";
+                return RedirectToAction(nameof(All));
+            }
 
-			return View(model);
-		}
+            var model = await _auctionService.GetAuctionDetailsById(id, User.Id());
 
-		[Authorize(Roles = AdminRoleName)]
-		[HttpGet]
-		public async Task<IActionResult> AllPending()
-		{
-			var auctions = await _auctionService.GetAllPendingAuctions();
-
-			return View(auctions);
-		}
-
-		[Authorize(Roles = AdminRoleName)]
-		[HttpGet]
-		public async Task<IActionResult> PendingDetails(int id)
-		{
-			if (await _auctionService.ExistsById(id) == false)
-			{
-				TempData[ErrorMessage] = "Auction doesnt exist.";
-				return RedirectToAction(nameof(AllPending));
-			}
-
-			var model = await _auctionService.GetPendingAuctionDetailsById(id);
-
-			return View(model);
-		}
-
-		[Authorize(Roles = AdminRoleName)]
-		[HttpPost]
-		public async Task<IActionResult> Approve(int id)
-		{
-			await _auctionService.ApproveAuction(id);
-
-			TempData[SuccessMessage] = "Auction approved successfully.";
-			return RedirectToAction(nameof(AllPending));
-		}
-	}
+            return View(model);
+        }
+    }
 }

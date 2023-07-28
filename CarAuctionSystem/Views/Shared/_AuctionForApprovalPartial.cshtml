@@ -1,4 +1,4 @@
 ﻿@model PendingAuctionModel
 
 <h4 class="d-inline">@Model.ModelYear @Model.Make @Model.Model</h4>
-<a asp-controller="Auction" asp-action="PendingDetails" asp-route-id="@Model.Id" class="d-inline btn btn-success">Details</a>
+<a asp-controller="Admin" asp-action="PendingAuctionDetails" asp-route-id="@Model.Id" class="d-inline btn btn-success">Details</a>
