@@ -20,11 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CarAuctionSystem.Core\CarAuctionSystem.Core.csproj" />
+    <ProjectReference Include="..\CarAuctionSystem.Common\CarAuctionSystem.Common.csproj" />
+    <ProjectReference Include="..\CarAuctionSystem.Core\CarAuctionSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\CarAuctionSystem.Services.Models\CarAuctionSystem.Services.Models.csproj" />
+    <ProjectReference Include="..\CarAuctionSystem.Web.Infrastructure\CarAuctionSystem.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\CarAuctionSystem.Web.ViewModels\CarAuctionSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

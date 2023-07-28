@@ -2,10 +2,8 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using Core.Contracts;
-	using Extensions;
-
-	using static Core.Constants.NotificationConstants;
+	using Services.Data.Contracts;
+	using Web.Infrastructure.Extensions;
 
 	public class WatchlistController : Controller
 	{

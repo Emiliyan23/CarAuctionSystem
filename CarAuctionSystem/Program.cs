@@ -1,11 +1,12 @@
+using CarAuctionSystem.Data;
+using CarAuctionSystem.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-using CarAuctionSystem.Extensions;
-using CarAuctionSystem.Infrastructure.Data;
-using CarAuctionSystem.ModelBinders;
+using CarAuctionSystem.Web.Infrastructure.Extensions;
+using CarAuctionSystem.Web.Infrastructure.ModelBinders;
 
-using static CarAuctionSystem.Core.Constants.GeneralConstants;
+using static CarAuctionSystem.Common.GeneralConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 

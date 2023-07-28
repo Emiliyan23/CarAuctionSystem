@@ -21,8 +21,8 @@ using Microsoft.Extensions.Logging;
 
 namespace CarAuctionSystem.Areas.Identity.Pages.Account
 {
-	using Infrastructure.Data;
-	using Infrastructure.Data.Constants;
+	using CarAuctionSystem.Data.Models;
+	using CarAuctionSystem.Common;
 
 	public class RegisterModel : PageModel
     {
@@ -75,7 +75,7 @@ namespace CarAuctionSystem.Areas.Identity.Pages.Account
         {
             [Required]
             [Display(Name = "Username")]
-            [StringLength(ValidationConstants.UsernameMaxLength, MinimumLength = ValidationConstants.UsernameMinLength)]
+            [StringLength(EntityConstants.UsernameMaxLength, MinimumLength = EntityConstants.UsernameMinLength)]
             public string Username { get; set; }
 
             /// <summary>

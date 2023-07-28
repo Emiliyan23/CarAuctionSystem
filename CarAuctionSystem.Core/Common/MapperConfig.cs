@@ -1,10 +1,9 @@
-﻿namespace CarAuctionSystem.Core.Common
+﻿namespace CarAuctionSystem.Services.Data.Common
 {
 	using AutoMapper;
-
-	using Infrastructure.Data.Models;
-	using Models.Auction;
-	using Models.Bid;
+	using CarAuctionSystem.Data.Models;
+	using Web.ViewModels.Auction;
+	using Web.ViewModels.Bid;
 
 	public class MapperConfig 
 	{

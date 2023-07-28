@@ -1,9 +1,8 @@
+using CarAuctionSystem.Data;
+using CarAuctionSystem.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-
-using CarAuctionSystem.Core.Contracts;
-using CarAuctionSystem.Core.Services;
-using CarAuctionSystem.Infrastructure.Data;
-using CarAuctionSystem.Infrastructure.Data.Common;
+using CarAuctionSystem.Services.Data.Contracts;
+using CarAuctionSystem.Services.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

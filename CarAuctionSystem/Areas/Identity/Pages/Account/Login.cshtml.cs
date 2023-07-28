@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CarAuctionSystem.Areas.Identity.Pages.Account
 {
-	using Infrastructure.Data;
+	using CarAuctionSystem.Data.Models;
 
 	public class LoginModel : PageModel
     {

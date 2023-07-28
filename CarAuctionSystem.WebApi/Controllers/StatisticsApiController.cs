@@ -1,9 +1,8 @@
 ﻿namespace CarAuctionSystem.WebApi.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
-
-	using Core.Contracts;
-	using Core.Models.Statistics;
+	using Services.Data.Contracts;
+	using Services.Models.Statistics;
 
 	[Route("api/statistics")]
 	[ApiController]

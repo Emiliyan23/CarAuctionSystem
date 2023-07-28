@@ -1,7 +1,7 @@
 ﻿namespace CarAuctionSystem.Models
 {
 	using System.ComponentModel.DataAnnotations;
-	using Core.Models.Auction;
+	using Web.ViewModels.Auction;
 
 	public class AllAuctionsQueryModel
 	{

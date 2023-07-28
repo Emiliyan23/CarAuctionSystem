@@ -2,11 +2,11 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using Core.Contracts;
-	using Core.Models.Bid;
-	using Extensions;
+	using Services.Data.Contracts;
+	using Web.Infrastructure.Extensions;
+	using Web.ViewModels.Bid;
 
-	using static Core.Constants.NotificationConstants;
+	using static Common.NotificationConstants;
 
 	public class BidController : Controller
 	{

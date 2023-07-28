@@ -4,7 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
-using CarAuctionSystem.Infrastructure.Data;
+using CarAuctionSystem.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

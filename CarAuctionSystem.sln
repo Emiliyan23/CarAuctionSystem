@@ -5,11 +5,27 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem", "CarAuctionSystem\CarAuctionSystem.csproj", "{DACF0AD2-227B-41B5-9276-F0A5A09203A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Infrastructure", "CarAuctionSystem.Infrastructure\CarAuctionSystem.Infrastructure.csproj", "{23612164-D740-4E2D-90A4-29C070FD8FA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Services.Data", "CarAuctionSystem.Core\CarAuctionSystem.Services.Data.csproj", "{1AA838EA-A152-4755-B348-54C9F1AD692C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Core", "CarAuctionSystem.Core\CarAuctionSystem.Core.csproj", "{1AA838EA-A152-4755-B348-54C9F1AD692C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.WebApi", "CarAuctionSystem.WebApi\CarAuctionSystem.WebApi.csproj", "{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAuctionSystem.WebApi", "CarAuctionSystem.WebApi\CarAuctionSystem.WebApi.csproj", "{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Common", "CarAuctionSystem.Common\CarAuctionSystem.Common.csproj", "{FA036FD6-106E-4E09-8E67-A5F4F3628DF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F8D96C2E-D954-4752-ABCD-934DA0799609}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Data.Models", "CarAuctionSystem.Data.Models\CarAuctionSystem.Data.Models.csproj", "{2FCBD3DD-6720-4F7E-AFC3-42DB5E899477}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Data", "CarAuctionSystem.Data\CarAuctionSystem.Data.csproj", "{213A951A-3615-434A-8524-4BF1FEB95518}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{DF594DE8-C1D8-4980-896C-5A06982060A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9C6F0F98-6BEE-45F9-A17E-E964EEBFF080}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Web.ViewModels", "CarAuctionSystem.Web.ViewModels\CarAuctionSystem.Web.ViewModels.csproj", "{2081348A-2BAD-4FB7-9EAA-107E0BAFE7B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Services.Models", "CarAuctionSystem.Services.Models\CarAuctionSystem.Services.Models.csproj", "{F36A0D4A-5B51-4A89-ABB6-9774DD03E652}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Web.Infrastructure", "CarAuctionSystem.Web.Infrastructure\CarAuctionSystem.Web.Infrastructure.csproj", "{59C5A2BF-C43C-417C-857A-4FA5C61740D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +37,6 @@ Global
 		{DACF0AD2-227B-41B5-9276-F0A5A09203A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DACF0AD2-227B-41B5-9276-F0A5A09203A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DACF0AD2-227B-41B5-9276-F0A5A09203A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23612164-D740-4E2D-90A4-29C070FD8FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23612164-D740-4E2D-90A4-29C070FD8FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23612164-D740-4E2D-90A4-29C070FD8FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23612164-D740-4E2D-90A4-29C070FD8FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1AA838EA-A152-4755-B348-54C9F1AD692C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1AA838EA-A152-4755-B348-54C9F1AD692C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA838EA-A152-4755-B348-54C9F1AD692C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,9 +45,42 @@ Global
 		{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{041BDED6-5698-48E5-9B79-9E3C32BCE7D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA036FD6-106E-4E09-8E67-A5F4F3628DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA036FD6-106E-4E09-8E67-A5F4F3628DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA036FD6-106E-4E09-8E67-A5F4F3628DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA036FD6-106E-4E09-8E67-A5F4F3628DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FCBD3DD-6720-4F7E-AFC3-42DB5E899477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FCBD3DD-6720-4F7E-AFC3-42DB5E899477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FCBD3DD-6720-4F7E-AFC3-42DB5E899477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FCBD3DD-6720-4F7E-AFC3-42DB5E899477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{213A951A-3615-434A-8524-4BF1FEB95518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{213A951A-3615-434A-8524-4BF1FEB95518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{213A951A-3615-434A-8524-4BF1FEB95518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{213A951A-3615-434A-8524-4BF1FEB95518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2081348A-2BAD-4FB7-9EAA-107E0BAFE7B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2081348A-2BAD-4FB7-9EAA-107E0BAFE7B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2081348A-2BAD-4FB7-9EAA-107E0BAFE7B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2081348A-2BAD-4FB7-9EAA-107E0BAFE7B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F36A0D4A-5B51-4A89-ABB6-9774DD03E652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F36A0D4A-5B51-4A89-ABB6-9774DD03E652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F36A0D4A-5B51-4A89-ABB6-9774DD03E652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F36A0D4A-5B51-4A89-ABB6-9774DD03E652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C5A2BF-C43C-417C-857A-4FA5C61740D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C5A2BF-C43C-417C-857A-4FA5C61740D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C5A2BF-C43C-417C-857A-4FA5C61740D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C5A2BF-C43C-417C-857A-4FA5C61740D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DACF0AD2-227B-41B5-9276-F0A5A09203A7} = {9C6F0F98-6BEE-45F9-A17E-E964EEBFF080}
+		{1AA838EA-A152-4755-B348-54C9F1AD692C} = {DF594DE8-C1D8-4980-896C-5A06982060A6}
+		{2FCBD3DD-6720-4F7E-AFC3-42DB5E899477} = {F8D96C2E-D954-4752-ABCD-934DA0799609}
+		{213A951A-3615-434A-8524-4BF1FEB95518} = {F8D96C2E-D954-4752-ABCD-934DA0799609}
+		{2081348A-2BAD-4FB7-9EAA-107E0BAFE7B3} = {9C6F0F98-6BEE-45F9-A17E-E964EEBFF080}
+		{F36A0D4A-5B51-4A89-ABB6-9774DD03E652} = {DF594DE8-C1D8-4980-896C-5A06982060A6}
+		{59C5A2BF-C43C-417C-857A-4FA5C61740D1} = {9C6F0F98-6BEE-45F9-A17E-E964EEBFF080}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EBC73CED-01FC-4CAC-B1F9-80F713253E47}

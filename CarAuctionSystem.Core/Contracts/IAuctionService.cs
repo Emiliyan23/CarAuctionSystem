@@ -1,8 +1,8 @@
-﻿namespace CarAuctionSystem.Core.Contracts
+﻿namespace CarAuctionSystem.Services.Data.Contracts
 {
-	using Models.Auction;
-	using Models.Bid;
 	using Models.Statistics;
+	using Web.ViewModels.Auction;
+	using Web.ViewModels.Bid;
 
 	public interface IAuctionService
 	{

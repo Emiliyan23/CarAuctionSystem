@@ -1,7 +1,7 @@
-﻿namespace CarAuctionSystem.Core.Contracts
+﻿namespace CarAuctionSystem.Services.Data.Contracts
 {
-	using Models.Auction;
-	using Models.User;
+	using Web.ViewModels.Auction;
+	using Web.ViewModels.User;
 
 	public interface IUserService
 	{

@@ -1,7 +1,7 @@
-﻿using CarAuctionSystem.Core.Models.Auction;
-
-namespace CarAuctionSystem.Core.Contracts
+﻿namespace CarAuctionSystem.Services.Data.Contracts
 {
+	using Web.ViewModels.Auction;
+
 	public interface ICarService
 	{
 		Task<IEnumerable<AuctionMakeModel>> GetAllMakes();

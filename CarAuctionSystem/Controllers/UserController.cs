@@ -3,8 +3,8 @@
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 
-	using Core.Contracts;
-	using Extensions;
+	using Services.Data.Contracts;
+	using Web.Infrastructure.Extensions;
 
 	[Authorize]
 	public class UserController : Controller

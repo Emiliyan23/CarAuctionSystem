@@ -1,4 +1,4 @@
-﻿namespace CarAuctionSystem.Core.Contracts
+﻿namespace CarAuctionSystem.Services.Data.Contracts
 {
 	public interface IValidationService
 	{

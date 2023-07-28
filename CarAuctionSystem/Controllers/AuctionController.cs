@@ -3,13 +3,13 @@
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
 
-	using Core.Contracts;
-	using Core.Models.Auction;
-	using Extensions;
 	using Models;
+	using Services.Data.Contracts;
+	using Web.Infrastructure.Extensions;
+	using Web.ViewModels.Auction;
 
-	using static Core.Constants.GeneralConstants;
-	using static Core.Constants.NotificationConstants;
+	using static Common.GeneralConstants;
+	using static Common.NotificationConstants;
 
 	[Authorize]
 	public class AuctionController : Controller

@@ -2,8 +2,6 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using Infrastructure.Data.Models;
-
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
@@ -15,7 +13,7 @@
 
 		public IActionResult Index()
 		{ 
-			return RedirectToAction(nameof(AuctionController.All), nameof(Auction));
+			return RedirectToAction("All", "Auction");
 		}
 
 		public IActionResult Privacy()
