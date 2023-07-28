@@ -1,11 +1,9 @@
-﻿namespace CarAuctionSystem.Controllers
+﻿namespace CarAuctionSystem.Web.Controllers
 {
+	using CarAuctionSystem.Services.Data.Contracts;
+	using CarAuctionSystem.Web.Infrastructure.Extensions;
+	using CarAuctionSystem.Web.ViewModels.Bid;
 	using Microsoft.AspNetCore.Mvc;
-
-	using Services.Data.Contracts;
-	using Web.Infrastructure.Extensions;
-	using Web.ViewModels.Bid;
-
 	using static Common.NotificationConstants;
 
 	public class BidController : Controller

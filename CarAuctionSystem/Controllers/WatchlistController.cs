@@ -1,9 +1,8 @@
-﻿namespace CarAuctionSystem.Controllers
+﻿namespace CarAuctionSystem.Web.Controllers
 {
+	using CarAuctionSystem.Services.Data.Contracts;
+	using CarAuctionSystem.Web.Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Mvc;
-
-	using Services.Data.Contracts;
-	using Web.Infrastructure.Extensions;
 
 	public class WatchlistController : Controller
 	{

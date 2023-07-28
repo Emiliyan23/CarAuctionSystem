@@ -1,13 +1,10 @@
-﻿﻿namespace CarAuctionSystem.Controllers
+﻿﻿namespace CarAuctionSystem.Web.Controllers
 {
+	using CarAuctionSystem.Services.Data.Contracts;
+	using CarAuctionSystem.Web.Infrastructure.Extensions;
+	using CarAuctionSystem.Web.ViewModels.Auction;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.EntityFrameworkCore.Diagnostics;
-	using Models;
-	using Services.Data.Contracts;
-	using Web.Infrastructure.Extensions;
-	using Web.ViewModels.Auction;
-
 	using static Common.GeneralConstants;
 	using static Common.NotificationConstants;
 

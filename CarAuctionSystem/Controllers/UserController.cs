@@ -1,10 +1,9 @@
-﻿namespace CarAuctionSystem.Controllers
+﻿namespace CarAuctionSystem.Web.Controllers
 {
+	using CarAuctionSystem.Services.Data.Contracts;
+	using CarAuctionSystem.Web.Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
-
-	using Services.Data.Contracts;
-	using Web.Infrastructure.Extensions;
 
 	[Authorize]
 	public class UserController : Controller

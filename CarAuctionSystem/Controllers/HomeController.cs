@@ -1,4 +1,4 @@
-﻿namespace CarAuctionSystem.Controllers
+﻿namespace CarAuctionSystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
 
