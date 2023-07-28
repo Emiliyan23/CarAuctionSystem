@@ -23,47 +23,42 @@
             _mapper = MapperConfig.InitializeMapper();
         }
 
-        public async Task<AuctionQueryModel> GetAllAuctions(int? startYear = null,
-	        int? endYear = null,
-	        string? transmissionType = null,
-            string? carBodyType = null,
-            string? searchTerm = null,
-            AuctionSorting sorting = AuctionSorting.Newest)
+        public async Task<AuctionQueryModel> GetAllAuctions(AllAuctionsQueryModel queryModel)
         {
             var result = new AuctionQueryModel();
             var auctions = _repo.AllReadonly<Auction>()
                 .Where(a => a.IsApproved == true);
 
-            if (startYear != null)
+            if (queryModel.StartYear != null)
             {
-	            auctions = auctions.Where(a => a.ModelYear  >= startYear.Value);
+	            auctions = auctions.Where(a => a.ModelYear  >= queryModel.StartYear.Value);
             }
 
-            if (endYear != null)
+            if (queryModel.EndYear != null)
             {
-	            auctions = auctions.Where(a => a.ModelYear <= endYear.Value);
+	            auctions = auctions.Where(a => a.ModelYear <= queryModel.EndYear.Value);
             }
 
-            if (string.IsNullOrEmpty(transmissionType) == false)
+            if (string.IsNullOrEmpty(queryModel.TransmissionType) == false)
             {
-                auctions = auctions.Where(a => a.Transmission.Type == transmissionType);
+                auctions = auctions.Where(a => a.Transmission.Type == queryModel.TransmissionType);
             }
 
-            if (string.IsNullOrEmpty(carBodyType) == false)
+            if (string.IsNullOrEmpty(queryModel.CarBodyType) == false)
             {
-                auctions = auctions.Where(a => a.CarBody.Type == carBodyType);
+                auctions = auctions.Where(a => a.CarBody.Type == queryModel.CarBodyType);
             }
 
-            if (string.IsNullOrEmpty(searchTerm) == false)
+            if (string.IsNullOrEmpty(queryModel.SearchTerm) == false)
             {
-                searchTerm = $"%{searchTerm.ToLower()}%";
-                auctions = auctions.Where(a => EF.Functions.Like(a.Make.Name.ToLower(), searchTerm) ||
-                                               EF.Functions.Like(a.Model.ToLower(), searchTerm) ||
-                                               EF.Functions.Like(a.EngineDetails.ToLower(), searchTerm) ||
-                                               EF.Functions.Like(a.Vin.ToLower(), searchTerm));
+                string wildcard = $"%{queryModel.SearchTerm.ToLower()}%";
+                auctions = auctions.Where(a => EF.Functions.Like(a.Make.Name.ToLower(), wildcard) ||
+                                               EF.Functions.Like(a.Model.ToLower(), wildcard) ||
+                                               EF.Functions.Like(a.EngineDetails.ToLower(), wildcard) ||
+                                               EF.Functions.Like(a.Vin.ToLower(), wildcard));
             }
 
-            auctions = sorting switch
+            auctions = queryModel.Sorting switch
             {
                 AuctionSorting.Oldest => auctions.OrderBy(a => a.StartDate),
                 AuctionSorting.LowestMileage => auctions.OrderBy(a => a.Mileage),

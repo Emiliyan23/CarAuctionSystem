@@ -2,7 +2,7 @@
 {
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
-
+	using Microsoft.EntityFrameworkCore.Diagnostics;
 	using Models;
 	using Services.Data.Contracts;
 	using Web.Infrastructure.Extensions;
@@ -35,12 +35,19 @@
 		[HttpGet]
 		public async Task<IActionResult> All([FromQuery]AllAuctionsQueryModel query)
 		{
-			var result = await _auctionService.GetAllAuctions(query.StartYear,
-				query.EndYear,
-				query.TransmissionType,
-				query.CarBodyType,
-				query.SearchTerm,
-				query.Sorting);
+			if (query.StartYear < 1980 || query.EndYear < 1980)
+			{
+				TempData[ErrorMessage] = "Invalid search.";
+				return RedirectToAction(nameof(All));
+			}
+
+			if (query.StartYear > query.EndYear)
+			{
+				query.EndYear = null;
+				return RedirectToAction(nameof(All), query);
+			}
+
+			var result = await _auctionService.GetAllAuctions(query);
 
 			query.TotalAuctionsCount = result.TotalAuctions;
 			query.TransmissionTypes = await _carService.GetAllTransmissionTypes();
