@@ -21,8 +21,6 @@
 
 		public AuctionSorting Sorting { get; set; }
 
-		public int CurrentPage { get; set; } = 1;
-
 		public int TotalAuctionsCount { get; set; }
 
 		public IEnumerable<string> TransmissionTypes { get; set; } = Enumerable.Empty<string>();

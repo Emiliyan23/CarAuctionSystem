@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem", "CarAuctionSystem\CarAuctionSystem.csproj", "{DACF0AD2-227B-41B5-9276-F0A5A09203A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Web", "CarAuctionSystem\CarAuctionSystem.Web.csproj", "{DACF0AD2-227B-41B5-9276-F0A5A09203A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAuctionSystem.Services.Data", "CarAuctionSystem.Core\CarAuctionSystem.Services.Data.csproj", "{1AA838EA-A152-4755-B348-54C9F1AD692C}"
 EndProject
