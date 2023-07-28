@@ -38,6 +38,12 @@
 				return RedirectToAction("All", "Auction");
 			}
 
+			if (await _auctionService.AuctionIsApproved(id) == false)
+			{
+				TempData[ErrorMessage] = "Auction doesn't exist.";
+				return RedirectToAction("All", "Auction");
+			}
+
 			if (!await _validationService.AuctionIsActive(id))
 			{
 				TempData[ErrorMessage] = "This auction is closed.";
@@ -63,7 +69,7 @@
 		{
 			if (!await _validationService.BidAmountIsValid(model.AuctionId, model.BidAmount))
 			{
-				ModelState.AddModelError(nameof(model.BidAmount), "Bid amount is lower than latest bid.");
+				ModelState.AddModelError(nameof(model.BidAmount), "Bid amount is lower than last bid.");
 			}
 
 			if (!ModelState.IsValid)

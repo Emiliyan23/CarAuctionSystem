@@ -30,7 +30,7 @@
 		public async Task<UserProfileModel> GetUserProfile(string userId)
 		{
 			var user = await _repo.AllReadonly<ApplicationUser>()
-				.Include(u => u.Auctions)
+				.Include(u => u.Auctions.Where(a => a.IsApproved))
 				.Include(u => u.Bids)
 				.Where(u => u.Id == Guid.Parse(userId))
 				.Select(u => new UserProfileModel

@@ -50,7 +50,7 @@
 				}
 				@if (hasEnded)
 				{
-					<p>Sold to @Model.Bids.Last().BidderUsername for @Model.Bids.Last().BidAmount.ToString("C")</p>
+					<p>Sold to @Model.Bids.Last().BidderUsername for @Model.Bids.Max(b => b.BidAmount).ToString("C")</p>
 				}
 			}
 			@if (hasEnded)

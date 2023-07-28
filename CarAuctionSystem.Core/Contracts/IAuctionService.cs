@@ -13,6 +13,8 @@
 
 		Task<List<PendingAuctionModel>> GetAllPendingAuctions();
 
+		Task<List<PendingAuctionModel>> GetAllPendingAuctionsByUserId(string userId);
+
 		Task<PendingAuctionDetailsModel> GetPendingAuctionDetailsById(int id);
 
 		Task Create(AuctionFormModel model, string userId);

@@ -55,7 +55,8 @@
 			{
 				AuctionSorting.Oldest => auctions.OrderBy(a => a.StartDate),
 				AuctionSorting.LowestMileage => auctions.OrderBy(a => a.Mileage),
-				_ => auctions.OrderByDescending(a => a.StartDate)
+				_ => auctions.OrderBy(a => a.EndDate < DateTime.UtcNow)
+					.ThenByDescending(a => a.StartDate)
 			};
 
 			result.Auctions = await auctions
@@ -80,6 +81,22 @@
 		{
 			var auctions = await _repo.All<Auction>()
 				.Where(a => a.IsApproved == false)
+				.Select(a => new PendingAuctionModel
+				{
+					Id = a.Id,
+					Make = a.Make.Name,
+					Model = a.Model,
+					ModelYear = a.ModelYear
+				})
+				.ToListAsync();
+
+			return auctions;
+		}
+
+		public async Task<List<PendingAuctionModel>> GetAllPendingAuctionsByUserId(string userId)
+		{
+			var auctions = await _repo.All<Auction>()
+				.Where(a => a.IsApproved == false && a.SellerId == Guid.Parse(userId))
 				.Select(a => new PendingAuctionModel
 				{
 					Id = a.Id,
@@ -132,7 +149,6 @@
 
 			return model;
 		}
-
 
 		public async Task Create(AuctionFormModel model, string userId)
 		{

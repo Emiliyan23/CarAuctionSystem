@@ -1,0 +1,23 @@
+﻿@model IEnumerable<PendingAuctionModel>
+
+@{
+	ViewBag.Title = "Your pending auctions";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+@if (!Model.Any())
+{
+	<p>You have no auctions awaiting approval.</p>
+}
+else
+{
+	<ul class="list-group">
+		@foreach (var auction in Model)
+		{
+			<li class="list-group-item">
+				<partial name="_AuctionForApprovalPartial" model="@auction"/>
+			</li>
+		}
+	</ul>
+}
