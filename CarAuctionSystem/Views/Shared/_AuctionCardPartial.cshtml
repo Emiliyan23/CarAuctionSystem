@@ -1,0 +1,18 @@
+﻿@model IEnumerable<AuctionViewModel>
+
+<div class="row">
+	@foreach (var auction in Model)
+	{
+		<div class = "col-md-4">
+			<div class="card mb-3">
+				<img class="card-img-top" src="@auction.ImageUrl" alt="Car image">
+				<div class="card-body text-center">
+					<h4>@auction.ModelYear @auction.Make @auction.Model</h4>
+					<p class="card-text">@auction.Mileage km</p>
+					<p class="card-text">Time remaining: <span id="timer-@auction.Id" class="timer"></span></p>
+					<a asp-controller="Auction" asp-action="Details" asp-route-id="@auction.Id" class="btn btn-success">Details</a>
+				</div>
+			</div> 
+		</div>
+	}
+</div>

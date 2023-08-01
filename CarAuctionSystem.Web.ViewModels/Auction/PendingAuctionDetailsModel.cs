@@ -1,12 +1,8 @@
 ﻿namespace CarAuctionSystem.Web.ViewModels.Auction
 {
-	using Seller;
-
 	public class PendingAuctionDetailsModel : PendingAuctionModel
 	{
-		public SellerDetailsModel SellerDetails { get; set; } = null!;
-
-		public string ImageUrl { get; set; } = null!;
+		
 
 		public string Vin { get; set; } = null!;
 

@@ -19,6 +19,8 @@
 		[Display(Name = "End Year")]
 		public int? EndYear { get; set; }
 
+		public string? ViewType { get; set; }
+
 		public AuctionSorting Sorting { get; set; }
 
 		public int TotalAuctionsCount { get; set; }

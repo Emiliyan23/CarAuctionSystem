@@ -32,7 +32,16 @@
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AllAuctionsQueryModel query)
         {
-            if (query.StartYear < 1980 || query.EndYear < 1980)
+	        query.TransmissionTypes = await _carService.GetAllTransmissionTypes();
+	        query.CarBodyTypes = await _carService.GetAllCarBodyTypes();
+
+	        return View(query);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> LoadAuctions([FromQuery] AllAuctionsQueryModel query)
+        {
+	        if (query.StartYear < 1980 || query.EndYear < 1980)
             {
                 TempData[ErrorMessage] = "Invalid search.";
                 return RedirectToAction(nameof(All));
@@ -47,11 +56,14 @@
             var result = await _auctionService.GetAllAuctions(query);
 
             query.TotalAuctionsCount = result.TotalAuctions;
-            query.TransmissionTypes = await _carService.GetAllTransmissionTypes();
-            query.CarBodyTypes = await _carService.GetAllCarBodyTypes();
             query.Auctions = result.Auctions;
 
-            return View(query);
+            if (query.ViewType == "table")
+            {
+                return PartialView("_AuctionTablePartial", query.Auctions);
+            }
+
+            return PartialView("_AuctionCardPartial", query.Auctions);
         }
 
         [HttpGet]

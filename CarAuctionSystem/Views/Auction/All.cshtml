@@ -7,16 +7,13 @@
 
 <partial name="_SearchBarPartial"/>
 
-@if (!Model.Auctions.Any())
+@*@if (!Model.Auctions.Any())
 {
 	<h2 class="text-center">No auctions found by the given criteria!</h2>
-}
+}*@
 
-<div class="row">
-	@foreach (var auction in Model.Auctions)
-	{
-		<partial name="_AuctionPartial" model="@auction"/>
-	}
+<div id="auctionContainer">
+
 </div>
 
 <div class="row">
@@ -64,6 +61,55 @@
 			});
 		}
 		setInterval(updateTimers, 1000);
+	</script>
+	
+	<script>
+		$(document).ready(function () {
+			loadPartialView('@(Model.ViewType)');
+
+			$('#viewSelect').on('change', function () {
+				var selectedValue = $(this).val();
+				if (selectedValue === 'card') {
+					loadPartialView('card');
+				} else if (selectedValue === 'table') {
+					loadPartialView('table');
+				}
+			});
+		});
+
+		function loadPartialView(viewType) {
+			
+			if(viewType === null) {
+				viewType = 'card';
+			}
+
+			var StartYear = '@(Model.StartYear)';
+			var EndYear = '@(Model.EndYear)';
+			var SearchTerm = '@(Model.SearchTerm)';
+			var TransmissionType = '@(Model.TransmissionType)';
+			var CarBodyType = '@(Model.CarBodyType)';
+
+			$('#auctionContainer').empty();
+			$.ajax({
+				url: '/Auction/LoadAuctions',
+				data: { 
+					StartYear: StartYear,
+					EndYear: EndYear,
+					SearchTerm: SearchTerm,
+					TransmissionType: TransmissionType,
+					CarBodyType: CarBodyType,
+					ViewType: viewType
+				},
+				type: 'GET',
+				dataType: 'html',
+				success: function (data) {
+					$('#auctionContainer').html(data);
+				},
+				error: function () {
+					alert('Error loading table view.');
+				}
+			});
+		}
 	</script>
 
 	<script>statistics();</script>

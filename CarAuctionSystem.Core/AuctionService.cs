@@ -49,6 +49,11 @@
                 auctions = auctions.Where(a => a.CarBody.Type == queryModel.CarBodyType);
             }
 
+            if (queryModel.ViewType != "table")
+            {
+                queryModel.ViewType = "card";
+            }
+
             if (string.IsNullOrEmpty(queryModel.SearchTerm) == false)
             {
                 string wildcard = $"%{queryModel.SearchTerm.ToLower()}%";
@@ -93,7 +98,15 @@
                     Id = a.Id,
                     Make = a.Make.Name,
                     Model = a.Model,
-                    ModelYear = a.ModelYear
+                    ModelYear = a.ModelYear,
+                    ImageUrl = a.ImageUrl,
+                    SellerDetails = new SellerDetailsModel
+                    {
+	                    Id = a.SellerId.ToString(),
+	                    Username = a.Seller.UserName,
+	                    Email = a.Seller.Email,
+	                    PhoneNumber = a.Seller.PhoneNumber
+                    }
                 })
                 .ToListAsync();
 
@@ -109,7 +122,15 @@
                     Id = a.Id,
                     Make = a.Make.Name,
                     Model = a.Model,
-                    ModelYear = a.ModelYear
+                    ModelYear = a.ModelYear,
+                    ImageUrl = a.ImageUrl,
+                    SellerDetails = new SellerDetailsModel
+                    {
+	                    Id = a.SellerId.ToString(),
+	                    Username = a.Seller.UserName,
+	                    Email = a.Seller.Email,
+	                    PhoneNumber = a.Seller.PhoneNumber
+                    }
                 })
                 .ToListAsync();
 
@@ -147,10 +168,10 @@
                 AuctionDuration = auction.AuctionDuration,
                 SellerDetails = new SellerDetailsModel
                 {
-                    Id = auction.SellerId.ToString(),
-                    Username = auction.Seller.UserName,
-                    Email = auction.Seller.Email,
-                    PhoneNumber = auction.Seller.PhoneNumber
+	                Id = auction.SellerId.ToString(),
+	                Username = auction.Seller.UserName,
+	                Email = auction.Seller.Email,
+	                PhoneNumber = auction.Seller.PhoneNumber
                 }
             };
 

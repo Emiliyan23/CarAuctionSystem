@@ -11,6 +11,13 @@
 			<label asp-for="EndYear"></label>
 			<input asp-for="EndYear" class="form-control" placeholder="..."></input>
 		</div>
+		<div class="form-group">
+			<label asp-for="ViewType">Select View:</label>
+			<select asp-for="ViewType" id="viewSelect" class="form-control">
+				<option value="card">Card View</option>
+				<option value="table">Table View</option>
+			</select>
+		</div>
 	</div>
 	<div class="form-group col-md-3 d-flex justify-content-between">
 		<div class="form-group">
