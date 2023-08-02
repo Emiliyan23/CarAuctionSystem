@@ -20,19 +20,21 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Bid(int id)
+		public async Task<IActionResult> Bid(int id, string extraInfo)
 		{
+			if (await _auctionService.ExistsById(id) == false)
+			{
+				TempData[ErrorMessage] = "Auction doesn't exist.";
+				return RedirectToAction("All", "Auction");
+			}
+
+
+
 			string? sellerId = await _userService.GetSellerIdByAuctionId(id);
 
 			if (User.Id() == sellerId)
 			{
 				TempData[ErrorMessage] = "Cannot bid on your own auction.";
-				return RedirectToAction("All", "Auction");
-			}
-
-			if (await _auctionService.ExistsById(id) == false)
-			{
-				TempData[ErrorMessage] = "Auction doesn't exist.";
 				return RedirectToAction("All", "Auction");
 			}
 

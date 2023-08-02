@@ -10,7 +10,8 @@
 					<h4>@auction.ModelYear @auction.Make @auction.Model</h4>
 					<p class="card-text">@auction.Mileage km</p>
 					<p class="card-text">Time remaining: <span id="timer-@auction.Id" class="timer"></span></p>
-					<a asp-controller="Auction" asp-action="Details" asp-route-id="@auction.Id" class="btn btn-success">Details</a>
+					<a asp-controller="Auction" asp-action="Details" asp-route-id="@auction.Id" 
+					   asp-route-extraInfo="@auction.GetExtraInfo()" class="btn btn-success">Details</a>
 				</div>
 			</div> 
 		</div>

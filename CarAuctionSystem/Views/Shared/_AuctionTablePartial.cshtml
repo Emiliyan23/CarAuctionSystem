@@ -22,7 +22,10 @@
 			<td>
 				<label>Time remaining: <span id="timer-@auction.Id" class="timer"></span></label>
 			</td>
-			<td><a asp-controller="Auction" asp-action="Details" asp-route-id="@auction.Id" class="d-inline btn btn-success">Details</a></td>
+			<td>
+				<a asp-controller="Auction" asp-action="Details" asp-route-id="@auction.Id" 
+				   asp-route-extraInfo="@auction.GetExtraInfo()" class="d-inline btn btn-success">Details</a>
+			</td>
 		</tr>
 	}
 	</tbody>

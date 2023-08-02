@@ -63,9 +63,22 @@ if (app.Environment.IsDevelopment())
 
 }
 
-app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllerRoute(
+		name: "AuctionDetailsWithExtraInfo",
+		pattern: "{controller=Auction}/{action=Details}/{id}/{extraInfo}",
+		defaults: new { controller = "Auction", action = "Details" });
+
+	endpoints.MapControllerRoute(
+		name: "BidWithExtraInfo",
+		pattern: "{controller=Bid}/{action=Bid}/{id}/{extraInfo}",
+		defaults: new { controller = "Bid", action = "Bid" });
+
+	endpoints.MapControllerRoute(
+		name: "default",
+		pattern: "{controller=Home}/{action=Index}/{id?}");
+	endpoints.MapRazorPages();
+});
 
 app.Run();

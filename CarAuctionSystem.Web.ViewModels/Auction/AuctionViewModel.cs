@@ -1,6 +1,6 @@
 ﻿namespace CarAuctionSystem.Web.ViewModels.Auction
 {
-	public class AuctionViewModel
+	public class AuctionViewModel : IAuctionModel
 	{
 		public int Id { get; set; }
 

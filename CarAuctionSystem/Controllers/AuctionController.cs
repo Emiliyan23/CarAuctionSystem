@@ -54,21 +54,6 @@
 	        return View(query);
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> LoadAuctions([FromQuery] AllAuctionsQueryModel query)
-        {
-	        
-
-            if (query.ViewType == "table")
-            {
-	            ViewData["view"] = "table";
-                return PartialView("_AuctionTablePartial", query.Auctions);
-            }
-
-            ViewData["view"] = "card";
-            return PartialView("_AuctionCardPartial", query.Auctions);
-        }
-
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -130,7 +115,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string extraInfo)
         {
             if (await _auctionService.ExistsById(id) == false)
             {
@@ -145,6 +130,12 @@
             }
 
             var model = await _auctionService.GetAuctionDetailsById(id, User.Id());
+
+            if (extraInfo != model.GetExtraInfo())
+            {
+                TempData[ErrorMessage] = "Auction doesnt exist.";
+                return RedirectToAction(nameof(All));
+            }
 
             return View(model);
         }
