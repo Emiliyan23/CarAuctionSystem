@@ -32,6 +32,22 @@
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AllAuctionsQueryModel query)
         {
+	        if (query.StartYear < 1980 || query.EndYear < 1980)
+	        {
+		        TempData[ErrorMessage] = "Invalid search.";
+		        return RedirectToAction(nameof(All));
+	        }
+
+	        if (query.StartYear > query.EndYear)
+	        {
+		        query.EndYear = null;
+		        return RedirectToAction(nameof(All));
+	        }
+
+	        var result = await _auctionService.GetAllAuctions(query);
+
+	        query.TotalAuctionsCount = result.TotalAuctions;
+	        query.Auctions = result.Auctions;
 	        query.TransmissionTypes = await _carService.GetAllTransmissionTypes();
 	        query.CarBodyTypes = await _carService.GetAllCarBodyTypes();
 
@@ -41,28 +57,15 @@
         [AllowAnonymous]
         public async Task<IActionResult> LoadAuctions([FromQuery] AllAuctionsQueryModel query)
         {
-	        if (query.StartYear < 1980 || query.EndYear < 1980)
-            {
-                TempData[ErrorMessage] = "Invalid search.";
-                return RedirectToAction(nameof(All));
-            }
-
-            if (query.StartYear > query.EndYear)
-            {
-                query.EndYear = null;
-                return RedirectToAction(nameof(All), query);
-            }
-
-            var result = await _auctionService.GetAllAuctions(query);
-
-            query.TotalAuctionsCount = result.TotalAuctions;
-            query.Auctions = result.Auctions;
+	        
 
             if (query.ViewType == "table")
             {
+	            ViewData["view"] = "table";
                 return PartialView("_AuctionTablePartial", query.Auctions);
             }
 
+            ViewData["view"] = "card";
             return PartialView("_AuctionCardPartial", query.Auctions);
         }
 

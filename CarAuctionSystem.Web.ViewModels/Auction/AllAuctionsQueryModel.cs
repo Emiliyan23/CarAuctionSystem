@@ -13,12 +13,13 @@
 		[Display(Name = "Search auctions")]
 		public string? SearchTerm { get; set; }
 
-		[Display(Name = "Start Year")]
+		[Display(Name = "From Year")]
 		public int? StartYear { get; set; }
 
-		[Display(Name = "End Year")]
+		[Display(Name = "To Year")]
 		public int? EndYear { get; set; }
 
+		[Display(Name = "View Type")]
 		public string? ViewType { get; set; }
 
 		public AuctionSorting Sorting { get; set; }
