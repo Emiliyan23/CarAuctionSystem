@@ -34,7 +34,7 @@
 		<div class="col">
 			<img class="card-img-top" style="width: 25rem;" src="@Model.ImageUrl" alt="Car Image">
 			<p></p>
-			<form method="post" asp-controller="Admin" asp-action="Approve">
+			<form method="post" asp-area="Admin" asp-controller="Auction" asp-action="Approve">
 				<input type="hidden" name="Id" value="@Model.Id" />
 				<button class="btn btn-primary" type="submit">Approve</button>
 			</form>

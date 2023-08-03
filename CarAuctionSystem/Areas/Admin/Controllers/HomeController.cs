@@ -2,17 +2,11 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using Services.Data.Contracts;
-
-	public class HomeController : AdminController
+	public class HomeController : BaseAdminController
 	{
 		public IActionResult Index()
 		{
 			return View();
-		}
-
-		public HomeController(IAuctionService auctionService) : base(auctionService)
-		{
 		}
 	}
 }

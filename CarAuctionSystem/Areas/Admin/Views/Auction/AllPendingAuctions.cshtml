@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<AuctionViewModel>
 @{
 	ViewBag.Title = "Pending auctions";
-	ViewData["UserIsAdmin"] = true;
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 
-<partial name="_PendingAuctionTablePartial"/>
+@await Html.PartialAsync("_PendingAuctionTablePartial")
 
