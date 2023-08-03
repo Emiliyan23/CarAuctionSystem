@@ -1,7 +1,4 @@
 ﻿@model IEnumerable<AuctionViewModel>
-@{
-	bool isAdmin = User.IsInRole(AdminRoleName);
-}
 
 <table class="table table-striped">
 	<thead>
@@ -21,7 +18,7 @@
 			<td><label>@auction.Id</label></td>
 			<td><label>@auction.ModelYear</label></td>
 			<td><label>@auction.Make @auction.Model</label></td>
-			@if (isAdmin)
+				@if (ViewData["UserIsAdmin"] == "true")
 			{
 				<td>
 					<a asp-controller="Admin" asp-action="PendingAuctionDetails"
