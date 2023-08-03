@@ -108,48 +108,34 @@
 	        return model!;
         }
 
-        public async Task<List<PendingAuctionModel>> GetAllPendingAuctions()
+        public async Task<List<AuctionViewModel>> GetAllPendingAuctions()
         {
             var auctions = await _repo.All<Auction>()
                 .Where(a => a.IsApproved == false)
-                .Select(a => new PendingAuctionModel
+                .Select(a => new AuctionViewModel
                 {
                     Id = a.Id,
                     Make = a.Make.Name,
                     Model = a.Model,
                     ModelYear = a.ModelYear,
-                    ImageUrl = a.ImageUrl,
-                    SellerDetails = new SellerDetailsModel
-                    {
-	                    Id = a.SellerId.ToString(),
-	                    Username = a.Seller.UserName,
-	                    Email = a.Seller.Email,
-	                    PhoneNumber = a.Seller.PhoneNumber
-                    }
+                    ImageUrl = a.ImageUrl
                 })
                 .ToListAsync();
 
             return auctions;
         }
 
-        public async Task<List<PendingAuctionModel>> GetAllPendingAuctionsByUserId(string userId)
+        public async Task<List<AuctionViewModel>> GetAllPendingAuctionsByUserId(string userId)
         {
             var auctions = await _repo.All<Auction>()
                 .Where(a => a.IsApproved == false && a.SellerId == Guid.Parse(userId))
-                .Select(a => new PendingAuctionModel
+                .Select(a => new AuctionViewModel
                 {
                     Id = a.Id,
                     Make = a.Make.Name,
                     Model = a.Model,
                     ModelYear = a.ModelYear,
-                    ImageUrl = a.ImageUrl,
-                    SellerDetails = new SellerDetailsModel
-                    {
-	                    Id = a.SellerId.ToString(),
-	                    Username = a.Seller.UserName,
-	                    Email = a.Seller.Email,
-	                    PhoneNumber = a.Seller.PhoneNumber
-                    }
+                    ImageUrl = a.ImageUrl
                 })
                 .ToListAsync();
 

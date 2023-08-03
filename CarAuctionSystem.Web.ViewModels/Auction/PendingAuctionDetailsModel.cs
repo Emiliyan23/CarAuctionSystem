@@ -1,12 +1,12 @@
 ﻿namespace CarAuctionSystem.Web.ViewModels.Auction
 {
-	public class PendingAuctionDetailsModel : PendingAuctionModel
+	using Seller;
+
+	public class PendingAuctionDetailsModel : AuctionViewModel
 	{
 		
 
 		public string Vin { get; set; } = null!;
-
-		public int Mileage { get; set; }
 
 		public string InteriorColor { get; set; } = null!;
 
@@ -23,5 +23,8 @@
 		public string CarBodyType { get; set; } = null!;
 
 		public int AuctionDuration { get; set; }
+
+		public SellerDetailsModel SellerDetails { get; set; } = null!;
+
 	}
 }

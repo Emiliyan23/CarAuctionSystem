@@ -10,9 +10,9 @@
 
 		Task<AuctionViewModel> GetAuctionViewModel(int id);
 
-		Task<List<PendingAuctionModel>> GetAllPendingAuctions();
+		Task<List<AuctionViewModel>> GetAllPendingAuctions();
 
-		Task<List<PendingAuctionModel>> GetAllPendingAuctionsByUserId(string userId);
+		Task<List<AuctionViewModel>> GetAllPendingAuctionsByUserId(string userId);
 
 		Task<PendingAuctionDetailsModel> GetPendingAuctionDetailsById(int id);
 

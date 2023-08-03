@@ -1,0 +1,34 @@
+﻿@model IEnumerable<AuctionViewModel>
+@{
+	bool isAdmin = User.IsInRole(AdminRoleName);
+}
+
+<table class="table table-striped">
+	<thead>
+	<tr>
+		<th class="w-25"></th>
+		<th><label>Auction Id</label></th>
+		<th><label>Model Year</label></th>
+		<th><label>Model</label></th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var auction in Model)
+	{
+		<tr>
+			<td><img class="img-fluid" src="@auction.ImageUrl" style="width:60%"/></td>
+			<td><label>@auction.Id</label></td>
+			<td><label>@auction.ModelYear</label></td>
+			<td><label>@auction.Make @auction.Model</label></td>
+			@if (isAdmin)
+			{
+				<td>
+					<a asp-controller="Admin" asp-action="PendingAuctionDetails"
+					   asp-route-id="@auction.Id" class="d-inline btn btn-success">Details</a>
+				</td>
+			}
+		</tr>
+	}
+	</tbody>
+</table>

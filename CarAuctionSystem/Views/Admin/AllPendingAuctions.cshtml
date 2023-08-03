@@ -1,31 +1,9 @@
-﻿@model IEnumerable<PendingAuctionModel>
+﻿@model IEnumerable<AuctionViewModel>
 @{
 	ViewBag.Title = "Pending auctions";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 
-<table class="table table-striped">
-	<thead>
-	<tr>
-		<th class="w-25"></th>
-		<th><label>Model Year</label></th>
-		<th><label>Model</label></th>
-		<th><label>Seller Name</label></th>
-		<th></th>
-	</tr>
-	</thead>
-	<tbody>
-		@foreach (var auction in Model)
-		{
-			<tr>
-				<td><img class="img-fluid" src="@auction.ImageUrl" style="width:60%"/></td>
-				<td><label>@auction.ModelYear</label></td>
-				<td><label>@auction.Make @auction.Model</label></td>
-				<td><label>@auction.SellerDetails.Username</label></td>
-				<td><a asp-controller="Admin" asp-action="PendingAuctionDetails" asp-route-id="@auction.Id" class="d-inline btn btn-success">Details</a></td>
-			</tr>
-		}
-	</tbody>
-</table>
+<partial name="_PendingAuctionTablePartial"/>
 

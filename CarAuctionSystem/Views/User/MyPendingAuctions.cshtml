@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PendingAuctionModel>
+﻿@model IEnumerable<AuctionViewModel>
 
 @{
 	ViewBag.Title = "Your pending auctions";
@@ -12,12 +12,6 @@
 }
 else
 {
-	<ul class="list-group">
-		@foreach (var auction in Model)
-		{
-			<li class="list-group-item">
-				<partial name="_AuctionForApprovalPartial" model="@auction"/>
-			</li>
-		}
-	</ul>
+
+	<partial name="_PendingAuctionTablePartial"/>
 }
