@@ -1,23 +1,30 @@
-﻿@model BidFormModel
+﻿@model BidWrapperModel
 @{
-	ViewBag.Title = "Place Bid";
+	ViewBag.Title = $"Bid on {Model.Auction.ModelYear} {Model.Auction.Make} {Model.Auction.Model}";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 
+<div class="card col border-0">
+	<p style="font-size:25px;">Bid History:</p>
+	<hr/>
+	@if (!Model.Bids.Any())
+	{
+		<p>No bids placed for this auction.</p>
+	}
+	else
+	{
+		<p>Bid count: @Model.Bids.Count</p>
+		@foreach (var bid in Model.Bids)
+		{
+			<p>@bid.BidDate <a asp-controller="User" asp-action="Profile" asp-route-id="@bid.BidderId">@bid.BidderUsername</a> - @bid.BidAmount.ToString("C")</p>
+		}
+	}
+</div>
+
 <div class="row">
 	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-		<form method="post">
-			@Html.HiddenFor(m=>m.AuctionId)
-			<div class="form-group">
-				<label asp-for="BidAmount"></label>
-				<input asp-for="BidAmount" class="form-control" placeholder="Bid Amount...">
-				<span asp-validation-for="BidAmount" class="small text-danger"></span>
-			</div>
-			<div class="text-center">
-				<input class="btn btn-primary mt-3" type="submit" value="Place Bid"/>
-			</div>
-		</form>
+		<partial name="_BidFormPartial" model="@Model.BidFormModel"/>
 	</div>
 </div>
 

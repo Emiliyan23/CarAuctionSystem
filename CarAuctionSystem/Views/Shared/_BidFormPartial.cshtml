@@ -1,0 +1,13 @@
+﻿@model BidFormModel
+
+<form method="post">
+	@Html.HiddenFor(m=>m.AuctionId)
+	<div class="form-group">
+		<label asp-for="BidAmount"></label>
+		<input asp-for="BidAmount" class="form-control" placeholder="Bid Amount...">
+		<span asp-validation-for="BidAmount" class="small text-danger"></span>
+	</div>
+	<div class="text-center">
+		<input class="btn btn-primary mt-3" type="submit" value="Place Bid"/>
+	</div>
+</form>

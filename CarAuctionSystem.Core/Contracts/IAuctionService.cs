@@ -8,6 +8,8 @@
 	{
 		Task<AuctionQueryModel> GetAllAuctions(AllAuctionsQueryModel queryModel);
 
+		Task<AuctionViewModel> GetAuctionViewModel(int id);
+
 		Task<List<PendingAuctionModel>> GetAllPendingAuctions();
 
 		Task<List<PendingAuctionModel>> GetAllPendingAuctionsByUserId(string userId);

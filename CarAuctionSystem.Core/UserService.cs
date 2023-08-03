@@ -29,7 +29,7 @@
         public async Task<UserProfileModel> GetUserProfile(string userId)
         {
             var user = await _repo.AllReadonly<ApplicationUser>()
-                .Include(u => u.Auctions.Where(a => a.IsApproved))
+                .Include(u => u.Auctions)
                 .Include(u => u.Bids)
                 .Where(u => u.Id == Guid.Parse(userId))
                 .Select(u => new UserProfileModel
@@ -40,7 +40,7 @@
                 .FirstOrDefaultAsync();
 
             user!.Auctions = await _repo.AllReadonly<Auction>()
-                .Where(a => a.SellerId.ToString() == userId)
+                .Where(a => a.SellerId.ToString() == userId && a.IsApproved == true)
                 .OrderByDescending(a => a.StartDate)
                 .Select(a => new AuctionViewModel
                 {

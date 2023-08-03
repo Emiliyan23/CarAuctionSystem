@@ -89,6 +89,25 @@
             return result;
         }
 
+        public async Task<AuctionViewModel> GetAuctionViewModel(int id)
+        {
+	        var model = await _repo.AllReadonly<Auction>()
+		        .Where(a => a.Id == id)
+		        .Select(a => new AuctionViewModel
+		        {
+			        Id = a.Id,
+			        Make = a.Make.Name,
+			        Model = a.Model,
+			        EndDate = a.EndDate ?? DateTime.MinValue,
+			        ImageUrl = a.ImageUrl,
+			        Mileage = a.Mileage,
+			        ModelYear = a.ModelYear
+		        })
+		        .FirstOrDefaultAsync();
+
+	        return model!;
+        }
+
         public async Task<List<PendingAuctionModel>> GetAllPendingAuctions()
         {
             var auctions = await _repo.All<Auction>()

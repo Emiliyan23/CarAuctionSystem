@@ -28,8 +28,6 @@
 				return RedirectToAction("All", "Auction");
 			}
 
-
-
 			string? sellerId = await _userService.GetSellerIdByAuctionId(id);
 
 			if (User.Id() == sellerId)
@@ -56,12 +54,25 @@
 				return RedirectToAction("All", "Auction");
 			}
 
-			BidFormModel bidModel = new BidFormModel
+			var viewModel = await _auctionService.GetAuctionViewModel(id);
+
+			if (viewModel.GetExtraInfo() != extraInfo)
 			{
-				AuctionId = id
+				TempData[ErrorMessage] = "Auction doesnt exist.";
+				return RedirectToAction("Details", "Auction", new{ id = viewModel.Id, extraInfo = viewModel.GetExtraInfo() });
+			}
+
+			var model = new BidWrapperModel
+			{
+				Auction = await _auctionService.GetAuctionViewModel(id),
+				Bids = await _auctionService.GetAllBids(id),
+				BidFormModel = new BidFormModel
+				{
+					AuctionId = id
+				}
 			};
 
-			return View(bidModel);
+			return View(model);
 		}
 
 		[HttpPost]
@@ -72,15 +83,20 @@
 				ModelState.AddModelError(nameof(model.BidAmount), "Bid amount is lower than last bid.");
 			}
 
+			var viewModel = await _auctionService.GetAuctionViewModel(model.AuctionId);
+
 			if (!ModelState.IsValid)
 			{
-				return View(model);
+				TempData[ErrorMessage] = "Bid amount is lower than last bid.";
+				return RedirectToAction(nameof(Bid),
+					new { id = model.AuctionId, extraInfo = viewModel.GetExtraInfo() });
 			}
 
 			await _auctionService.PlaceBid(model, User.Id());
 
 			TempData[SuccessMessage] = "Bid placed successfully.";
-			return RedirectToAction("Details", "Auction", new{ id = model.AuctionId });
+			return RedirectToAction("Details", "Auction",
+				new{ id = model.AuctionId, extraInfo = viewModel.GetExtraInfo() });
 		}
 	}
 }

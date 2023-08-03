@@ -21,10 +21,7 @@
 		}
 		else
 		{
-			@foreach (var auction in Model.Auctions)
-			{
-				<partial name="_AuctionCardPartial" model="@auction"/>
-			}
+			<partial name="_AuctionCardPartial" model="@Model.Auctions"/>
 		}
 	</div>
 	<div class="row">

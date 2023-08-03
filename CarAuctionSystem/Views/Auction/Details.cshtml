@@ -61,7 +61,7 @@
 			{
 				@if (User.Id() != Model.SellerDetails.Id)
 				{
-					<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id" class="btn btn-success">Place Bid</a>
+					<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id" asp-route-extraInfo="@Model.GetExtraInfo()" class="btn btn-success">Place Bid</a>
 				}
 			}
 		</div>
