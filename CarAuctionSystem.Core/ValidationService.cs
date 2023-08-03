@@ -45,12 +45,18 @@
                 .AnyAsync(b => b.Id == id);
         }
 
-        public async Task<bool> BidAmountIsValid(int auctionId, decimal bidAmount)
+        public async Task<bool> BidIsValid(int auctionId, decimal bidAmount, string userId)
         {
             var auction = await _repo.AllReadonly<Auction>()
                 .Where(a => a.Id == auctionId)
                 .Include(a => a.Bids)
                 .FirstOrDefaultAsync();
+
+            var highestBid = auction.Bids.MaxBy(b => b.BidAmount);
+            if (highestBid.BidderId == Guid.Parse(userId))
+            {
+	            return false;
+            }
 
             if (auction.Bids.Any(b => b.BidAmount > bidAmount))
             {

@@ -12,7 +12,7 @@
 
 		Task<bool> CarBodyExists(int id);
 
-		Task<bool> BidAmountIsValid(int auctionId, decimal bidAmount);
+		Task<bool> BidIsValid(int auctionId, decimal bidAmount, string userId);
 
 		Task<bool> AuctionIsActive(int id);
 	}

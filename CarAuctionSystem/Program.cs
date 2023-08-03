@@ -66,6 +66,10 @@ if (app.Environment.IsDevelopment())
 app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
+		name: "Areas",
+		pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+	endpoints.MapControllerRoute(
 		name: "AuctionDetailsWithExtraInfo",
 		pattern: "{controller=Auction}/{action=Details}/{id}/{extraInfo}",
 		defaults: new { controller = "Auction", action = "Details" });

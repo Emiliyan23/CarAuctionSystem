@@ -2,6 +2,8 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
+	using static Common.GeneralConstants;
+
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
@@ -12,7 +14,12 @@
 		}
 
 		public IActionResult Index()
-		{ 
+		{
+			if (User.IsInRole(AdminRoleName))
+			{
+				return RedirectToAction("Index", "Home", new { area = AreaName });
+			}
+
 			return RedirectToAction("All", "Auction");
 		}
 

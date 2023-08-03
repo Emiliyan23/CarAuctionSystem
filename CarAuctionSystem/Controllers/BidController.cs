@@ -78,16 +78,16 @@
 		[HttpPost]
 		public async Task<IActionResult> Bid(BidFormModel model)
 		{
-			if (!await _validationService.BidAmountIsValid(model.AuctionId, model.BidAmount))
+			if (!await _validationService.BidIsValid(model.AuctionId, model.BidAmount, User.Id()))
 			{
-				ModelState.AddModelError(nameof(model.BidAmount), "Bid amount is lower than last bid.");
+				ModelState.AddModelError(nameof(model.BidAmount), "Bid is invalid.");
 			}
 
 			var viewModel = await _auctionService.GetAuctionViewModel(model.AuctionId);
 
 			if (!ModelState.IsValid)
 			{
-				TempData[ErrorMessage] = "Bid amount is lower than last bid.";
+				TempData[ErrorMessage] = "Bid is invalid.";
 				return RedirectToAction(nameof(Bid),
 					new { id = model.AuctionId, extraInfo = viewModel.GetExtraInfo() });
 			}

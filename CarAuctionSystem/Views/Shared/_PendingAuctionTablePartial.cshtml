@@ -18,7 +18,7 @@
 			<td><label>@auction.Id</label></td>
 			<td><label>@auction.ModelYear</label></td>
 			<td><label>@auction.Make @auction.Model</label></td>
-				@if (ViewData["UserIsAdmin"] == "true")
+				@if ((bool)ViewData["UserIsAdmin"])
 			{
 				<td>
 					<a asp-controller="Admin" asp-action="PendingAuctionDetails"
