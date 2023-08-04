@@ -111,7 +111,7 @@
         public async Task<List<AuctionViewModel>> GetAllPendingAuctions()
         {
             var auctions = await _repo.All<Auction>()
-                .Where(a => a.IsApproved == false)
+                .Where(a => a.IsApproved == false && a.IsDeleted == false)
                 .Select(a => new AuctionViewModel
                 {
                     Id = a.Id,
@@ -128,7 +128,7 @@
         public async Task<List<AuctionViewModel>> GetAllPendingAuctionsByUserId(string userId)
         {
             var auctions = await _repo.All<Auction>()
-                .Where(a => a.IsApproved == false && a.SellerId == Guid.Parse(userId))
+                .Where(a => a.IsApproved == false && a.IsDeleted == false && a.SellerId == Guid.Parse(userId))
                 .Select(a => new AuctionViewModel
                 {
                     Id = a.Id,
@@ -195,7 +195,7 @@
         public async Task<bool> ExistsById(int id)
         {
             return await _repo.AllReadonly<Auction>()
-                .AnyAsync(a => a.Id == id);
+                .AnyAsync(a => a.Id == id && a.IsDeleted == false);
         }
 
         public async Task<AuctionDetailsModel> GetAuctionDetailsById(int id, string userId)
@@ -333,6 +333,7 @@
         {
 	        Auction auction = await _repo.GetByIdAsync<Auction>(id);
 	        auction = _mapper.Map<AuctionFormModel, Auction>(model, auction);
+	        auction.MakeId = model.MakeId;
 
             await _repo.SaveChangesAsync();
         }
