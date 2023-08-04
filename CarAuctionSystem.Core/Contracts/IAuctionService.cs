@@ -31,5 +31,9 @@
 		Task ApproveAuction(int id);
 
 		Task<bool> AuctionIsApproved(int id);
+
+		Task<AuctionFormModel> GetPendingAuctionForEdit(int id);
+
+		Task EditPendingAuctionByIdAndFormModel(int id, AuctionFormModel model);
 	}
 }

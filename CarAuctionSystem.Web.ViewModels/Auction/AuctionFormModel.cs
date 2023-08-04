@@ -44,7 +44,7 @@
 
 		[Display(Name = "Image URL")]
 		[Required(AllowEmptyStrings = false)]
-		[StringLength(AuctionImageUrlMaxLength, MinimumLength = 1)]
+		[Url]
 		public string ImageUrl { get; set; } = null!;
 
 		[Display(Name = "Make")]

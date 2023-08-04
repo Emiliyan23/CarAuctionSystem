@@ -3,16 +3,18 @@
 	using Microsoft.AspNetCore.Mvc;
 
 	using Services.Data.Contracts;
-
+	using ViewModels.Auction;
 	using static Common.NotificationConstants;
 
 	public class AuctionController : BaseAdminController
 	{
 		private readonly IAuctionService _auctionService;
+		private readonly ICarService _carService;
 
-		public AuctionController(IAuctionService auctionService)
+		public AuctionController(IAuctionService auctionService, ICarService carService)
 		{
 			_auctionService = auctionService;
+			_carService = carService;
 		}
 
 		[HttpGet]

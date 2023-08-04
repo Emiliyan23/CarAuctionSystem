@@ -1,8 +1,8 @@
 ﻿namespace CarAuctionSystem.Web.Controllers
 {
 	using CarAuctionSystem.Services.Data.Contracts;
-	using CarAuctionSystem.Web.Infrastructure.Extensions;
-	using CarAuctionSystem.Web.ViewModels.Bid;
+	using Infrastructure.Extensions;
+	using ViewModels.Bid;
 	using Microsoft.AspNetCore.Mvc;
 	using static Common.NotificationConstants;
 

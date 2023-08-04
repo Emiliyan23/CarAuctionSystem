@@ -38,6 +38,8 @@
 				<input type="hidden" name="Id" value="@Model.Id" />
 				<button class="btn btn-primary" type="submit">Approve</button>
 			</form>
+			<a asp-area="" asp-controller="Auction" asp-action="Edit" asp-route-id="@Model.Id"
+			   class="mt-1 btn btn-warning">Edit</a>
 		</div>
 	</div>
 </div>

@@ -70,45 +70,45 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AuctionFormModel addModel)
+        public async Task<IActionResult> Add(AuctionFormModel formModel)
         {
-            if (await _validationService.MakeExists(addModel.MakeId) == false)
+            if (await _validationService.MakeExists(formModel.MakeId) == false)
             {
-                ModelState.AddModelError(nameof(addModel.MakeId), "Make does not exist");
+                ModelState.AddModelError(nameof(formModel.MakeId), "Make does not exist");
             }
 
-            if (await _validationService.DrivetrainExists(addModel.DrivetrainId) == false)
+            if (await _validationService.DrivetrainExists(formModel.DrivetrainId) == false)
             {
-                ModelState.AddModelError(nameof(addModel.DrivetrainId), "Drivetrain type does not exist");
+                ModelState.AddModelError(nameof(formModel.DrivetrainId), "Drivetrain type does not exist");
             }
 
-            if (await _validationService.FuelExists(addModel.FuelId) == false)
+            if (await _validationService.FuelExists(formModel.FuelId) == false)
             {
-                ModelState.AddModelError(nameof(addModel.FuelId), "Fuel type does not exist");
+                ModelState.AddModelError(nameof(formModel.FuelId), "Fuel type does not exist");
             }
 
-            if (await _validationService.TransmissonExists(addModel.TransmissionId) == false)
+            if (await _validationService.TransmissonExists(formModel.TransmissionId) == false)
             {
-                ModelState.AddModelError(nameof(addModel.TransmissionId), "Transmission type does not exist");
+                ModelState.AddModelError(nameof(formModel.TransmissionId), "Transmission type does not exist");
             }
 
-            if (await _validationService.CarBodyExists(addModel.CarBodyId) == false)
+            if (await _validationService.CarBodyExists(formModel.CarBodyId) == false)
             {
-                ModelState.AddModelError(nameof(addModel.CarBodyId), "Car body type does not exist");
+                ModelState.AddModelError(nameof(formModel.CarBodyId), "Car body type does not exist");
             }
 
             if (!ModelState.IsValid)
             {
-                addModel.Makes = await _carService.GetAllMakes();
-                addModel.Drivetrains = await _carService.GetAllDrivetrains();
-                addModel.Fuels = await _carService.GetAllFuels();
-                addModel.Transmissions = await _carService.GetAllTransmissions();
-                addModel.CarBodies = await _carService.GetAllCarBodies();
+                formModel.Makes = await _carService.GetAllMakes();
+                formModel.Drivetrains = await _carService.GetAllDrivetrains();
+                formModel.Fuels = await _carService.GetAllFuels();
+                formModel.Transmissions = await _carService.GetAllTransmissions();
+                formModel.CarBodies = await _carService.GetAllCarBodies();
 
-                return View(addModel);
+                return View(formModel);
             }
 
-            await _auctionService.Create(addModel, User.Id());
+            await _auctionService.Create(formModel, User.Id());
 
             TempData[SuccessMessage] = "Auction created successfully.";
             return RedirectToAction(nameof(All));
@@ -138,6 +138,91 @@
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+	        if (await _auctionService.ExistsById(id) == false)
+	        {
+		        TempData[ErrorMessage] = "Auction doesnt exist.";
+		        return RedirectToAction(nameof(All));
+	        }
+
+	        if (User.IsAdmin() == false)
+	        {
+		        if (await _userService.GetSellerIdByAuctionId(id) != User.Id())
+		        {
+			        TempData[ErrorMessage] = "You must be seller in order to edit auction.";
+			        return RedirectToAction(nameof(All));
+		        }
+	        }
+
+	        if (await _auctionService.AuctionIsApproved(id))
+	        {
+		        TempData[ErrorMessage] = "Cannot edit approved auction.";
+		        return RedirectToAction(nameof(All));
+	        }
+
+	        try
+	        {
+		        AuctionFormModel formModel = await _auctionService.GetPendingAuctionForEdit(id);
+		        formModel.Makes = await _carService.GetAllMakes();
+		        formModel.Drivetrains = await _carService.GetAllDrivetrains();
+		        formModel.Fuels = await _carService.GetAllFuels();
+		        formModel.CarBodies = await _carService.GetAllCarBodies();
+		        formModel.Transmissions = await _carService.GetAllTransmissions();
+
+		        return View(formModel);
+	        }
+	        catch (Exception)
+	        {
+		        return BadRequest();
+	        }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, AuctionFormModel formModel)
+        {
+	        if (await _validationService.MakeExists(formModel.MakeId) == false)
+	        {
+		        ModelState.AddModelError(nameof(formModel.MakeId), "Make does not exist");
+	        }
+
+	        if (await _validationService.DrivetrainExists(formModel.DrivetrainId) == false)
+	        {
+		        ModelState.AddModelError(nameof(formModel.DrivetrainId), "Drivetrain type does not exist");
+	        }
+
+	        if (await _validationService.FuelExists(formModel.FuelId) == false)
+	        {
+		        ModelState.AddModelError(nameof(formModel.FuelId), "Fuel type does not exist");
+	        }
+
+	        if (await _validationService.TransmissonExists(formModel.TransmissionId) == false)
+	        {
+		        ModelState.AddModelError(nameof(formModel.TransmissionId), "Transmission type does not exist");
+	        }
+
+	        if (await _validationService.CarBodyExists(formModel.CarBodyId) == false)
+	        {
+		        ModelState.AddModelError(nameof(formModel.CarBodyId), "Car body type does not exist");
+	        }
+
+	        if (!ModelState.IsValid)
+	        {
+		        formModel.Makes = await _carService.GetAllMakes();
+		        formModel.Drivetrains = await _carService.GetAllDrivetrains();
+		        formModel.Fuels = await _carService.GetAllFuels();
+		        formModel.Transmissions = await _carService.GetAllTransmissions();
+		        formModel.CarBodies = await _carService.GetAllCarBodies();
+
+		        return View(formModel);
+	        }
+
+	        await _auctionService.EditPendingAuctionByIdAndFormModel(id, formModel);
+
+	        return RedirectToAction("MyPendingAuctions", "User");
         }
     }
 }

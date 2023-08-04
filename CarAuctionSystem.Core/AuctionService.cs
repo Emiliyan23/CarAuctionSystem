@@ -310,5 +310,32 @@
 
             return false;
         }
+
+        public async Task<AuctionFormModel> GetPendingAuctionForEdit(int id)
+        {
+	        Auction auction = await _repo.GetByIdAsync<Auction>(id);
+
+	        return new AuctionFormModel
+	        {
+		        Model = auction.Model,
+		        AuctionDuration = auction.AuctionDuration,
+		        ModelYear = auction.ModelYear,
+		        Vin = auction.Vin,
+		        Mileage = auction.Mileage,
+		        InteriorColor = auction.InteriorColor,
+		        ExteriorColor = auction.ExteriorColor,
+		        EngineDetails = auction.EngineDetails,
+		        ImageUrl = auction.ImageUrl,
+	        };
+        }
+
+        public async Task EditPendingAuctionByIdAndFormModel(int id, AuctionFormModel model)
+        {
+	        Auction auction = await _repo.GetByIdAsync<Auction>(id);
+
+	        auction = _mapper.Map<AuctionFormModel, Auction>(model, auction);
+
+            await _repo.SaveChangesAsync();
+        }
     }
 }

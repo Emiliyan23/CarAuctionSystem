@@ -79,9 +79,7 @@ app.UseEndpoints(endpoints =>
 		pattern: "{controller=Bid}/{action=Bid}/{id}/{extraInfo}",
 		defaults: new { controller = "Bid", action = "Bid" });
 
-	endpoints.MapControllerRoute(
-		name: "default",
-		pattern: "{controller=Home}/{action=Index}/{id?}");
+	endpoints.MapDefaultControllerRoute();
 	endpoints.MapRazorPages();
 });
 
