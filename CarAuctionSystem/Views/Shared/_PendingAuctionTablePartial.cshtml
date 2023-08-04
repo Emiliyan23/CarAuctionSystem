@@ -22,6 +22,10 @@
 				<label>
 					<a asp-area="" asp-controller="Auction" asp-action="Edit" asp-route-id="@auction.Id"
 					   class="btn btn-warning">Edit</a>
+					<form method="post" asp-area="" asp-controller="Auction" asp-action="Delete">
+						<input type="hidden" name="Id" value="@auction.Id" />
+						<button class="mt-1 btn btn-danger" type="submit">Delete</button>
+					</form>
 				</label>
 			</td>
 		</tr>

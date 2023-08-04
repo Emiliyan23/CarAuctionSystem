@@ -332,10 +332,17 @@
         public async Task EditPendingAuctionByIdAndFormModel(int id, AuctionFormModel model)
         {
 	        Auction auction = await _repo.GetByIdAsync<Auction>(id);
-
 	        auction = _mapper.Map<AuctionFormModel, Auction>(model, auction);
 
             await _repo.SaveChangesAsync();
+        }
+
+        public async Task DeletePendingAuctionById(int id)
+        {
+	        Auction auction = await _repo.GetByIdAsync<Auction>(id);
+	        auction.IsDeleted = true;
+
+	        await _repo.SaveChangesAsync();
         }
     }
 }

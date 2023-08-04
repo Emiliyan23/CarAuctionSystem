@@ -94,5 +94,8 @@
 
         [Required]
         public int AuctionDuration { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; } = false;
     }
 }

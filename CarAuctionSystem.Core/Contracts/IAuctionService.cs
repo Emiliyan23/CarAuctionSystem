@@ -35,5 +35,7 @@
 		Task<AuctionFormModel> GetPendingAuctionForEdit(int id);
 
 		Task EditPendingAuctionByIdAndFormModel(int id, AuctionFormModel model);
+
+		Task DeletePendingAuctionById(int id);
 	}
 }
