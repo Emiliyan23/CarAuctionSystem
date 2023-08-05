@@ -15,5 +15,10 @@
 		{
 			return user.IsInRole(AdminRoleName);
 		}
+
+		public static bool HasValidPhoneNumber(this ClaimsPrincipal user)
+		{
+			return user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.MobilePhone) != null;
+		}
 	}
 }

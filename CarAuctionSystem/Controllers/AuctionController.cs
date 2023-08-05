@@ -57,6 +57,12 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+	        if (User.HasValidPhoneNumber() == false)
+	        {
+		        TempData[InformationMessage] = "You must add valid phone number to sell a car.";
+		        //return RedirectToPage("/Account/Manage", new { area = "Identity" });
+	        }
+
             var model = new AuctionFormModel
             {
                 Makes = await _carService.GetAllMakes(),
