@@ -52,10 +52,14 @@
                 .Include(a => a.Bids)
                 .FirstOrDefaultAsync();
 
-            var highestBid = auction.Bids.MaxBy(b => b.BidAmount);
-            if (highestBid.BidderId == Guid.Parse(userId))
+            var highestBid = auction?.Bids.MaxBy(b => b.BidAmount);
+
+            if (highestBid != null)
             {
-	            return false;
+	            if (highestBid.BidderId == Guid.Parse(userId))
+	            {
+		            return false;
+	            }
             }
 
             if (auction.Bids.Any(b => b.BidAmount > bidAmount))

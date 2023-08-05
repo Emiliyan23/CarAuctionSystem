@@ -1,7 +1,11 @@
-﻿@model AuctionDetailsModel
+﻿@using CarAuctionSystem.Services.Data.Contracts
+@model AuctionDetailsModel
+
+@inject IUserService UserService
 @{
 	ViewBag.Title = "Auction Details";
 	bool hasEnded = Model.EndDate < DateTime.UtcNow;
+	bool userHasHighestBid = await UserService.IsHighestBidder(Model.Id, User.Id());
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -21,14 +25,18 @@
 			<p>Drivetrain: <b>@Model.Drivetrain</b></p>
 			<p>Transmisson: <b>@Model.Transmission</b></p>
 			<p>Fuel: <b>@Model.Fuel</b></p>
-			<p>Car Body Style: <b>@Model.CarBody</b></p>
+			<p>Body Style: <b>@Model.CarBody</b></p>
 			<p>Interior color: <b>@Model.InteriorColor</b></p>
 			<p>Exterior color: <b>@Model.ExteriorColor</b></p>
 			<p></p>
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Seller Info</h5>
-					<p class="card-text">Username: <a asp-controller="User" asp-action="Profile" asp-route-id="@Model.SellerDetails.Id">@Model.SellerDetails.Username</a></p>
+					<p class="card-text">
+						Username:
+						<a asp-controller="User" asp-action="Profile"
+						   asp-route-id="@Model.SellerDetails.Id">@Model.SellerDetails.Username</a>
+					</p>
 					<p class="card-text">Email: @Model.SellerDetails.Email</p>
 					<p class="card-text">Phone Number: @Model.SellerDetails.PhoneNumber</p>
 				</div>
@@ -46,7 +54,11 @@
 				<p>Bid count: @Model.Bids.Count</p>
 				@foreach (var bid in Model.Bids)
 				{
-					<p>@bid.BidDate <a asp-controller="User" asp-action="Profile" asp-route-id="@bid.BidderId">@bid.BidderUsername</a> - @bid.BidAmount.ToString("C")</p>
+					<p>
+						@bid.BidDate
+						<a asp-controller="User" asp-action="Profile"
+						   asp-route-id="@bid.BidderId">@bid.BidderUsername</a> - @bid.BidAmount.ToString("C")
+					</p>
 				}
 				@if (hasEnded)
 				{
@@ -61,7 +73,11 @@
 			{
 				@if (User.Id() != Model.SellerDetails.Id)
 				{
-					<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id" asp-route-extraInfo="@Model.GetExtraInfo()" class="btn btn-success">Place Bid</a>
+					if (userHasHighestBid == false)
+					{
+						<a asp-controller="Bid" asp-action="Bid" asp-route-id="@Model.Id"
+						   asp-route-extraInfo="@Model.GetExtraInfo()" class="btn btn-success">Place Bid</a>
+					}
 				}
 			}
 		</div>
@@ -70,13 +86,21 @@
 			<p></p>
 			@if (Model.Watchlist.Contains(Model.Id))
 			{
-				<button class="btn btn-info add-button d-none" onclick="addToWatchlist(@Model.Id)">Add to Watchlist</button>
-				<button class="btn btn-danger remove-button" onclick="removeFromWatchlist(@Model.Id)">Remove from Watchlist</button>
+				<button class="btn btn-info add-button d-none" onclick="addToWatchlist(@Model.Id)">
+					Add to Watchlist
+				</button>
+				<button class="btn btn-danger remove-button" onclick="removeFromWatchlist(@Model.Id)">
+					Remove from Watchlist
+				</button>
 			}
 			else
 			{
-				<button class="btn btn-info add-button" onclick="addToWatchlist(@Model.Id)">Add to Watchlist</button>
-				<button class="btn btn-danger remove-button d-none" onclick="removeFromWatchlist(@Model.Id)">Remove from Watchlist</button>
+				<button class="btn btn-info add-button" onclick="addToWatchlist(@Model.Id)">
+					Add to Watchlist
+				</button>
+				<button class="btn btn-danger remove-button d-none" onclick="removeFromWatchlist(@Model.Id)">
+					Remove from Watchlist
+				</button>
 			}
 		</div>
 	</div>

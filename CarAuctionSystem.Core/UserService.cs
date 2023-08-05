@@ -129,5 +129,25 @@
             await _repo.DeleteAsync<WatchedAuction>(watchedAuction.Id);
             await _repo.SaveChangesAsync();
         }
+
+        public async Task<bool> IsHighestBidder(int id, string userId)
+        {
+	        var auction = await _repo.AllReadonly<Auction>()
+		        .Where(a => a.Id == id)
+		        .Include(a => a.Bids)
+		        .FirstOrDefaultAsync();
+
+	        var highestBid = auction?.Bids.MaxBy(b => b.BidAmount);
+
+	        if (highestBid != null)
+	        {
+		        if (highestBid.BidderId == Guid.Parse(userId))
+		        {
+			        return true;
+		        }
+	        }
+
+	        return false;
+        }
     }
 }

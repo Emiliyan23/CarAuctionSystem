@@ -18,5 +18,7 @@
 		Task AddToWatchlist(int id, string userId);
 
 		Task RemoveFromWatchlist(int id, string userId);
+
+		Task<bool> IsHighestBidder(int id, string userId);
 	}
 }
