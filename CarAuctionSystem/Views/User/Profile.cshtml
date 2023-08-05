@@ -42,7 +42,13 @@
 			{
 				@foreach (var bid in Model.Bids)
 				{
-					<p>@bid.BidDate - @bid.BidAmount.ToString("C") - <a asp-controller="Auction" asp-action="Details" asp-route-id="@bid.AuctionId">@bid.Make @bid.Model</a></p>
+					<p>
+						@bid.BidDate - @bid.BidAmount.ToString("C") -
+						<a asp-controller="Auction"asp-action="Details" 
+						   asp-route-id="@bid.AuctionId" asp-route-extraInfo="@bid.GetExtraInfo()">
+							@bid.Make @bid.Model
+						</a>
+					</p>
 				}
 			}
 		</div>

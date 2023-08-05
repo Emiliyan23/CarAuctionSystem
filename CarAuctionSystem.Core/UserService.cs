@@ -40,7 +40,7 @@
                 .FirstOrDefaultAsync();
 
             user!.Auctions = await _repo.AllReadonly<Auction>()
-                .Where(a => a.SellerId.ToString() == userId && a.IsApproved == true)
+                .Where(a => a.SellerId == Guid.Parse(userId) && a.IsApproved == true)
                 .OrderByDescending(a => a.StartDate)
                 .Select(a => new AuctionViewModel
                 {
@@ -55,7 +55,7 @@
                 .ToListAsync();
 
             user.Bids = await _repo.AllReadonly<Bid>()
-                .Where(b => b.BidderId.ToString() == userId)
+                .Where(b => b.BidderId == Guid.Parse(userId))
                 .OrderByDescending(b => b.BidDate)
                 .Select(b => new UserBidModel
                 {
@@ -65,7 +65,8 @@
                     BidDate = b.BidDate,
                     AuctionId = b.AuctionId,
                     Make = b.Auction.Make.Name,
-                    Model = b.Auction.Model
+                    Model = b.Auction.Model,
+                    ModelYear = b.Auction.ModelYear
                 }).ToListAsync();
 
             return user;
