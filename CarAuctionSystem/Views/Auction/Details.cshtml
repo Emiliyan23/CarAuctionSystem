@@ -84,11 +84,13 @@
 
 <script>
 	var watchlist = @Html.Raw(Json.Serialize(Model.Watchlist));
+
 	function addToWatchlist(auctionId) {
+		var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
 		$.ajax({
 			url: '/Watchlist/Add',
 			method: 'POST',
-			data: { id: auctionId },
+			data: { id: auctionId, __RequestVerificationToken: antiForgeryToken  },
 			success: function(response) {
 				$('.add-button').addClass('d-none');
 				$('.remove-button').removeClass('d-none');
@@ -97,16 +99,16 @@
 			},
 			error: function() {
 				toastr.error('Error occurred while adding auction to watchlist.');
-				
 			}
 		});
 	}
 
 	function removeFromWatchlist(auctionId) {
+		var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
 		$.ajax({
 			url: '/Watchlist/Remove',
 			method: 'POST',
-			data: { id: auctionId },
+			data: { id: auctionId, __RequestVerificationToken: antiForgeryToken },
 			success: function(response) {
 				$('.remove-button').addClass('d-none');
 				$('.add-button').removeClass('d-none');

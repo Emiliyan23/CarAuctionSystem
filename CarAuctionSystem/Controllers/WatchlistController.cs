@@ -29,6 +29,7 @@
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Add(int id)
 		{
 			string userId = User.Id();
@@ -54,6 +55,7 @@
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Remove(int id)
 		{
 			string userId = User.Id();
