@@ -1,6 +1,7 @@
 ﻿namespace CarAuctionSystem.Web.ViewModels.User
 {
 	using Bid;
+	using Services.Models.Contracts;
 
 	public class UserBidModel : BidViewModel, IAuctionModel
 	{

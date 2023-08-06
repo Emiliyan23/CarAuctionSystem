@@ -17,7 +17,7 @@
 		<p>Bid count: @Model.Bids.Count</p>
 		@foreach (var bid in Model.Bids)
 		{
-			<p>@bid.BidDate <a asp-controller="User" asp-action="Profile" asp-route-id="@bid.BidderId">@bid.BidderUsername</a> - @bid.BidAmount.ToString("C")</p>
+			<p>@bid.BidTime <a asp-controller="User" asp-action="Profile" asp-route-id="@bid.BidderId">@bid.BidderUsername</a> - @bid.BidAmount.ToString("C")</p>
 		}
 	}
 </div>

@@ -1,6 +1,6 @@
 ﻿namespace CarAuctionSystem.Web.Infrastructure.Extensions
 {
-	using ViewModels;
+	using Services.Models.Contracts;
 
 	public static class ModelExtensions
 	{

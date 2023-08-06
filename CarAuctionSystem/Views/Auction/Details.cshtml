@@ -55,7 +55,7 @@
 				@foreach (var bid in Model.Bids)
 				{
 					<p>
-						@bid.BidDate
+						@bid.BidTime
 						<a asp-controller="User" asp-action="Profile"
 						   asp-route-id="@bid.BidderId">@bid.BidderUsername</a> - @bid.BidAmount.ToString("C")
 					</p>

@@ -2,7 +2,7 @@
 {
 	public class BidViewModel
 	{
-		public DateTime BidDate { get; set; }
+		public DateTime BidTime { get; set; }
 
 		public string BidderId { get; set; } = null!;
 

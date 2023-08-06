@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarAuctionSystem.Common\CarAuctionSystem.Common.csproj" />
+    <ProjectReference Include="..\CarAuctionSystem.Services.Models\CarAuctionSystem.Services.Models.csproj" />
   </ItemGroup>
 
 </Project>

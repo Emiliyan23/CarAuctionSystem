@@ -63,7 +63,7 @@
                     BidderUsername = b.Bidder.UserName,
                     BidderId = b.BidderId.ToString(),
                     BidAmount = b.BidAmount,
-                    BidDate = b.BidDate,
+                    BidTime = b.BidDate,
                     AuctionId = b.AuctionId,
                     Make = b.Auction.Make.Name,
                     Model = b.Auction.Model,

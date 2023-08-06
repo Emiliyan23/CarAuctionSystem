@@ -1,0 +1,40 @@
+﻿@using CarAuctionSystem.Web.Infrastructure.Extensions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<BidServiceModel>
+@{
+	ViewBag.Title = "All Bids";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th><label>Time</label></th>
+			<th><label>Username</label></th>
+			<th><label>Bid Amount</label></th>
+			<th><label>Auction</label></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var bid in Model)
+		{
+			<tr>
+				<td><label>@bid.BidTime</label></td>
+				<td>
+					<label>@bid.BidderUsername</label>
+				</td>
+				<td><label>@bid.BidAmount.ToString("C")</label></td>
+				<td>
+					<label>
+						<a asp-area="" asp-controller="Auction"asp-action="Details"
+						   asp-route-id="@bid.AuctionId" asp-route-extraInfo="@bid.GetExtraInfo()">
+							@bid.Make @bid.Model
+							</a>
+					</label>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

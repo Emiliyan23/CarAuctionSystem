@@ -1,4 +1,4 @@
-﻿namespace CarAuctionSystem.Web.ViewModels
+﻿namespace CarAuctionSystem.Services.Models.Contracts
 {
 	public interface IAuctionModel
 	{

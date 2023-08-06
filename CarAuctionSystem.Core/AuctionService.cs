@@ -261,7 +261,7 @@
                     BidderId = bid.BidderId.ToString(),
                     BidderUsername = bid.Bidder.UserName,
                     BidAmount = bid.BidAmount,
-                    BidDate = bid.BidDate
+                    BidTime = bid.BidDate
                 };
 
                 bidModels.Add(bidModel);
