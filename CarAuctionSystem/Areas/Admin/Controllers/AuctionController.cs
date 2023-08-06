@@ -3,7 +3,7 @@
 	using Microsoft.AspNetCore.Mvc;
 
 	using Services.Data.Contracts;
-	using ViewModels.Auction;
+
 	using static Common.NotificationConstants;
 
 	public class AuctionController : BaseAdminController

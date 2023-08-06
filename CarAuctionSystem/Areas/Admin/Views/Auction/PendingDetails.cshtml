@@ -25,7 +25,7 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Seller Info</h5>
-					<p class="card-text">Username: <a asp-controller="User" asp-action="Profile" asp-route-id="@Model.SellerDetails.Id">@Model.SellerDetails.Username</a></p>
+					<p class="card-text">Username: <a asp-area="" asp-controller="User" asp-action="Profile" asp-route-id="@Model.SellerDetails.Id">@Model.SellerDetails.Username</a></p>
 					<p class="card-text">Email: @Model.SellerDetails.Email</p>
 					<p class="card-text">Phone Number: @Model.SellerDetails.PhoneNumber</p>
 				</div>

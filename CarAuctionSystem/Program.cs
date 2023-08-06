@@ -6,7 +6,7 @@ using CarAuctionSystem.Data.Models;
 using CarAuctionSystem.Web.Infrastructure.Extensions;
 using CarAuctionSystem.Web.Infrastructure.ModelBinders;
 using Microsoft.AspNetCore.Mvc;
-using static CarAuctionSystem.Common.GeneralConstants;
+using static CarAuctionSystem.Common.AdminConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +34,7 @@ builder.Services.AddControllersWithViews()
 		options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 	});
 
+builder.Services.AddMemoryCache();
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();

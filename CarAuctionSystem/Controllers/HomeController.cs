@@ -2,7 +2,7 @@
 {
 	using Microsoft.AspNetCore.Mvc;
 
-	using static Common.GeneralConstants;
+	using static Common.AdminConstants;
 
 	public class HomeController : Controller
 	{
