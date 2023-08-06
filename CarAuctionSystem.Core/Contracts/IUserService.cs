@@ -1,6 +1,7 @@
 ﻿namespace CarAuctionSystem.Services.Data.Contracts
 {
-	using Web.ViewModels.Auction;
+    using Models.User;
+    using Web.ViewModels.Auction;
 	using Web.ViewModels.User;
 
 	public interface IUserService
@@ -20,5 +21,7 @@
 		Task RemoveFromWatchlist(int id, string userId);
 
 		Task<bool> IsHighestBidder(int id, string userId);
-	}
+
+        Task<List<UserServiceModel>> All();
+    }
 }

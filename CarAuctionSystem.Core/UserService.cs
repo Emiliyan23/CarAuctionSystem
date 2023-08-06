@@ -7,6 +7,7 @@
     using CarAuctionSystem.Data.Repositories;
     using Contracts;
     using Common;
+    using Models.User;
     using Web.ViewModels.Auction;
     using Web.ViewModels.User;
 
@@ -148,6 +149,26 @@
 	        }
 
 	        return false;
+        }
+
+        public async Task<List<UserServiceModel>> All()
+        {
+            var allUsers = await _repo.AllReadonly<ApplicationUser>()
+                .Select(u => new UserServiceModel
+                {
+                    Id = u.Id.ToString()
+	                    .ToLower(),
+                    Email = u.Email,
+                    PhoneNumber = u.PhoneNumber ?? string.Empty,
+                    Username = u.UserName,
+                    ActiveAuctionsCount = u.Auctions
+	                    .Count(a => a.IsApproved),
+                    PendingAuctionsCount = u.Auctions
+	                    .Count(a => a.IsApproved == false)
+                })
+                .ToListAsync();
+
+            return allUsers;
         }
     }
 }
