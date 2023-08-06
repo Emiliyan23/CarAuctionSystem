@@ -228,7 +228,7 @@
 
 	        await _auctionService.EditPendingAuctionByIdAndFormModel(id, formModel);
 
-	        return RedirectToAction("PendingAuctions", "User");
+	        return RedirectToAction("Pending", "User");
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -236,7 +236,7 @@
 	        if (await _auctionService.ExistsById(id) == false)
 	        {
 		        TempData[ErrorMessage] = "Auction does not exist.";
-		        return RedirectToAction("PendingAuctions", "User");
+		        return RedirectToAction("Pending", "User");
 	        }
 
 	        if (User.IsAdmin() == false)
@@ -244,13 +244,13 @@
 		        if (await _userService.GetSellerIdByAuctionId(id) != User.Id())
 		        {
 			        TempData[ErrorMessage] = "You can only delete your own pending auctions.";
-			        return RedirectToAction("PendingAuctions", "User");
+			        return RedirectToAction("Pending", "User");
 		        }
 	        }
 
 	        await _auctionService.DeletePendingAuctionById(id);
 
-	        return RedirectToAction("PendingAuctions", "User");
+	        return RedirectToAction("Pending", "User");
         }
     }
 }

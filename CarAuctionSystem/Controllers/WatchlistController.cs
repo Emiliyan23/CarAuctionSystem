@@ -16,14 +16,9 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Watchlist(string id)
+		public async Task<IActionResult> Watchlist()
 		{
-			if (id != User.Id())
-			{
-				return Unauthorized();
-			}
-
-			var watchlist = await _userService.GetWatchlist(id);
+			var watchlist = await _userService.GetWatchlist(User.Id());
 
 			return View(watchlist);
 		}

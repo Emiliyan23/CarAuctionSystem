@@ -33,7 +33,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> PendingAuctions()
+		public async Task<IActionResult> Pending()
 		{
 			var auctions = await _auctionService.GetAllPendingAuctionsByUserId(User.Id());
 

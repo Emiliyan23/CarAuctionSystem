@@ -19,7 +19,7 @@
 			<td><label>@auction.ModelYear</label></td>
 			<td><label>@auction.Make @auction.Model</label></td>
 			<td>
-				<a asp-area="Admin" asp-controller="Auction" asp-action="PendingAuctionDetails"
+				<a asp-area="Admin" asp-controller="Auction" asp-action="PendingDetails"
 				   asp-route-id="@auction.Id" class="btn btn-success">Details</a>
 				<a asp-area="" asp-controller="Auction" asp-action="Edit" asp-route-id="@auction.Id"
 				   class="btn btn-warning">Edit</a>

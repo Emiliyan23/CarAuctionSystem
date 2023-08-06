@@ -23,18 +23,46 @@
 				</button>
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Auction" asp-action="All">All auctions</a>
+						<li class="nav-item dropdown">
+							<div>
+								<a class="btn dropdown-toggle" href="#" role="button"
+								   id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+									All
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li>
+										<a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Auction"
+										   asp-action="All">
+											All Auctions
+										</a>
+									</li>
+									<li>
+										<a class="dropdown-item nav-link text-dark" asp-area="Admin" asp-controller="Auction"
+										   asp-action="AllPending">
+											All Pending Auctions
+										</a>
+									</li>
+									<li>
+										<a class="dropdown-item nav-link text-dark" asp-area="Admin" asp-controller="Bid"
+										   asp-action="All">
+											All Bids
+										</a>
+									</li>
+									<li>
+										<a class="dropdown-item nav-link text-dark" asp-area="Admin" asp-controller="User"
+										   asp-action="All">
+											All Users
+										</a>
+									</li>
+								</ul>
+							</div>
 						</li>
-						@if (User.Identity?.IsAuthenticated ?? false)
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Auction" asp-action="Add">Create new auction</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Pending">My pending auctions</a>
-							</li>
-						}
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Auction" asp-action="Add">Create new auction</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Pending">My pending auctions</a>
+						</li>
 					</ul>
 					<partial name="_LoginPartial"/>
 				</div>

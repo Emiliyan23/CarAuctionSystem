@@ -18,7 +18,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> AllPendingAuctions()
+		public async Task<IActionResult> AllPending()
 		{
 			var auctions = await _auctionService.GetAllPendingAuctions();
 
@@ -26,12 +26,12 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> PendingAuctionDetails(int id)
+		public async Task<IActionResult> PendingDetails(int id)
 		{
 			if (await _auctionService.ExistsById(id) == false)
 			{
 				TempData[ErrorMessage] = "Auction doesnt exist.";
-				return RedirectToAction(nameof(AllPendingAuctions));
+				return RedirectToAction(nameof(AllPending));
 			}
 
 			var model = await _auctionService.GetPendingAuctionDetailsById(id);
@@ -45,7 +45,7 @@
 			await _auctionService.ApproveAuction(id);
 
 			TempData[SuccessMessage] = "Auction approved successfully.";
-			return RedirectToAction(nameof(AllPendingAuctions));
+			return RedirectToAction(nameof(AllPending));
 		}
 	}
 }
