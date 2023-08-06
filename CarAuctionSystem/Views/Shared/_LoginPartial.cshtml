@@ -7,10 +7,11 @@
 @if (SignInManager.IsSignedIn(User))
 {
 	<li class="nav-item dropdown">
-		<a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<a class="btn dropdown-toggle" href="#" role="button"
+		   id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 				@User.Identity?.Name
 		</a>
-		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 			<a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="User" asp-action="Profile" asp-route-id="@User.Id()">My Profile</a>
 			<a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Watchlist" asp-action="Watchlist">My Watchlist</a>
 			<a class="dropdown-item nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage account</a>
