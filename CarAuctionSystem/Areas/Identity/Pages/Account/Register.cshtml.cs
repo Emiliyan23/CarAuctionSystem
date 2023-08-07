@@ -20,6 +20,7 @@ namespace CarAuctionSystem.Web.Areas.Identity.Pages.Account
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Mvc.RazorPages;
 	using Microsoft.AspNetCore.WebUtilities;
+	using Microsoft.Extensions.Caching.Memory;
 	using Microsoft.Extensions.Logging;
 
 	public class RegisterModel : PageModel
@@ -30,13 +31,15 @@ namespace CarAuctionSystem.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IMemoryCache _cache;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IMemoryCache cache)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace CarAuctionSystem.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _cache = cache;
         }
 
         /// <summary>
@@ -131,7 +135,7 @@ namespace CarAuctionSystem.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+	                _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -152,6 +156,7 @@ namespace CarAuctionSystem.Web.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        _cache.Remove(AdminConstants.UsersCacheKey);
                         return LocalRedirect(returnUrl);
                     }
                 }

@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarAuctionSystem.Common\CarAuctionSystem.Common.csproj" />
-    <ProjectReference Include="..\CarAuctionSystem.Core\CarAuctionSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\CarAuctionSystem.Services.Data\CarAuctionSystem.Services.Data.csproj" />
     <ProjectReference Include="..\CarAuctionSystem.Services.Models\CarAuctionSystem.Services.Models.csproj" />
     <ProjectReference Include="..\CarAuctionSystem.Web.Infrastructure\CarAuctionSystem.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\CarAuctionSystem.Web.ViewModels\CarAuctionSystem.Web.ViewModels.csproj" />

@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarAuctionSystem.Common\CarAuctionSystem.Common.csproj" />
-    <ProjectReference Include="..\CarAuctionSystem.Core\CarAuctionSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\CarAuctionSystem.Services.Data\CarAuctionSystem.Services.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
