@@ -1,11 +1,14 @@
 ﻿namespace CarAuctionSystem.Web.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.Extensions.Caching.Memory;
+
     using CarAuctionSystem.Services.Data.Contracts;
     using Infrastructure.Extensions;
     using ViewModels.Auction;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
 
+    using static Common.AdminConstants;
     using static Common.NotificationConstants;
 
     [Authorize]
@@ -15,17 +18,20 @@
         private readonly IUserService _userService;
         private readonly ICarService _carService;
         private readonly IValidationService _validationService;
+        private readonly IMemoryCache _cache;
 
         public AuctionController(
             IAuctionService auctionService,
             IUserService userService,
             ICarService carService,
-            IValidationService validationService)
+            IValidationService validationService,
+            IMemoryCache cache)
         {
             _auctionService = auctionService;
             _userService = userService;
             _carService = carService;
             _validationService = validationService;
+            _cache = cache;
         }
 
         [AllowAnonymous]
@@ -59,7 +65,7 @@
         {
 	        if (User.HasValidPhoneNumber() == false)
 	        {
-		        TempData[InformationMessage] = "You must add valid phone number to sell a car.";
+		        TempData[InformationMessage] = "You must add your phone number to sell a car.";
 		        return RedirectToPage("/Account/Manage/Index", new { area = "Identity"});
 	        }
 
@@ -115,6 +121,7 @@
             }
 
             await _auctionService.Create(formModel, User.Id());
+            _cache.Remove(UsersCacheKey);
 
             TempData[SuccessMessage] = "Auction created successfully.";
             return RedirectToAction(nameof(All));

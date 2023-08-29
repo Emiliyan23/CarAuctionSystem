@@ -5,5 +5,12 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 
-@await Html.PartialAsync("_PendingAuctionTablePartial")
+@if (!Model.Any())
+{
+	<p>No pending auctions.</p>
+}
+else
+{
+	<partial name="_PendingAuctionTablePartial"/>
+}
 

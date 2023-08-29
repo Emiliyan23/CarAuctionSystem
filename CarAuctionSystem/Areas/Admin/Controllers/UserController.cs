@@ -24,7 +24,7 @@
         {
 	        var allUsers = _cache.Get<List<UserServiceModel>>(UsersCacheKey);
 
-	        if (allUsers == null)
+	        if (allUsers == null)// TODO Refresh users cache when approving and adding auction
 	        {
 		        allUsers = await _userService.All();
 		        var cacheOptions = new MemoryCacheEntryOptions()

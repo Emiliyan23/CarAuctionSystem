@@ -1,5 +1,4 @@
 ﻿@using CarAuctionSystem.Web.Infrastructure.Extensions
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IEnumerable<BidServiceModel>
 @{
 	ViewBag.Title = "All Bids";
@@ -28,8 +27,7 @@
 				<td><label>@bid.BidAmount.ToString("C")</label></td>
 				<td>
 					<label>
-						<a asp-area="" asp-controller="Auction"asp-action="Details"
-						   asp-route-id="@bid.AuctionId" asp-route-extraInfo="@bid.GetExtraInfo()">
+						<a asp-area="" asp-controller="Auction"asp-action="Details" asp-route-id="@bid.AuctionId" asp-route-extraInfo="@bid.GetExtraInfo()">
 							@bid.ModelYear @bid.Make @bid.Model
 							</a>
 					</label>

@@ -162,9 +162,9 @@
                     PhoneNumber = u.PhoneNumber ?? string.Empty,
                     Username = u.UserName,
                     ActiveAuctionsCount = u.Auctions
-	                    .Count(a => a.IsApproved),
+	                    .Count(a => a.IsApproved && a.IsDeleted == false && a.EndDate > DateTime.UtcNow),
                     PendingAuctionsCount = u.Auctions
-	                    .Count(a => a.IsApproved == false)
+	                    .Count(a => a.IsApproved == false && a.IsDeleted == false)
                 })
                 .ToListAsync();
 
