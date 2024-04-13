@@ -22,7 +22,7 @@
 
 		public const int CarBodyTypeMaxLength = 20;
 
-		public const int AuctionImageUrlMaxLength = 100;
+		public const int AuctionImageUrlMaxLength = 200;
 
 		public const int UsernameMaxLength = 20;
 

@@ -1,9 +1,14 @@
 ﻿namespace CarAuctionSystem.Web.Controllers
 {
+	using System;
+
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.SignalR;
+
 	using CarAuctionSystem.Services.Data.Contracts;
+	using Hubs;
 	using Infrastructure.Extensions;
 	using ViewModels.Bid;
-	using Microsoft.AspNetCore.Mvc;
 	using static Common.NotificationConstants;
 
 	public class BidController : Controller
@@ -11,12 +16,17 @@
 		private readonly IAuctionService _auctionService;
 		private readonly IValidationService _validationService;
 		private readonly IUserService _userService;
+		private readonly IHubContext<AuctionHub> _auctionHub;
 
-		public BidController(IAuctionService auctionService, IValidationService validationService, IUserService userService)
+		public BidController(IAuctionService auctionService,
+			IValidationService validationService,
+			IUserService userService,
+			IHubContext<AuctionHub> auctionHub)
 		{
 			_auctionService = auctionService;
 			_validationService = validationService;
 			_userService = userService;
+			_auctionHub = auctionHub;
 		}
 
 		[HttpGet]
@@ -94,9 +104,14 @@
 
 			await _auctionService.PlaceBid(model, User.Id());
 
+			await _auctionHub.Clients.All.SendAsync("ReceiveBid", DateTime.UtcNow.ToString(), User.Id(), User.Identity.Name, model.BidAmount.ToString("C"));
+
 			TempData[SuccessMessage] = "Bid placed successfully.";
+
 			return RedirectToAction("Details", "Auction",
-				new{ id = model.AuctionId, extraInfo = viewModel.GetExtraInfo() });
+				new { id = model.AuctionId, extraInfo = viewModel.GetExtraInfo() });
+
+			//TODO MAKE "PLACE BID" BUTTON APPEAR IN BID.JS
 		}
 	}
 }

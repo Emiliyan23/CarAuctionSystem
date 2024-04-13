@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using CarAuctionSystem.Data;
 using CarAuctionSystem.Data.Models;
+using CarAuctionSystem.Web.Hubs;
 using CarAuctionSystem.Web.Infrastructure.Extensions;
 using CarAuctionSystem.Web.Infrastructure.ModelBinders;
-using Microsoft.AspNetCore.Mvc;
 using static CarAuctionSystem.Common.AdminConstants;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,8 @@ builder.Services.AddControllersWithViews()
 
 builder.Services.AddMemoryCache();
 builder.Services.AddApplicationServices();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -84,5 +87,7 @@ app.UseEndpoints(endpoints =>
 	endpoints.MapDefaultControllerRoute();
 	endpoints.MapRazorPages();
 });
+
+app.MapHub<AuctionHub>("/auctionHub");
 
 app.Run();
